@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-green: #064e3b;
+  --color-brand-yellow: #eab308;
+  --color-brand-red: #991b1b;
+  
+  --color-brand-primary: var(--color-brand-green);
+  --color-brand-secondary: var(--color-brand-yellow);
+  --color-brand-accent: var(--color-brand-red);
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-xl;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-3 bg-brand-green hover:bg-emerald-900 text-white rounded-2xl font-bold transition-all shadow-lg shadow-emerald-900/25 flex items-center gap-2 active:scale-95;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-2xl font-bold transition-all shadow-sm active:scale-95;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
