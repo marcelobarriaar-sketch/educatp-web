@@ -4,7 +4,7 @@ import { ArrowRight, Users, Beef, Baby, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SPECIALTIES } from '../data/content';
 import { cn } from '../lib/utils';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../lib/supabase';
 
 const iconMap: Record<string, any> = {
   Users,
