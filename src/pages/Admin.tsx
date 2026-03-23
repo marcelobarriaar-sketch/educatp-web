@@ -53,9 +53,9 @@ const defaultHomeContent: HomeContent = {
   heroDescription:
     'Impulsamos una educación técnico profesional conectada con el territorio, la innovación y el desarrollo de competencias para la vida y el trabajo.',
   heroPrimaryButtonText: 'Conoce nuestras especialidades',
-  heroPrimaryButtonLink: '/specialties',
+  heroPrimaryButtonLink: '/especialidades',
   heroSecondaryButtonText: 'Ver prácticas',
-  heroSecondaryButtonLink: '/internships',
+  heroSecondaryButtonLink: '/practicas',
   heroImageUrl: '',
   heroImageAlt: 'Estudiantes del liceo',
   heroFeatureTitle: 'Educación TP conectada con el mundo real',
@@ -77,19 +77,19 @@ const defaultHomeContent: HomeContent = {
       title: 'Administración',
       description: 'Formación en gestión, organización, procesos administrativos y herramientas digitales.',
       icon: 'Users',
-      link: '/specialties/administracion',
+      link: '/especialidades/administracion',
     },
     {
       title: 'Agropecuaria',
       description: 'Desarrollo de competencias vinculadas al trabajo agrícola, producción y sostenibilidad.',
       icon: 'Beef',
-      link: '/specialties/agropecuaria',
+      link: '/especialidades/agropecuaria',
     },
     {
       title: 'Atención de Párvulos',
       description: 'Preparación para apoyar procesos educativos y de cuidado en primera infancia.',
       icon: 'Baby',
-      link: '/specialties/atencion-de-parvulos',
+      link: '/especialidades/atencion-de-parvulos',
     },
   ],
 
@@ -97,8 +97,8 @@ const defaultHomeContent: HomeContent = {
   ctaTitle: 'Construyamos futuro juntos',
   ctaDescription:
     'Descubre nuestro proyecto educativo, las oportunidades formativas y la vida escolar de nuestra comunidad.',
-  ctaButtonText: 'Contáctanos',
-  ctaButtonLink: '/contact',
+  ctaButtonText: 'Explorar recursos',
+  ctaButtonLink: '/recursos',
 };
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
@@ -247,7 +247,7 @@ export default function Admin() {
           title: '',
           description: '',
           icon: 'Users',
-          link: '/specialties',
+          link: '/especialidades',
         },
       ],
     }));
@@ -587,7 +587,7 @@ export default function Admin() {
                         className={inputClass}
                         value={item.link}
                         onChange={(e) => updateSpecialty(index, 'link', e.target.value)}
-                        placeholder="/specialties/..."
+                        placeholder="/especialidades/..."
                       />
                     </div>
                   </div>
