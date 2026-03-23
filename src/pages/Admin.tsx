@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Save, Plus, Trash2, Loader2, Home, BarChart3, GraduationCap, Megaphone } from 'lucide-react';
+import { Save, Plus, Trash2, Loader2, Home, BarChart3, GraduationCap, Megaphone, LogOut } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 type StatItem = {
@@ -103,6 +103,8 @@ const defaultHomeContent: HomeContent = {
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 
+const STORAGE_KEY = 'educatp_admin_auth';
+
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
 const cardClass = 'rounded-2xl border border-slate-200 bg-white p-6 shadow-sm';
 const inputClass =
@@ -193,6 +195,11 @@ export default function Admin() {
       setErrorMsg(error?.message || 'No se pudo guardar el contenido.');
       setTimeout(() => setSaveState('idle'), 2200);
     }
+  }
+
+  function handleLogout() {
+    localStorage.removeItem(STORAGE_KEY);
+    window.location.href = '/';
   }
 
   function updateField<K extends keyof HomeContent>(field: K, value: HomeContent[K]) {
@@ -287,14 +294,21 @@ export default function Admin() {
             </p>
           </div>
 
-          <button onClick={handleSave} className={primaryButtonClass} type="button">
-            {saveState === 'saving' ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Save className="h-4 w-4" />
-            )}
-            {saveLabel}
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button onClick={handleLogout} className={mutedButtonClass} type="button">
+              <LogOut className="h-4 w-4" />
+              Cerrar sesión
+            </button>
+
+            <button onClick={handleSave} className={primaryButtonClass} type="button">
+              {saveState === 'saving' ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Save className="h-4 w-4" />
+              )}
+              {saveLabel}
+            </button>
+          </div>
         </div>
 
         {errorMsg && (
