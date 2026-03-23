@@ -1,5 +1,22 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Save, Plus, Trash2, Loader2, Home, BarChart3, GraduationCap, Megaphone, LogOut } from 'lucide-react';
+import {
+  Save,
+  Plus,
+  Trash2,
+  Loader2,
+  Home,
+  BarChart3,
+  GraduationCap,
+  Megaphone,
+  LogOut,
+  BookOpen,
+  Newspaper,
+  Briefcase,
+  Gamepad2,
+  ArrowLeft,
+  LayoutDashboard,
+  ChevronRight,
+} from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 type StatItem = {
@@ -43,6 +60,18 @@ type HomeContent = {
   ctaButtonText: string;
   ctaButtonLink: string;
 };
+
+type SaveState = 'idle' | 'saving' | 'saved' | 'error';
+type AdminSection =
+  | 'dashboard'
+  | 'home'
+  | 'specialties'
+  | 'resources'
+  | 'blog'
+  | 'internships'
+  | 'playground';
+
+const STORAGE_KEY = 'educatp_admin_auth';
 
 const defaultHomeContent: HomeContent = {
   heroBadge: 'Liceo Técnico Profesional',
@@ -101,10 +130,6 @@ const defaultHomeContent: HomeContent = {
   ctaButtonLink: '/recursos',
 };
 
-type SaveState = 'idle' | 'saving' | 'saved' | 'error';
-
-const STORAGE_KEY = 'educatp_admin_auth';
-
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
 const cardClass = 'rounded-2xl border border-slate-200 bg-white p-6 shadow-sm';
 const inputClass =
@@ -120,14 +145,99 @@ function mergeHomeContent(content: Partial<HomeContent> | null | undefined): Hom
   return {
     ...defaultHomeContent,
     ...(content || {}),
-    stats: Array.isArray(content?.stats) ? content!.stats : defaultHomeContent.stats,
-    specialties: Array.isArray(content?.specialties) ? content!.specialties : defaultHomeContent.specialties,
+    stats: Array.isArray(content?.stats) ? content.stats : defaultHomeContent.stats,
+    specialties: Array.isArray(content?.specialties) ? content.specialties : defaultHomeContent.specialties,
   };
 }
 
+const adminSections: Array<{
+  key: AdminSection;
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}> = [
+  {
+    key: 'home',
+    title: 'Inicio',
+    description: 'Edita la portada principal del sitio.',
+    icon: Home,
+  },
+  {
+    key: 'specialties',
+    title: 'Especialidades',
+    description: 'Gestiona la información general de las especialidades.',
+    icon: GraduationCap,
+  },
+  {
+    key: 'resources',
+    title: 'Recursos',
+    description: 'Organiza materiales, enlaces y contenido para estudiantes.',
+    icon: BookOpen,
+  },
+  {
+    key: 'blog',
+    title: 'Blog TP',
+    description: 'Administra noticias, publicaciones y novedades.',
+    icon: Newspaper,
+  },
+  {
+    key: 'internships',
+    title: 'Prácticas',
+    description: 'Gestiona información de prácticas, empresas y oportunidades.',
+    icon: Briefcase,
+  },
+  {
+    key: 'playground',
+    title: 'Patio de Juegos',
+    description: 'Prepara actividades interactivas y contenido dinámico.',
+    icon: Gamepad2,
+  },
+];
+
+function SectionPlaceholder({
+  title,
+  description,
+  onBack,
+}: {
+  title: string;
+  description: string;
+  onBack: () => void;
+}) {
+  return (
+    <div className="grid gap-6">
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">
+              Panel CMS
+            </p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">{title}</h1>
+            <p className="mt-2 text-sm text-slate-600">{description}</p>
+          </div>
+
+          <button type="button" className={mutedButtonClass} onClick={onBack}>
+            <ArrowLeft className="h-4 w-4" />
+            Volver al panel
+          </button>
+        </div>
+
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
+          <p className="text-lg font-semibold text-slate-800">Esta sección quedará lista en el siguiente paso.</p>
+          <p className="mt-2 text-sm text-slate-600">
+            La estructura del panel ya está preparada para que después conectemos este módulo a Supabase, tal como
+            hicimos con Inicio.
+          </p>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function Admin() {
+  const [currentSection, setCurrentSection] = useState<AdminSection>('dashboard');
   const [form, setForm] = useState<HomeContent>(defaultHomeContent);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [homeLoaded, setHomeLoaded] = useState(false);
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -139,8 +249,10 @@ export default function Admin() {
   }, [saveState]);
 
   useEffect(() => {
-    loadHome();
-  }, []);
+    if (currentSection === 'home' && !homeLoaded) {
+      loadHome();
+    }
+  }, [currentSection, homeLoaded]);
 
   async function loadHome() {
     try {
@@ -157,12 +269,13 @@ export default function Admin() {
 
       if (!data) {
         setForm(defaultHomeContent);
-        setLoading(false);
+        setHomeLoaded(true);
         return;
       }
 
       const merged = mergeHomeContent(data.content as Partial<HomeContent>);
       setForm(merged);
+      setHomeLoaded(true);
     } catch (error: any) {
       console.error('Error cargando Home:', error);
       setErrorMsg(error?.message || 'No se pudo cargar el contenido.');
@@ -267,28 +380,102 @@ export default function Admin() {
     }));
   }
 
-  if (loading) {
+  function renderDashboard() {
     return (
-      <div className="min-h-screen bg-slate-50 px-6 py-12">
-        <div className="mx-auto flex max-w-5xl items-center justify-center rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
-          <span className="text-slate-700">Cargando panel admin...</span>
-        </div>
+      <div className="grid gap-6">
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
+              <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+                Bienvenido a tu panel de administrador
+              </h1>
+              <p className="mt-3 max-w-2xl text-sm text-slate-600">
+                Desde aquí puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
+              </p>
+            </div>
+
+            <button onClick={handleLogout} className={mutedButtonClass} type="button">
+              <LogOut className="h-4 w-4" />
+              Cerrar sesión
+            </button>
+          </div>
+        </section>
+
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <LayoutDashboard className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">Páginas y subpáginas</h2>
+              <p className="text-sm text-slate-500">
+                Selecciona el sector que deseas editar dentro del sitio educatp.cl.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {adminSections.map((section) => {
+              const Icon = section.icon;
+
+              return (
+                <button
+                  key={section.key}
+                  type="button"
+                  onClick={() => setCurrentSection(section.key)}
+                  className="group flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-left transition hover:border-slate-300 hover:bg-white"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="rounded-xl bg-white p-3 shadow-sm ring-1 ring-slate-200">
+                      <Icon className="h-5 w-5 text-slate-700" />
+                    </div>
+
+                    <div>
+                      <h3 className="text-base font-semibold text-slate-900">{section.title}</h3>
+                      <p className="text-sm text-slate-500">{section.description}</p>
+                    </div>
+                  </div>
+
+                  <ChevronRight className="h-5 w-5 text-slate-400 transition group-hover:translate-x-0.5" />
+                </button>
+              );
+            })}
+          </div>
+        </section>
       </div>
     );
   }
 
-  return (
-    <div className="min-h-screen bg-slate-50 px-4 py-6 md:px-6 md:py-10">
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-8 flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+  function renderHomeEditor() {
+    if (loading) {
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <div className="flex items-center justify-center text-slate-700">
+            <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
+            Cargando editor de Inicio...
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid gap-6">
+        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">
-              Panel CMS
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-              Editor de contenido Home
-            </h1>
+            <div className="mb-3 flex items-center gap-2">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
+                onClick={() => setCurrentSection('dashboard')}
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Volver al panel
+              </button>
+            </div>
+
+            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de contenido Home</h1>
             <p className="mt-2 text-sm text-slate-600">
               Desde aquí puedes editar el contenido principal de la portada del sitio.
             </p>
@@ -312,13 +499,12 @@ export default function Admin() {
         </div>
 
         {errorMsg && (
-          <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {errorMsg}
           </div>
         )}
 
         <div className="grid gap-6">
-          {/* HERO */}
           <section className={cardClass}>
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-xl bg-slate-100 p-2">
@@ -460,7 +646,6 @@ export default function Admin() {
             </div>
           </section>
 
-          {/* STATS */}
           <section className={cardClass}>
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-xl bg-slate-100 p-2">
@@ -512,7 +697,6 @@ export default function Admin() {
             </div>
           </section>
 
-          {/* SPECIALTIES */}
           <section className={cardClass}>
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-xl bg-slate-100 p-2">
@@ -557,9 +741,7 @@ export default function Admin() {
               {form.specialties.map((item, index) => (
                 <div key={index} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
                   <div className="mb-4 flex items-center justify-between">
-                    <h3 className="text-base font-semibold text-slate-900">
-                      Tarjeta {index + 1}
-                    </h3>
+                    <h3 className="text-base font-semibold text-slate-900">Tarjeta {index + 1}</h3>
                     <button type="button" className={dangerButtonClass} onClick={() => removeSpecialty(index)}>
                       <Trash2 className="h-4 w-4" />
                       Eliminar
@@ -615,7 +797,6 @@ export default function Admin() {
             </div>
           </section>
 
-          {/* CTA */}
           <section className={cardClass}>
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-xl bg-slate-100 p-2">
@@ -675,7 +856,6 @@ export default function Admin() {
             </div>
           </section>
 
-          {/* PREVIEW JSON */}
           <section className={cardClass}>
             <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON</h2>
             <p className="mb-4 text-sm text-slate-500">
@@ -688,6 +868,63 @@ export default function Admin() {
           </section>
         </div>
       </div>
+    );
+  }
+
+  function renderContent() {
+    switch (currentSection) {
+      case 'dashboard':
+        return renderDashboard();
+      case 'home':
+        return renderHomeEditor();
+      case 'specialties':
+        return (
+          <SectionPlaceholder
+            title="Editor de Especialidades"
+            description="Aquí podrás editar la página de especialidades y sus contenidos asociados."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
+      case 'resources':
+        return (
+          <SectionPlaceholder
+            title="Editor de Recursos"
+            description="Aquí podrás subir materiales, enlaces y recursos para tus estudiantes."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
+      case 'blog':
+        return (
+          <SectionPlaceholder
+            title="Editor de Blog TP"
+            description="Aquí podrás administrar publicaciones, noticias y novedades del sitio."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
+      case 'internships':
+        return (
+          <SectionPlaceholder
+            title="Editor de Prácticas"
+            description="Aquí podrás gestionar prácticas, convenios, orientaciones y oportunidades."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
+      case 'playground':
+        return (
+          <SectionPlaceholder
+            title="Editor de Patio de Juegos"
+            description="Aquí podrás crear actividades interactivas y experiencias para los alumnos."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
+      default:
+        return renderDashboard();
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50 px-4 py-6 md:px-6 md:py-10">
+      <div className="mx-auto max-w-6xl">{renderContent()}</div>
     </div>
   );
 }
