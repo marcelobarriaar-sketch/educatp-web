@@ -7,6 +7,7 @@ import SpecialtyDetail from './pages/SpecialtyDetail';
 import Blog from './pages/Blog';
 import Internships from './pages/Internships';
 import Playground from './pages/Playground';
+import Admin from './pages/Admin'; // 👈 agregado
 
 export default function App() {
   return (
@@ -21,7 +22,11 @@ export default function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/practicas" element={<Internships />} />
             <Route path="/juegos" element={<Playground />} />
-            <Route path="/recursos" element={<Specialties />} /> {/* Redirecting to specialties for now */}
+            <Route path="/recursos" element={<Specialties />} />
+            
+            {/* 👇 NUEVA RUTA ADMIN */}
+            <Route path="/admin" element={<Admin />} />
+
           </Routes>
         </main>
         <Footer />
