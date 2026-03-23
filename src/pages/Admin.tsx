@@ -16,6 +16,15 @@ import {
   ArrowLeft,
   LayoutDashboard,
   ChevronRight,
+  Settings,
+  Palette,
+  Image as ImageIcon,
+  Phone,
+  Mail,
+  MapPin,
+  Eye,
+  EyeOff,
+  Link as LinkIcon,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
@@ -46,14 +55,11 @@ type HomeContent = {
   heroImageAlt: string;
   heroFeatureTitle: string;
   heroFeatureSubtitle: string;
-
   stats: StatItem[];
-
   specialtiesBadge: string;
   specialtiesTitle: string;
   specialtiesSubtitle: string;
   specialties: SpecialtyCard[];
-
   ctaBadge: string;
   ctaTitle: string;
   ctaDescription: string;
@@ -61,9 +67,43 @@ type HomeContent = {
   ctaButtonLink: string;
 };
 
+type NavItem = {
+  id: string;
+  label: string;
+  path: string;
+  visible: boolean;
+};
+
+type SocialLink = {
+  id: string;
+  label: string;
+  url: string;
+  visible: boolean;
+};
+
+type SiteSettings = {
+  siteName: string;
+  logoUrl: string;
+  logoAlt: string;
+  brandTextColor: string;
+  headerBackgroundColor: string;
+  footerBackgroundColor: string;
+  footerTextColor: string;
+  navItems: NavItem[];
+  footerTitle: string;
+  footerDescription: string;
+  address: string;
+  email: string;
+  phone: string;
+  copyrightText: string;
+  creditsText: string;
+  socialLinks: SocialLink[];
+};
+
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
 type AdminSection =
   | 'dashboard'
+  | 'central'
   | 'home'
   | 'specialties'
   | 'resources'
@@ -89,18 +129,15 @@ const defaultHomeContent: HomeContent = {
   heroImageAlt: 'Estudiantes del liceo',
   heroFeatureTitle: 'Educación TP conectada con el mundo real',
   heroFeatureSubtitle: 'Aprendizaje práctico, vinculación con empresas y desarrollo integral.',
-
   stats: [
     { value: '3', label: 'Especialidades' },
     { value: '100%', label: 'Compromiso con la formación' },
     { value: 'TP', label: 'Educación técnico profesional' },
   ],
-
   specialtiesBadge: 'Especialidades',
   specialtiesTitle: 'Áreas de formación',
   specialtiesSubtitle:
     'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo académico y laboral.',
-
   specialties: [
     {
       title: 'Administración',
@@ -121,13 +158,42 @@ const defaultHomeContent: HomeContent = {
       link: '/especialidades/atencion-de-parvulos',
     },
   ],
-
   ctaBadge: 'Comunidad educativa',
   ctaTitle: 'Construyamos futuro juntos',
   ctaDescription:
     'Descubre nuestro proyecto educativo, las oportunidades formativas y la vida escolar de nuestra comunidad.',
   ctaButtonText: 'Explorar recursos',
   ctaButtonLink: '/recursos',
+};
+
+const defaultSiteSettings: SiteSettings = {
+  siteName: 'Educa TP',
+  logoUrl: '',
+  logoAlt: 'Logo del establecimiento',
+  brandTextColor: '#0f172a',
+  headerBackgroundColor: '#ffffff',
+  footerBackgroundColor: '#0f172a',
+  footerTextColor: '#ffffff',
+  navItems: [
+    { id: 'inicio', label: 'Inicio', path: '/', visible: true },
+    { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
+    { id: 'recursos', label: 'Recursos', path: '/recursos', visible: true },
+    { id: 'blog', label: 'Blog TP', path: '/blog', visible: true },
+    { id: 'practicas', label: 'Prácticas', path: '/practicas', visible: true },
+    { id: 'patio', label: 'Patio de Juegos', path: '/playground', visible: true },
+  ],
+  footerTitle: 'Educa TP',
+  footerDescription: 'Formación técnico profesional conectada con el territorio, la innovación y el futuro.',
+  address: 'Fresia, Región de Los Lagos, Chile',
+  email: 'contacto@educatp.cl',
+  phone: '+56 9 0000 0000',
+  copyrightText: 'Todos los derechos reservados.',
+  creditsText: 'Espacio creado por el docente Marcelo Barría Arismendi.',
+  socialLinks: [
+    { id: 'facebook', label: 'Facebook', url: '', visible: false },
+    { id: 'instagram', label: 'Instagram', url: '', visible: false },
+    { id: 'youtube', label: 'YouTube', url: '', visible: false },
+  ],
 };
 
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
@@ -150,12 +216,27 @@ function mergeHomeContent(content: Partial<HomeContent> | null | undefined): Hom
   };
 }
 
+function mergeSiteSettings(content: Partial<SiteSettings> | null | undefined): SiteSettings {
+  return {
+    ...defaultSiteSettings,
+    ...(content || {}),
+    navItems: Array.isArray(content?.navItems) ? content.navItems : defaultSiteSettings.navItems,
+    socialLinks: Array.isArray(content?.socialLinks) ? content.socialLinks : defaultSiteSettings.socialLinks,
+  };
+}
+
 const adminSections: Array<{
   key: AdminSection;
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
 }> = [
+  {
+    key: 'central',
+    title: 'Panel central',
+    description: 'Edita logo, nombre del sitio, menú, footer, redes y datos generales.',
+    icon: Settings,
+  },
   {
     key: 'home',
     title: 'Inicio',
@@ -225,7 +306,7 @@ function SectionPlaceholder({
           <p className="text-lg font-semibold text-slate-800">Esta sección quedará lista en el siguiente paso.</p>
           <p className="mt-2 text-sm text-slate-600">
             La estructura del panel ya está preparada para que después conectemos este módulo a Supabase, tal como
-            hicimos con Inicio.
+            hicimos con Inicio y Panel central.
           </p>
         </div>
       </section>
@@ -235,9 +316,14 @@ function SectionPlaceholder({
 
 export default function Admin() {
   const [currentSection, setCurrentSection] = useState<AdminSection>('dashboard');
+
   const [form, setForm] = useState<HomeContent>(defaultHomeContent);
+  const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
+
   const [loading, setLoading] = useState(false);
   const [homeLoaded, setHomeLoaded] = useState(false);
+  const [centralLoaded, setCentralLoaded] = useState(false);
+
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
@@ -252,7 +338,10 @@ export default function Admin() {
     if (currentSection === 'home' && !homeLoaded) {
       loadHome();
     }
-  }, [currentSection, homeLoaded]);
+    if (currentSection === 'central' && !centralLoaded) {
+      loadSiteSettings();
+    }
+  }, [currentSection, homeLoaded, centralLoaded]);
 
   async function loadHome() {
     try {
@@ -284,26 +373,69 @@ export default function Admin() {
     }
   }
 
+  async function loadSiteSettings() {
+    try {
+      setLoading(true);
+      setErrorMsg('');
+
+      const { data, error } = await supabase
+        .from('pages')
+        .select('slug, content')
+        .eq('slug', 'site_settings')
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (!data) {
+        setSiteSettings(defaultSiteSettings);
+        setCentralLoaded(true);
+        return;
+      }
+
+      const merged = mergeSiteSettings(data.content as Partial<SiteSettings>);
+      setSiteSettings(merged);
+      setCentralLoaded(true);
+    } catch (error: any) {
+      console.error('Error cargando site_settings:', error);
+      setErrorMsg(error?.message || 'No se pudo cargar la configuración general.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleSave() {
     try {
       setSaveState('saving');
       setErrorMsg('');
 
-      const payload = {
-        slug: 'home',
-        content: form,
-      };
+      if (currentSection === 'home') {
+        const { error } = await supabase.from('pages').upsert(
+          {
+            slug: 'home',
+            content: form,
+          },
+          { onConflict: 'slug' }
+        );
 
-      const { error } = await supabase.from('pages').upsert(payload, {
-        onConflict: 'slug',
-      });
+        if (error) throw error;
+      }
 
-      if (error) throw error;
+      if (currentSection === 'central') {
+        const { error } = await supabase.from('pages').upsert(
+          {
+            slug: 'site_settings',
+            content: siteSettings,
+          },
+          { onConflict: 'slug' }
+        );
+
+        if (error) throw error;
+      }
 
       setSaveState('saved');
       setTimeout(() => setSaveState('idle'), 1800);
     } catch (error: any) {
-      console.error('Error guardando Home:', error);
+      console.error('Error guardando:', error);
       setSaveState('error');
       setErrorMsg(error?.message || 'No se pudo guardar el contenido.');
       setTimeout(() => setSaveState('idle'), 2200);
@@ -380,6 +512,79 @@ export default function Admin() {
     }));
   }
 
+  function updateSiteField<K extends keyof SiteSettings>(field: K, value: SiteSettings[K]) {
+    setSiteSettings((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  }
+
+  function updateNavItem(index: number, field: keyof NavItem, value: string | boolean) {
+    setSiteSettings((prev) => {
+      const next = [...prev.navItems];
+      next[index] = {
+        ...next[index],
+        [field]: value,
+      };
+      return { ...prev, navItems: next };
+    });
+  }
+
+  function addNavItem() {
+    setSiteSettings((prev) => ({
+      ...prev,
+      navItems: [
+        ...prev.navItems,
+        {
+          id: `nav-${Date.now()}`,
+          label: '',
+          path: '/',
+          visible: true,
+        },
+      ],
+    }));
+  }
+
+  function removeNavItem(index: number) {
+    setSiteSettings((prev) => ({
+      ...prev,
+      navItems: prev.navItems.filter((_, i) => i !== index),
+    }));
+  }
+
+  function updateSocialLink(index: number, field: keyof SocialLink, value: string | boolean) {
+    setSiteSettings((prev) => {
+      const next = [...prev.socialLinks];
+      next[index] = {
+        ...next[index],
+        [field]: value,
+      };
+      return { ...prev, socialLinks: next };
+    });
+  }
+
+  function addSocialLink() {
+    setSiteSettings((prev) => ({
+      ...prev,
+      socialLinks: [
+        ...prev.socialLinks,
+        {
+          id: `social-${Date.now()}`,
+          label: '',
+          url: '',
+          visible: true,
+        },
+      ],
+    }));
+  }
+
+  function removeSocialLink(index: number) {
+    setSiteSettings((prev) => ({
+      ...prev,
+      socialLinks: prev.socialLinks.filter((_, i) => i !== index),
+    }));
+  }
+
   function renderDashboard() {
     return (
       <div className="grid gap-6">
@@ -442,6 +647,381 @@ export default function Admin() {
               );
             })}
           </div>
+        </section>
+      </div>
+    );
+  }
+
+  function renderCentralEditor() {
+    if (loading) {
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <div className="flex items-center justify-center text-slate-700">
+            <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
+            Cargando Panel central...
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid gap-6">
+        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="mb-3 flex items-center gap-2">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
+                onClick={() => setCurrentSection('dashboard')}
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Volver al panel
+              </button>
+            </div>
+
+            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Panel central</h1>
+            <p className="mt-2 text-sm text-slate-600">
+              Aquí puedes editar la estructura superior e inferior del sitio, la visibilidad del menú y la información
+              institucional global.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button onClick={handleLogout} className={mutedButtonClass} type="button">
+              <LogOut className="h-4 w-4" />
+              Cerrar sesión
+            </button>
+
+            <button onClick={handleSave} className={primaryButtonClass} type="button">
+              {saveState === 'saving' ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Save className="h-4 w-4" />
+              )}
+              {saveLabel}
+            </button>
+          </div>
+        </div>
+
+        {errorMsg && (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errorMsg}
+          </div>
+        )}
+
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <ImageIcon className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className={sectionTitleClass}>Encabezado del sitio</h2>
+              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y colores base.</p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className={labelClass}>Nombre del establecimiento</label>
+              <input
+                className={inputClass}
+                value={siteSettings.siteName}
+                onChange={(e) => updateSiteField('siteName', e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Texto alternativo del logo</label>
+              <input
+                className={inputClass}
+                value={siteSettings.logoAlt}
+                onChange={(e) => updateSiteField('logoAlt', e.target.value)}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className={labelClass}>URL del logo</label>
+              <input
+                className={inputClass}
+                value={siteSettings.logoUrl}
+                onChange={(e) => updateSiteField('logoUrl', e.target.value)}
+                placeholder="https://..."
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Color del texto de marca</label>
+              <input
+                className={inputClass}
+                value={siteSettings.brandTextColor}
+                onChange={(e) => updateSiteField('brandTextColor', e.target.value)}
+                placeholder="#0f172a"
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Color de fondo del encabezado</label>
+              <input
+                className={inputClass}
+                value={siteSettings.headerBackgroundColor}
+                onChange={(e) => updateSiteField('headerBackgroundColor', e.target.value)}
+                placeholder="#ffffff"
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <Settings className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className={sectionTitleClass}>Subpáginas y menú principal</h2>
+              <p className="text-sm text-slate-500">
+                Puedes agregar, ocultar o mostrar páginas sin borrarlas definitivamente.
+              </p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {siteSettings.navItems.map((item, index) => (
+              <div
+                key={item.id}
+                className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-[1.2fr_1.2fr_auto_auto]"
+              >
+                <div>
+                  <label className={labelClass}>Nombre visible</label>
+                  <input
+                    className={inputClass}
+                    value={item.label}
+                    onChange={(e) => updateNavItem(index, 'label', e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Ruta / enlace</label>
+                  <input
+                    className={inputClass}
+                    value={item.path}
+                    onChange={(e) => updateNavItem(index, 'path', e.target.value)}
+                    placeholder="/mes-tp"
+                  />
+                </div>
+
+                <div className="flex items-end">
+                  <button
+                    type="button"
+                    className={mutedButtonClass}
+                    onClick={() => updateNavItem(index, 'visible', !item.visible)}
+                  >
+                    {item.visible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                    {item.visible ? 'Visible' : 'Oculto'}
+                  </button>
+                </div>
+
+                <div className="flex items-end">
+                  <button type="button" className={dangerButtonClass} onClick={() => removeNavItem(index)}>
+                    <Trash2 className="h-4 w-4" />
+                    Quitar
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <button type="button" className={mutedButtonClass} onClick={addNavItem}>
+              <Plus className="h-4 w-4" />
+              Agregar subpágina al menú
+            </button>
+          </div>
+        </section>
+
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <Palette className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className={sectionTitleClass}>Pie de página</h2>
+              <p className="text-sm text-slate-500">Controla la parte inferior del sitio y su identidad visual.</p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div>
+              <label className={labelClass}>Título del footer</label>
+              <input
+                className={inputClass}
+                value={siteSettings.footerTitle}
+                onChange={(e) => updateSiteField('footerTitle', e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Color fondo footer</label>
+              <input
+                className={inputClass}
+                value={siteSettings.footerBackgroundColor}
+                onChange={(e) => updateSiteField('footerBackgroundColor', e.target.value)}
+                placeholder="#0f172a"
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Color texto footer</label>
+              <input
+                className={inputClass}
+                value={siteSettings.footerTextColor}
+                onChange={(e) => updateSiteField('footerTextColor', e.target.value)}
+                placeholder="#ffffff"
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Texto copyright</label>
+              <input
+                className={inputClass}
+                value={siteSettings.copyrightText}
+                onChange={(e) => updateSiteField('copyrightText', e.target.value)}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className={labelClass}>Descripción del footer</label>
+              <textarea
+                className={`${inputClass} min-h-[110px]`}
+                value={siteSettings.footerDescription}
+                onChange={(e) => updateSiteField('footerDescription', e.target.value)}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className={labelClass}>Créditos / reconocimiento</label>
+              <input
+                className={inputClass}
+                value={siteSettings.creditsText}
+                onChange={(e) => updateSiteField('creditsText', e.target.value)}
+                placeholder="Espacio creado por..."
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <MapPin className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className={sectionTitleClass}>Datos de contacto</h2>
+              <p className="text-sm text-slate-500">Dirección, correo y teléfono visibles en el sitio.</p>
+            </div>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="md:col-span-2">
+              <label className={labelClass}>Dirección</label>
+              <input
+                className={inputClass}
+                value={siteSettings.address}
+                onChange={(e) => updateSiteField('address', e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Correo</label>
+              <input
+                className={inputClass}
+                value={siteSettings.email}
+                onChange={(e) => updateSiteField('email', e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Teléfono</label>
+              <input
+                className={inputClass}
+                value={siteSettings.phone}
+                onChange={(e) => updateSiteField('phone', e.target.value)}
+              />
+            </div>
+          </div>
+        </section>
+
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <LinkIcon className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className={sectionTitleClass}>Redes sociales</h2>
+              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales según te convenga.</p>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {siteSettings.socialLinks.map((item, index) => (
+              <div
+                key={item.id}
+                className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-[1fr_1.6fr_auto_auto]"
+              >
+                <div>
+                  <label className={labelClass}>Nombre</label>
+                  <input
+                    className={inputClass}
+                    value={item.label}
+                    onChange={(e) => updateSocialLink(index, 'label', e.target.value)}
+                    placeholder="Facebook"
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>URL</label>
+                  <input
+                    className={inputClass}
+                    value={item.url}
+                    onChange={(e) => updateSocialLink(index, 'url', e.target.value)}
+                    placeholder="https://..."
+                  />
+                </div>
+
+                <div className="flex items-end">
+                  <button
+                    type="button"
+                    className={mutedButtonClass}
+                    onClick={() => updateSocialLink(index, 'visible', !item.visible)}
+                  >
+                    {item.visible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                    {item.visible ? 'Visible' : 'Oculto'}
+                  </button>
+                </div>
+
+                <div className="flex items-end">
+                  <button type="button" className={dangerButtonClass} onClick={() => removeSocialLink(index)}>
+                    <Trash2 className="h-4 w-4" />
+                    Quitar
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <button type="button" className={mutedButtonClass} onClick={addSocialLink}>
+              <Plus className="h-4 w-4" />
+              Agregar red social
+            </button>
+          </div>
+        </section>
+
+        <section className={cardClass}>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON general</h2>
+          <p className="mb-4 text-sm text-slate-500">
+            Este bloque te muestra exactamente lo que se guardará como configuración global del sitio.
+          </p>
+
+          <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
+            {JSON.stringify(siteSettings, null, 2)}
+          </pre>
         </section>
       </div>
     );
@@ -875,6 +1455,8 @@ export default function Admin() {
     switch (currentSection) {
       case 'dashboard':
         return renderDashboard();
+      case 'central':
+        return renderCentralEditor();
       case 'home':
         return renderHomeEditor();
       case 'specialties':
