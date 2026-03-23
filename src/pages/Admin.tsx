@@ -17,7 +17,7 @@ const Admin = () => {
   }, []);
 
   const loadContent = async () => {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from('pages')
       .select('*')
       .eq('slug', 'home')
@@ -47,48 +47,70 @@ const Admin = () => {
     }
   };
 
-  if (loading) return <p style={{ padding: 20 }}>Cargando contenido...</p>;
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+        <p className="text-slate-600 text-lg">Cargando panel...</p>
+      </div>
+    );
+  }
 
   return (
-    <div style={{ padding: 30, maxWidth: 700 }}>
-      <h1>Panel Administrador</h1>
+    <div className="min-h-screen bg-slate-100 py-10 px-4">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-md border border-slate-200 p-8">
+        <h1 className="text-3xl font-bold text-slate-800 mb-2">Panel Administrador</h1>
+        <p className="text-slate-500 mb-8">Edición básica de la página de inicio</p>
 
-      <hr />
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
+              Título principal
+            </label>
+            <input
+              type="text"
+              value={content.title || ''}
+              onChange={(e) => setContent({ ...content, title: e.target.value })}
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              placeholder="Escribe el título principal"
+            />
+          </div>
 
-      <h3>🏠 Home</h3>
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
+              Descripción
+            </label>
+            <textarea
+              value={content.description || ''}
+              onChange={(e) => setContent({ ...content, description: e.target.value })}
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 min-h-[140px] focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              placeholder="Escribe la descripción"
+            />
+          </div>
 
-      <label>Título principal</label>
-      <input
-        type="text"
-        value={content.title || ''}
-        onChange={(e) =>
-          setContent({ ...content, title: e.target.value })
-        }
-        style={{ width: '100%', marginBottom: 10 }}
-      />
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
+              Imagen principal (URL)
+            </label>
+            <input
+              type="text"
+              value={content.heroImage || ''}
+              onChange={(e) => setContent({ ...content, heroImage: e.target.value })}
+              className="w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              placeholder="https://..."
+            />
+          </div>
 
-      <label>Descripción</label>
-      <textarea
-        value={content.description || ''}
-        onChange={(e) =>
-          setContent({ ...content, description: e.target.value })
-        }
-        style={{ width: '100%', height: 100, marginBottom: 10 }}
-      />
-
-      <label>Imagen principal (URL)</label>
-      <input
-        type="text"
-        value={content.heroImage || ''}
-        onChange={(e) =>
-          setContent({ ...content, heroImage: e.target.value })
-        }
-        style={{ width: '100%', marginBottom: 20 }}
-      />
-
-      <button onClick={saveContent}>
-        {saving ? 'Guardando...' : 'Guardar cambios'}
-      </button>
+          <div className="pt-2">
+            <button
+              onClick={saveContent}
+              disabled={saving}
+              className="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-6 py-3 rounded-lg transition disabled:opacity-60"
+            >
+              {saving ? 'Guardando...' : 'Guardar cambios'}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
