@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import AdminAccess from './components/AdminAccess';
+import AdminRoute from './components/AdminRoute';
 import Home from './pages/Home';
 import Specialties from './pages/Specialties';
 import SpecialtyDetail from './pages/SpecialtyDetail';
@@ -16,6 +18,7 @@ function AppContent() {
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-900">
       {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <AdminAccess />}
 
       <main className="flex-grow">
         <Routes>
@@ -26,7 +29,14 @@ function AppContent() {
           <Route path="/practicas" element={<Internships />} />
           <Route path="/juegos" element={<Playground />} />
           <Route path="/recursos" element={<Specialties />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/admin"
+            element={
+              <AdminRoute>
+                <Admin />
+              </AdminRoute>
+            }
+          />
         </Routes>
       </main>
 
