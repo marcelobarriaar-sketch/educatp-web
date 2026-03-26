@@ -20,6 +20,18 @@ type MenuItem = {
   visible?: boolean;
 };
 
+type ThemeSettings = {
+  primaryColor?: string;
+  primaryHoverColor?: string;
+  secondaryColor?: string;
+  accentColor?: string;
+  dangerColor?: string;
+  headerBackgroundColor?: string;
+  footerBackgroundColor?: string;
+  footerTextColor?: string;
+  brandTextColor?: string;
+};
+
 type SiteSettings = {
   siteName?: string;
   logoUrl?: string;
@@ -28,6 +40,7 @@ type SiteSettings = {
   headerBgColor?: string;
   menuItems?: MenuItem[];
   schoolSubtitle?: string;
+  theme?: ThemeSettings;
 };
 
 const defaultNavItems: MenuItem[] = [
@@ -133,10 +146,27 @@ export default function Navbar() {
   const siteName = settings.siteName?.trim() || 'EducaTP';
   const logoUrl = settings.logoUrl?.trim() || '';
   const logoAlt = settings.logoAlt?.trim() || 'Logo EducaTP';
-  const brandTextColor = settings.brandTextColor?.trim() || '#0f172a';
-  const headerBgColor = settings.headerBgColor?.trim() || 'rgba(255,255,255,0.70)';
   const schoolSubtitle =
     settings.schoolSubtitle?.trim() || 'Liceo Carlos Ibáñez del Campo';
+
+  const theme = settings.theme || {};
+
+  const primaryColor = theme.primaryColor?.trim() || '#065f46';
+  const primaryHoverColor = theme.primaryHoverColor?.trim() || '#064e3b';
+  const secondaryColor = theme.secondaryColor?.trim() || '#0f172a';
+  const accentColor = theme.accentColor?.trim() || '#eab308';
+
+  const brandTextColor =
+    theme.brandTextColor?.trim() ||
+    settings.brandTextColor?.trim() ||
+    secondaryColor;
+
+  const headerBgColor =
+    theme.headerBackgroundColor?.trim() ||
+    settings.headerBgColor?.trim() ||
+    'rgba(255,255,255,0.85)';
+
+  const subtitleColor = primaryColor;
 
   const shouldShowUploadedLogo = !loading && !!logoUrl;
   const shouldShowFallbackLogo = !loading && !logoUrl;
@@ -149,7 +179,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex items-center min-w-0">
-            <Link to="/" className="flex items-center gap-3 group min-w-0">
+            <Link to="/" className="flex items-center gap-2 group min-w-0">
               <motion.div
                 className="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 transition-all overflow-hidden"
                 whileHover={{
@@ -192,14 +222,14 @@ export default function Navbar() {
                       <motion.span
                         variants={{ hover: { rotate: -20, scale: 1.4, y: -2 } }}
                         transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                        style={{ color: '#064e3b' }}
+                        style={{ color: primaryColor }}
                       >
                         b
                       </motion.span>
                       <motion.span
                         variants={{ hover: { rotate: 20, scale: 1.4, y: -2 } }}
                         transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                        style={{ color: '#eab308' }}
+                        style={{ color: accentColor }}
                       >
                         y
                       </motion.span>
@@ -213,7 +243,10 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <span className="text-[8px] font-bold text-emerald-800 uppercase tracking-[0.2em] mt-1 truncate">
+                <span
+                  className="text-[8px] font-bold uppercase tracking-[0.2em] mt-1 truncate"
+                  style={{ color: subtitleColor }}
+                >
                   {schoolSubtitle}
                 </span>
               </div>
@@ -223,17 +256,32 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = iconMap[item.path] || LayoutDashboard;
+              const isActive = location.pathname === item.path;
 
               return (
                 <Link
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    'flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[11px] font-bold transition-all uppercase tracking-wider',
-                    location.pathname === item.path
-                      ? 'bg-emerald-800 text-white shadow-lg shadow-emerald-900/25'
-                      : 'text-slate-500 hover:text-emerald-800 hover:bg-emerald-50'
+                    'flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[11px] font-bold transition-all uppercase tracking-wider'
                   )}
+                  style={{
+                    backgroundColor: isActive ? primaryColor : 'transparent',
+                    color: isActive ? '#ffffff' : secondaryColor,
+                    boxShadow: isActive ? `0 10px 20px -10px ${primaryColor}` : 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = `${primaryColor}12`;
+                      e.currentTarget.style.color = primaryHoverColor;
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = secondaryColor;
+                    }
+                  }}
                 >
                   <Icon className="w-3.5 h-3.5" />
                   {item.name}
@@ -245,8 +293,15 @@ export default function Navbar() {
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-slate-600 hover:bg-slate-50"
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: secondaryColor }}
               aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = `${primaryColor}12`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -260,23 +315,34 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-white border-b border-slate-200 overflow-hidden"
+            className="lg:hidden border-b border-slate-200 overflow-hidden"
+            style={{ backgroundColor: '#ffffff' }}
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {navItems.map((item) => {
                 const Icon = iconMap[item.path] || LayoutDashboard;
+                const isActive = location.pathname === item.path;
 
                 return (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={cn(
-                      'flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium',
-                      location.pathname === item.path
-                        ? 'bg-indigo-50 text-indigo-600'
-                        : 'text-slate-600 hover:bg-slate-50'
-                    )}
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-all"
+                    style={{
+                      backgroundColor: isActive ? `${primaryColor}14` : 'transparent',
+                      color: isActive ? primaryColor : secondaryColor,
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = `${primaryColor}10`;
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }
+                    }}
                   >
                     <Icon className="w-5 h-5" />
                     {item.name}
