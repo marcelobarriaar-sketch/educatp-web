@@ -42,14 +42,11 @@ type HomeContent = {
   heroImageAlt?: string;
   heroFeatureTitle?: string;
   heroFeatureSubtitle?: string;
-
   stats?: StatItem[];
-
   specialtiesBadge?: string;
   specialtiesTitle?: string;
   specialtiesSubtitle?: string;
   specialties?: SpecialtyCard[];
-
   ctaBadge?: string;
   ctaTitle?: string;
   ctaDescription?: string;
@@ -147,10 +144,12 @@ function getSpecialtyColor(icon: string) {
 }
 
 export default function Home() {
-  const [content, setContent] = useState<HomeContent>(fallbackContent);
+  const [content, setContent] = useState<HomeContent | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     const loadHome = async () => {
       try {
         const { data, error } = await supabase
@@ -158,6 +157,8 @@ export default function Home() {
           .select('content')
           .eq('slug', 'home')
           .maybeSingle();
+
+        if (!isMounted) return;
 
         if (error) {
           console.error('Error cargando home desde Supabase:', error);
@@ -168,15 +169,48 @@ export default function Home() {
         const dbContent = (data?.content || {}) as Partial<HomeContent>;
         setContent(mergeHomeContent(dbContent));
       } catch (err) {
+        if (!isMounted) return;
         console.error('Error inesperado cargando home:', err);
         setContent(fallbackContent);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     loadHome();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  if (loading || !content) {
+    return (
+      <div className="space-y-32 pb-32">
+        <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-slate-950">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute left-[-10%] top-[-10%] h-[40%] w-[40%] rounded-full bg-indigo-600/20 blur-[120px] animate-pulse" />
+            <div className="absolute bottom-[-10%] right-[-10%] h-[40%] w-[40%] rounded-full bg-purple-600/20 blur-[120px] animate-pulse delay-1000" />
+            <div className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
+          </div>
+
+          <div className="relative z-10 mx-auto max-w-7xl px-4 text-center">
+            <div className="animate-pulse space-y-6">
+              <div className="mx-auto h-8 w-48 rounded-full bg-white/10" />
+              <div className="mx-auto h-16 w-3/4 rounded-2xl bg-white/10" />
+              <div className="mx-auto h-16 w-2/3 rounded-2xl bg-white/10" />
+              <div className="mx-auto h-6 w-2/3 rounded-xl bg-white/10" />
+              <div className="mx-auto h-6 w-1/2 rounded-xl bg-white/10" />
+              <div className="flex justify-center gap-4 pt-4">
+                <div className="h-14 w-56 rounded-2xl bg-white/10" />
+                <div className="h-14 w-44 rounded-2xl bg-white/10" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-32 pb-32">
@@ -409,12 +443,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
-      {loading && (
-        <div className="-mt-20 text-center text-sm text-slate-400">
-          Cargando contenido dinámico...
-        </div>
-      )}
     </div>
   );
 }
