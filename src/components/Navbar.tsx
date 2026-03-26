@@ -146,7 +146,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-4 group">
+            <Link to="/" className="flex items-center gap-2 group">
               <div className="relative w-16 h-16 group-hover:rotate-12 transition-all overflow-hidden">
                 {logoUrl ? (
                   <img
