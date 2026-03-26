@@ -150,7 +150,20 @@ export default function Navbar() {
         <div className="flex justify-between h-20">
           <div className="flex items-center min-w-0">
             <Link to="/" className="flex items-center gap-3 group min-w-0">
-              <div className="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 transition-all overflow-hidden">
+              <motion.div
+                className="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 transition-all overflow-hidden"
+                whileHover={{
+                  x: [0, 4, 0, -4, 0],
+                  y: [0, -4, -8, -4, 0],
+                  rotate: [0, 6, 0, -6, 0],
+                }}
+                transition={{
+                  duration: 0.9,
+                  ease: 'easeInOut',
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                }}
+              >
                 {shouldShowUploadedLogo ? (
                   <img
                     src={logoUrl}
@@ -160,7 +173,7 @@ export default function Navbar() {
                 ) : shouldShowFallbackLogo ? (
                   <BrandMark />
                 ) : null}
-              </div>
+              </motion.div>
 
               <div className="flex flex-col min-w-0">
                 <div className="flex items-baseline gap-1 min-w-0">
