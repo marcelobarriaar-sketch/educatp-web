@@ -19,8 +19,6 @@ import {
   Settings,
   Palette,
   Image as ImageIcon,
-  Phone,
-  Mail,
   MapPin,
   Eye,
   EyeOff,
@@ -43,9 +41,13 @@ type SpecialtyCard = {
 type HomeContent = {
   heroBadge: string;
   heroTitleLine1: string;
+  heroTitleLine1Color: string;
   heroTitleGreen: string;
+  heroTitleGreenColor: string;
   heroTitleYellow: string;
+  heroTitleYellowColor: string;
   heroTitleRed: string;
+  heroTitleRedColor: string;
   heroDescription: string;
   heroPrimaryButtonText: string;
   heroPrimaryButtonLink: string;
@@ -116,9 +118,13 @@ const STORAGE_KEY = 'educatp_admin_auth';
 const defaultHomeContent: HomeContent = {
   heroBadge: 'Liceo Técnico Profesional',
   heroTitleLine1: 'Formando talentos para el futuro',
+  heroTitleLine1Color: '#0f172a',
   heroTitleGreen: 'Administración',
+  heroTitleGreenColor: '#064e3b',
   heroTitleYellow: 'Agropecuaria',
+  heroTitleYellowColor: '#eab308',
   heroTitleRed: 'Atención de Párvulos',
+  heroTitleRedColor: '#991b1b',
   heroDescription:
     'Impulsamos una educación técnico profesional conectada con el territorio, la innovación y el desarrollo de competencias para la vida y el trabajo.',
   heroPrimaryButtonText: 'Conoce nuestras especialidades',
@@ -310,6 +316,67 @@ function SectionPlaceholder({
           </p>
         </div>
       </section>
+    </div>
+  );
+}
+
+function TitleColorField({
+  label,
+  textValue,
+  colorValue,
+  onTextChange,
+  onColorChange,
+}: {
+  label: string;
+  textValue: string;
+  colorValue: string;
+  onTextChange: (value: string) => void;
+  onColorChange: (value: string) => void;
+}) {
+  return (
+    <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+      <div className="mb-4">
+        <label className={labelClass}>{label}</label>
+        <input
+          className={inputClass}
+          value={textValue}
+          onChange={(e) => onTextChange(e.target.value)}
+          placeholder="Texto"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label className={labelClass}>Color de la palabra</label>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          <input
+            type="color"
+            value={colorValue || '#000000'}
+            onChange={(e) => onColorChange(e.target.value)}
+            className="h-12 w-20 cursor-pointer rounded-xl border border-slate-300 bg-white p-1"
+            title="Elegir color"
+          />
+
+          <input
+            className={inputClass}
+            value={colorValue}
+            onChange={(e) => onColorChange(e.target.value)}
+            placeholder="#000000"
+          />
+        </div>
+        <p className="mt-2 text-xs text-slate-500">
+          Puedes usar la paleta, pegar un color HEX o usar el selector del navegador si aparece disponible.
+        </p>
+      </div>
+
+      <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-5">
+        <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Vista previa</p>
+        <span
+          className="text-2xl font-black tracking-tight"
+          style={{ color: colorValue || '#000000' }}
+        >
+          {textValue || 'Texto de ejemplo'}
+        </span>
+      </div>
     </div>
   );
 }
@@ -1107,48 +1174,80 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Título línea 1</label>
-                <input
-                  className={inputClass}
-                  value={form.heroTitleLine1}
-                  onChange={(e) => updateField('heroTitleLine1', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Título verde</label>
-                <input
-                  className={inputClass}
-                  value={form.heroTitleGreen}
-                  onChange={(e) => updateField('heroTitleGreen', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Título amarillo</label>
-                <input
-                  className={inputClass}
-                  value={form.heroTitleYellow}
-                  onChange={(e) => updateField('heroTitleYellow', e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Título rojo</label>
-                <input
-                  className={inputClass}
-                  value={form.heroTitleRed}
-                  onChange={(e) => updateField('heroTitleRed', e.target.value)}
-                />
-              </div>
-
-              <div>
                 <label className={labelClass}>Alt de imagen</label>
                 <input
                   className={inputClass}
                   value={form.heroImageAlt}
                   onChange={(e) => updateField('heroImageAlt', e.target.value)}
                 />
+              </div>
+
+              <div className="md:col-span-2 rounded-2xl border border-slate-200 bg-white p-4">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="rounded-xl bg-slate-100 p-2">
+                    <Palette className="h-5 w-5 text-slate-700" />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-slate-900">Título principal con colores editables</h3>
+                    <p className="text-sm text-slate-500">
+                      Aquí puedes cambiar cada palabra y su color sin tocar el código.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <TitleColorField
+                    label="Palabra 1 / línea inicial"
+                    textValue={form.heroTitleLine1}
+                    colorValue={form.heroTitleLine1Color}
+                    onTextChange={(value) => updateField('heroTitleLine1', value)}
+                    onColorChange={(value) => updateField('heroTitleLine1Color', value)}
+                  />
+
+                  <TitleColorField
+                    label="Palabra 2"
+                    textValue={form.heroTitleGreen}
+                    colorValue={form.heroTitleGreenColor}
+                    onTextChange={(value) => updateField('heroTitleGreen', value)}
+                    onColorChange={(value) => updateField('heroTitleGreenColor', value)}
+                  />
+
+                  <TitleColorField
+                    label="Palabra 3"
+                    textValue={form.heroTitleYellow}
+                    colorValue={form.heroTitleYellowColor}
+                    onTextChange={(value) => updateField('heroTitleYellow', value)}
+                    onColorChange={(value) => updateField('heroTitleYellowColor', value)}
+                  />
+
+                  <TitleColorField
+                    label="Palabra 4"
+                    textValue={form.heroTitleRed}
+                    colorValue={form.heroTitleRedColor}
+                    onTextChange={(value) => updateField('heroTitleRed', value)}
+                    onColorChange={(value) => updateField('heroTitleRedColor', value)}
+                  />
+                </div>
+
+                <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-6">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Vista previa del título completo
+                  </p>
+                  <h3 className="text-2xl font-black leading-tight tracking-tight md:text-4xl">
+                    <span style={{ color: form.heroTitleLine1Color || '#0f172a' }}>
+                      {form.heroTitleLine1 || 'Título'}
+                    </span>{' '}
+                    <span style={{ color: form.heroTitleGreenColor || '#064e3b' }}>
+                      {form.heroTitleGreen || 'Palabra'}
+                    </span>{' '}
+                    <span style={{ color: form.heroTitleYellowColor || '#eab308' }}>
+                      {form.heroTitleYellow || 'Editable'}
+                    </span>{' '}
+                    <span style={{ color: form.heroTitleRedColor || '#991b1b' }}>
+                      {form.heroTitleRed || 'Aquí'}
+                    </span>
+                  </h3>
+                </div>
               </div>
 
               <div className="md:col-span-2">
