@@ -26,9 +26,13 @@ type SpecialtyCard = {
 type HomeContent = {
   heroBadge?: string;
   heroTitleLine1?: string;
+  heroTitleLine1Color?: string;
   heroTitleGreen?: string;
+  heroTitleGreenColor?: string;
   heroTitleYellow?: string;
+  heroTitleYellowColor?: string;
   heroTitleRed?: string;
+  heroTitleRedColor?: string;
   heroDescription?: string;
   heroPrimaryButtonText?: string;
   heroPrimaryButtonLink?: string;
@@ -56,9 +60,13 @@ type HomeContent = {
 const fallbackContent: HomeContent = {
   heroBadge: 'Liceo Técnico Profesional',
   heroTitleLine1: 'Formando talentos para el futuro',
+  heroTitleLine1Color: '#ffffff',
   heroTitleGreen: 'Administración',
+  heroTitleGreenColor: '#10b981',
   heroTitleYellow: 'Agropecuaria',
+  heroTitleYellowColor: '#eab308',
   heroTitleRed: 'Párvulos',
+  heroTitleRedColor: '#ef4444',
   heroDescription:
     'Impulsamos una educación técnico profesional conectada con el territorio, la innovación y el desarrollo de competencias para la vida y el trabajo.',
   heroPrimaryButtonText: 'Conoce nuestras especialidades',
@@ -195,14 +203,22 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-6xl font-black leading-[0.9] tracking-tighter text-white md:text-8xl"
+              className="text-6xl font-black leading-[0.9] tracking-tighter md:text-8xl"
             >
-              {content.heroTitleLine1}
+              <span style={{ color: content.heroTitleLine1Color || '#ffffff' }}>
+                {content.heroTitleLine1}
+              </span>
               <br />
               <span className="flex flex-wrap justify-center gap-x-4 lg:justify-start">
-                <span className="text-emerald-500">{content.heroTitleGreen}</span>
-                <span className="text-yellow-500">{content.heroTitleYellow}</span>
-                <span className="text-red-500">{content.heroTitleRed}</span>
+                <span style={{ color: content.heroTitleGreenColor || '#10b981' }}>
+                  {content.heroTitleGreen}
+                </span>
+                <span style={{ color: content.heroTitleYellowColor || '#eab308' }}>
+                  {content.heroTitleYellow}
+                </span>
+                <span style={{ color: content.heroTitleRedColor || '#ef4444' }}>
+                  {content.heroTitleRed}
+                </span>
               </span>
             </motion.h1>
 
