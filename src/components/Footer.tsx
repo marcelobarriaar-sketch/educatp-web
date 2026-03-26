@@ -12,7 +12,14 @@ import {
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
-type NavItem = {
+type MenuItem = {
+  id: string;
+  name: string;
+  path: string;
+  visible: boolean;
+};
+
+type LegacyNavItem = {
   id: string;
   label: string;
   path: string;
@@ -26,6 +33,18 @@ type SocialLink = {
   visible: boolean;
 };
 
+type ThemeSettings = {
+  primaryColor?: string;
+  primaryHoverColor?: string;
+  secondaryColor?: string;
+  accentColor?: string;
+  dangerColor?: string;
+  headerBackgroundColor?: string;
+  footerBackgroundColor?: string;
+  footerTextColor?: string;
+  brandTextColor?: string;
+};
+
 type SiteSettings = {
   siteName?: string;
   logoUrl?: string;
@@ -37,8 +56,12 @@ type SiteSettings = {
   phone?: string;
   copyrightText?: string;
   creditsText?: string;
-  navItems?: NavItem[];
+  menuItems?: MenuItem[];
+  navItems?: LegacyNavItem[];
   socialLinks?: SocialLink[];
+  theme?: ThemeSettings;
+
+  // compatibilidad legacy
   footerBackgroundColor?: string;
   footerTextColor?: string;
   brandTextColor?: string;
@@ -56,9 +79,14 @@ const defaultSettings: SiteSettings = {
   phone: '+56 9 0000 0000',
   copyrightText: 'Todos los derechos reservados.',
   creditsText: 'Espacio creado por el docente Marcelo Barría Arismendi.',
-  footerBackgroundColor: '#0f172a',
-  footerTextColor: '#cbd5e1',
-  brandTextColor: '#ffffff',
+  menuItems: [
+    { id: 'inicio', name: 'Inicio', path: '/', visible: true },
+    { id: 'especialidades', name: 'Especialidades', path: '/especialidades', visible: true },
+    { id: 'recursos', name: 'Recursos', path: '/recursos', visible: true },
+    { id: 'blog', name: 'Blog TP', path: '/blog', visible: true },
+    { id: 'practicas', name: 'Prácticas', path: '/practicas', visible: true },
+    { id: 'patio', name: 'Patio de Juegos', path: '/playground', visible: true },
+  ],
   navItems: [
     { id: 'inicio', label: 'Inicio', path: '/', visible: true },
     { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
@@ -72,18 +100,72 @@ const defaultSettings: SiteSettings = {
     { id: 'instagram', label: 'Instagram', url: '', visible: false },
     { id: 'youtube', label: 'YouTube', url: '', visible: false },
   ],
+  theme: {
+    primaryColor: '#064e3b',
+    primaryHoverColor: '#043d2f',
+    secondaryColor: '#eab308',
+    accentColor: '#991b1b',
+    dangerColor: '#dc2626',
+    headerBackgroundColor: '#ffffff',
+    footerBackgroundColor: '#0f172a',
+    footerTextColor: '#cbd5e1',
+    brandTextColor: '#ffffff',
+  },
+  footerBackgroundColor: '#0f172a',
+  footerTextColor: '#cbd5e1',
+  brandTextColor: '#ffffff',
 };
 
+function normalizeMenuItems(content?: Partial<SiteSettings> | null): MenuItem[] {
+  if (Array.isArray(content?.menuItems) && content.menuItems.length > 0) {
+    return content.menuItems.map((item, index) => ({
+      id: item.id || `menu-${index}`,
+      name: item.name || '',
+      path: item.path || '/',
+      visible: item.visible !== false,
+    }));
+  }
+
+  if (Array.isArray(content?.navItems) && content.navItems.length > 0) {
+    return content.navItems.map((item, index) => ({
+      id: item.id || `menu-${index}`,
+      name: item.label || '',
+      path: item.path || '/',
+      visible: item.visible !== false,
+    }));
+  }
+
+  return defaultSettings.menuItems || [];
+}
+
 function mergeSettings(content?: Partial<SiteSettings> | null): SiteSettings {
+  const theme = {
+    ...(defaultSettings.theme || {}),
+    ...(content?.theme || {}),
+  };
+
+  const menuItems = normalizeMenuItems(content);
+
   return {
     ...defaultSettings,
     ...(content || {}),
-    navItems: Array.isArray(content?.navItems)
-      ? content.navItems
-      : defaultSettings.navItems,
+    menuItems,
+    navItems: menuItems.map((item) => ({
+      id: item.id,
+      label: item.name,
+      path: item.path,
+      visible: item.visible,
+    })),
     socialLinks: Array.isArray(content?.socialLinks)
       ? content.socialLinks
       : defaultSettings.socialLinks,
+    theme,
+    footerBackgroundColor:
+      theme.footerBackgroundColor || content?.footerBackgroundColor || defaultSettings.footerBackgroundColor,
+    footerTextColor:
+      theme.footerTextColor || content?.footerTextColor || defaultSettings.footerTextColor,
+    brandTextColor:
+      theme.brandTextColor || content?.brandTextColor || defaultSettings.brandTextColor,
   };
 }
 
@@ -128,6 +210,8 @@ export default function Footer() {
     loadSettings();
   }, []);
 
+  const theme = settings.theme || {};
+
   const siteName = settings.siteName?.trim() || 'Educa TP';
   const footerTitle = settings.footerTitle?.trim() || siteName;
   const footerDescription =
@@ -140,11 +224,22 @@ export default function Footer() {
     settings.copyrightText?.trim() || 'Todos los derechos reservados.';
   const creditsText =
     settings.creditsText?.trim() || 'Espacio creado por el docente Marcelo Barría Arismendi.';
-  const footerBg = settings.footerBackgroundColor?.trim() || '#0f172a';
-  const footerText = settings.footerTextColor?.trim() || '#cbd5e1';
-  const brandText = settings.brandTextColor?.trim() || '#ffffff';
 
-  const visibleNavItems = (settings.navItems || []).filter((item) => item.visible !== false);
+  const primaryColor = theme.primaryColor?.trim() || '#064e3b';
+  const footerBg =
+    theme.footerBackgroundColor?.trim() ||
+    settings.footerBackgroundColor?.trim() ||
+    '#0f172a';
+  const footerText =
+    theme.footerTextColor?.trim() ||
+    settings.footerTextColor?.trim() ||
+    '#cbd5e1';
+  const brandText =
+    theme.brandTextColor?.trim() ||
+    settings.brandTextColor?.trim() ||
+    '#ffffff';
+
+  const visibleMenuItems = (settings.menuItems || []).filter((item) => item.visible !== false);
   const visibleSocials = (settings.socialLinks || []).filter(
     (item) => item.visible !== false && item.url?.trim()
   );
@@ -155,8 +250,7 @@ export default function Footer() {
       style={{ backgroundColor: footerBg, color: footerText }}
     >
       <div className="max-w-7xl mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          {/* Marca */}
+        <div className="grid grid-cols-1 gap-12 mb-16 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3 group">
               {settings.logoUrl ? (
@@ -168,7 +262,7 @@ export default function Footer() {
               ) : (
                 <div
                   className="p-2 rounded-lg"
-                  style={{ backgroundColor: '#064e3b' }}
+                  style={{ backgroundColor: primaryColor }}
                 >
                   <GraduationCap className="w-6 h-6 text-white" />
                 </div>
@@ -209,7 +303,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Navegación */}
           <div>
             <h4
               className="font-bold mb-6"
@@ -219,21 +312,20 @@ export default function Footer() {
             </h4>
 
             <ul className="space-y-4 text-sm">
-              {visibleNavItems.map((item) => (
+              {visibleMenuItems.map((item) => (
                 <li key={item.id}>
                   <Link
                     to={item.path}
                     className="transition-opacity hover:opacity-80"
                     style={{ color: footerText }}
                   >
-                    {item.label}
+                    {item.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Accesos rápidos */}
           <div>
             <h4
               className="font-bold mb-6"
@@ -273,7 +365,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contacto */}
           <div>
             <h4
               className="font-bold mb-6"
@@ -284,17 +375,17 @@ export default function Footer() {
 
             <ul className="space-y-4 text-sm">
               <li className="flex items-center gap-3">
-                <Mail className="w-4 h-4 shrink-0" style={{ color: '#064e3b' }} />
+                <Mail className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
                 <span>{email}</span>
               </li>
 
               <li className="flex items-center gap-3">
-                <Phone className="w-4 h-4 shrink-0" style={{ color: '#064e3b' }} />
+                <Phone className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
                 <span>{phone}</span>
               </li>
 
               <li className="flex items-center gap-3">
-                <MapPin className="w-4 h-4 shrink-0" style={{ color: '#064e3b' }} />
+                <MapPin className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
                 <span>{address}</span>
               </li>
             </ul>
