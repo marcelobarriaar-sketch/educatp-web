@@ -138,6 +138,9 @@ export default function Navbar() {
   const schoolSubtitle =
     settings.schoolSubtitle?.trim() || 'Liceo Carlos Ibáñez del Campo';
 
+  const shouldShowUploadedLogo = !loading && !!logoUrl;
+  const shouldShowFallbackLogo = !loading && !logoUrl;
+
   return (
     <nav
       className="sticky top-0 z-50 backdrop-blur-xl border-b border-slate-200/50"
@@ -145,32 +148,32 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20">
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-2 group">
-              <div className="relative w-16 h-16 group-hover:rotate-12 transition-all overflow-hidden">
-                {logoUrl ? (
+          <div className="flex items-center min-w-0">
+            <Link to="/" className="flex items-center gap-3 group min-w-0">
+              <div className="relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 transition-all overflow-hidden">
+                {shouldShowUploadedLogo ? (
                   <img
                     src={logoUrl}
                     alt={logoAlt}
                     className="w-full h-full object-contain"
                   />
-                ) : (
+                ) : shouldShowFallbackLogo ? (
                   <BrandMark />
-                )}
+                ) : null}
               </div>
 
-              <div className="flex flex-col">
-                <div className="flex items-baseline gap-1">
+              <div className="flex flex-col min-w-0">
+                <div className="flex items-baseline gap-1 min-w-0">
                   <span
-                    className="text-2xl font-black tracking-tighter leading-none"
+                    className="text-xl sm:text-2xl font-black tracking-tighter leading-none truncate"
                     style={{ color: brandTextColor }}
                   >
                     {siteName}
                   </span>
 
-                  {!loading && !logoUrl && (
+                  {shouldShowFallbackLogo && (
                     <motion.div
-                      className="flex items-center gap-[1px] cursor-pointer select-none italic text-[7px] font-black"
+                      className="flex items-center gap-[1px] cursor-pointer select-none italic text-[7px] font-black shrink-0"
                       whileHover="hover"
                     >
                       <motion.span
@@ -197,7 +200,7 @@ export default function Navbar() {
                   )}
                 </div>
 
-                <span className="text-[8px] font-bold text-emerald-800 uppercase tracking-[0.2em] mt-1">
+                <span className="text-[8px] font-bold text-emerald-800 uppercase tracking-[0.2em] mt-1 truncate">
                   {schoolSubtitle}
                 </span>
               </div>
@@ -226,7 +229,7 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg text-slate-600 hover:bg-slate-50"
@@ -244,7 +247,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-slate-200 overflow-hidden"
+            className="lg:hidden bg-white border-b border-slate-200 overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {navItems.map((item) => {
