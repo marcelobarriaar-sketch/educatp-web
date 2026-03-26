@@ -69,7 +69,14 @@ type HomeContent = {
   ctaButtonLink: string;
 };
 
-type NavItem = {
+type MenuItem = {
+  id: string;
+  name: string;
+  path: string;
+  visible: boolean;
+};
+
+type LegacyNavItem = {
   id: string;
   label: string;
   path: string;
@@ -99,7 +106,8 @@ type SiteSettings = {
   siteName: string;
   logoUrl: string;
   logoAlt: string;
-  navItems: NavItem[];
+  schoolSubtitle: string;
+  menuItems: MenuItem[];
   footerTitle: string;
   footerDescription: string;
   address: string;
@@ -109,6 +117,11 @@ type SiteSettings = {
   creditsText: string;
   socialLinks: SocialLink[];
   theme: ThemeSettings;
+
+  // compatibilidad legacy
+  navItems?: LegacyNavItem[];
+  brandTextColor?: string;
+  headerBgColor?: string;
 };
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
@@ -185,13 +198,14 @@ const defaultSiteSettings: SiteSettings = {
   siteName: 'Educa TP',
   logoUrl: '',
   logoAlt: 'Logo del establecimiento',
-  navItems: [
-    { id: 'inicio', label: 'Inicio', path: '/', visible: true },
-    { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
-    { id: 'recursos', label: 'Recursos', path: '/recursos', visible: true },
-    { id: 'blog', label: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', label: 'Prácticas', path: '/practicas', visible: true },
-    { id: 'patio', label: 'Patio de Juegos', path: '/playground', visible: true },
+  schoolSubtitle: 'Liceo Carlos Ibáñez del Campo',
+  menuItems: [
+    { id: 'inicio', name: 'Inicio', path: '/', visible: true },
+    { id: 'especialidades', name: 'Especialidades', path: '/especialidades', visible: true },
+    { id: 'recursos', name: 'Recursos', path: '/recursos', visible: true },
+    { id: 'blog', name: 'Blog TP', path: '/blog', visible: true },
+    { id: 'practicas', name: 'Prácticas', path: '/practicas', visible: true },
+    { id: 'patio', name: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   footerTitle: 'Educa TP',
   footerDescription: 'Formación técnico profesional conectada con el territorio, la innovación y el futuro.',
@@ -216,6 +230,16 @@ const defaultSiteSettings: SiteSettings = {
     footerTextColor: '#cbd5e1',
     brandTextColor: '#0f172a',
   },
+  navItems: [
+    { id: 'inicio', label: 'Inicio', path: '/', visible: true },
+    { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
+    { id: 'recursos', label: 'Recursos', path: '/recursos', visible: true },
+    { id: 'blog', label: 'Blog TP', path: '/blog', visible: true },
+    { id: 'practicas', label: 'Prácticas', path: '/practicas', visible: true },
+    { id: 'patio', label: 'Patio de Juegos', path: '/playground', visible: true },
+  ],
+  brandTextColor: '#0f172a',
+  headerBgColor: '#ffffff',
 };
 
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
@@ -238,16 +262,68 @@ function mergeHomeContent(content: Partial<HomeContent> | null | undefined): Hom
   };
 }
 
+function normalizeMenuItems(content: any): MenuItem[] {
+  if (Array.isArray(content?.menuItems) && content.menuItems.length > 0) {
+    return content.menuItems.map((item: any, index: number) => ({
+      id: item.id || `menu-${index}-${Date.now()}`,
+      name: item.name || item.label || '',
+      path: item.path || '/',
+      visible: item.visible !== false,
+    }));
+  }
+
+  if (Array.isArray(content?.navItems) && content.navItems.length > 0) {
+    return content.navItems.map((item: any, index: number) => ({
+      id: item.id || `menu-${index}-${Date.now()}`,
+      name: item.name || item.label || '',
+      path: item.path || '/',
+      visible: item.visible !== false,
+    }));
+  }
+
+  return defaultSiteSettings.menuItems;
+}
+
 function mergeSiteSettings(content: Partial<SiteSettings> | null | undefined): SiteSettings {
+  const mergedTheme = {
+    ...defaultSiteSettings.theme,
+    ...(content?.theme || {}),
+  };
+
+  const menuItems = normalizeMenuItems(content);
+
   return {
     ...defaultSiteSettings,
     ...(content || {}),
-    navItems: Array.isArray(content?.navItems) ? content.navItems : defaultSiteSettings.navItems,
+    schoolSubtitle: content?.schoolSubtitle || defaultSiteSettings.schoolSubtitle,
+    menuItems,
     socialLinks: Array.isArray(content?.socialLinks) ? content.socialLinks : defaultSiteSettings.socialLinks,
-    theme: {
-      ...defaultSiteSettings.theme,
-      ...(content?.theme || {}),
-    },
+    theme: mergedTheme,
+    navItems: menuItems.map((item) => ({
+      id: item.id,
+      label: item.name,
+      path: item.path,
+      visible: item.visible,
+    })),
+    brandTextColor: mergedTheme.brandTextColor,
+    headerBgColor: mergedTheme.headerBackgroundColor,
+  };
+}
+
+function serializeSiteSettings(settings: SiteSettings) {
+  const legacyNavItems: LegacyNavItem[] = settings.menuItems.map((item) => ({
+    id: item.id,
+    label: item.name,
+    path: item.path,
+    visible: item.visible,
+  }));
+
+  return {
+    ...settings,
+    menuItems: settings.menuItems,
+    navItems: legacyNavItems,
+    brandTextColor: settings.theme.brandTextColor,
+    headerBgColor: settings.theme.headerBackgroundColor,
   };
 }
 
@@ -315,9 +391,7 @@ function SectionPlaceholder({
       <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">
-              Panel CMS
-            </p>
+            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">{title}</h1>
             <p className="mt-2 text-sm text-slate-600">{description}</p>
           </div>
@@ -360,7 +434,7 @@ function TitleColorField({
       <div className="mb-4">
         <label className={labelClass}>{label}</label>
         <input
-          className={`${inputClass} ${disableTextInput ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : ''}`}
+          className={`${inputClass} ${disableTextInput ? 'cursor-not-allowed bg-slate-100 text-slate-500' : ''}`}
           value={textValue}
           onChange={(e) => onTextChange(e.target.value)}
           placeholder="Texto"
@@ -393,10 +467,7 @@ function TitleColorField({
 
       <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-4 py-5">
         <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">Vista previa</p>
-        <span
-          className="text-2xl font-black tracking-tight"
-          style={{ color: colorValue || '#000000' }}
-        >
+        <span className="text-2xl font-black tracking-tight" style={{ color: colorValue || '#000000' }}>
           {textValue || 'Texto de ejemplo'}
         </span>
       </div>
@@ -425,12 +496,8 @@ export default function Admin() {
   }, [saveState]);
 
   useEffect(() => {
-    if (currentSection === 'home' && !homeLoaded) {
-      loadHome();
-    }
-    if (currentSection === 'central' && !centralLoaded) {
-      loadSiteSettings();
-    }
+    if (currentSection === 'home' && !homeLoaded) loadHome();
+    if (currentSection === 'central' && !centralLoaded) loadSiteSettings();
   }, [currentSection, homeLoaded, centralLoaded]);
 
   async function loadHome() {
@@ -511,15 +578,19 @@ export default function Admin() {
       }
 
       if (currentSection === 'central') {
+        const payload = serializeSiteSettings(siteSettings);
+
         const { error } = await supabase.from('pages').upsert(
           {
             slug: 'site_settings',
-            content: siteSettings,
+            content: payload,
           },
           { onConflict: 'slug' }
         );
 
         if (error) throw error;
+
+        setSiteSettings(mergeSiteSettings(payload));
       }
 
       setSaveState('saved');
@@ -616,28 +687,30 @@ export default function Admin() {
         ...prev.theme,
         [field]: value,
       },
+      brandTextColor: field === 'brandTextColor' ? value : prev.theme.brandTextColor,
+      headerBgColor: field === 'headerBackgroundColor' ? value : prev.theme.headerBackgroundColor,
     }));
   }
 
-  function updateNavItem(index: number, field: keyof NavItem, value: string | boolean) {
+  function updateMenuItem(index: number, field: keyof MenuItem, value: string | boolean) {
     setSiteSettings((prev) => {
-      const next = [...prev.navItems];
+      const next = [...prev.menuItems];
       next[index] = {
         ...next[index],
         [field]: value,
       };
-      return { ...prev, navItems: next };
+      return { ...prev, menuItems: next };
     });
   }
 
-  function addNavItem() {
+  function addMenuItem() {
     setSiteSettings((prev) => ({
       ...prev,
-      navItems: [
-        ...prev.navItems,
+      menuItems: [
+        ...prev.menuItems,
         {
-          id: `nav-${Date.now()}`,
-          label: '',
+          id: `menu-${Date.now()}`,
+          name: '',
           path: '/',
           visible: true,
         },
@@ -645,10 +718,10 @@ export default function Admin() {
     }));
   }
 
-  function removeNavItem(index: number) {
+  function removeMenuItem(index: number) {
     setSiteSettings((prev) => ({
       ...prev,
-      navItems: prev.navItems.filter((_, i) => i !== index),
+      menuItems: prev.menuItems.filter((_, i) => i !== index),
     }));
   }
 
@@ -794,11 +867,7 @@ export default function Admin() {
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
-              {saveState === 'saving' ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Save className="h-4 w-4" />
-              )}
+              {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               {saveLabel}
             </button>
           </div>
@@ -828,6 +897,16 @@ export default function Admin() {
                 className={inputClass}
                 value={siteSettings.siteName}
                 onChange={(e) => updateSiteField('siteName', e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className={labelClass}>Subtítulo del establecimiento</label>
+              <input
+                className={inputClass}
+                value={siteSettings.schoolSubtitle}
+                onChange={(e) => updateSiteField('schoolSubtitle', e.target.value)}
+                placeholder="Liceo Carlos Ibáñez del Campo"
               />
             </div>
 
@@ -963,7 +1042,7 @@ export default function Admin() {
           </div>
 
           <div className="space-y-4">
-            {siteSettings.navItems.map((item, index) => (
+            {siteSettings.menuItems.map((item, index) => (
               <div
                 key={item.id}
                 className="grid gap-3 rounded-2xl border border-slate-200 bg-slate-50 p-4 md:grid-cols-[1.2fr_1.2fr_auto_auto]"
@@ -972,8 +1051,8 @@ export default function Admin() {
                   <label className={labelClass}>Nombre visible</label>
                   <input
                     className={inputClass}
-                    value={item.label}
-                    onChange={(e) => updateNavItem(index, 'label', e.target.value)}
+                    value={item.name}
+                    onChange={(e) => updateMenuItem(index, 'name', e.target.value)}
                   />
                 </div>
 
@@ -982,7 +1061,7 @@ export default function Admin() {
                   <input
                     className={inputClass}
                     value={item.path}
-                    onChange={(e) => updateNavItem(index, 'path', e.target.value)}
+                    onChange={(e) => updateMenuItem(index, 'path', e.target.value)}
                     placeholder="/mes-tp"
                   />
                 </div>
@@ -991,7 +1070,7 @@ export default function Admin() {
                   <button
                     type="button"
                     className={mutedButtonClass}
-                    onClick={() => updateNavItem(index, 'visible', !item.visible)}
+                    onClick={() => updateMenuItem(index, 'visible', !item.visible)}
                   >
                     {item.visible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                     {item.visible ? 'Visible' : 'Oculto'}
@@ -999,7 +1078,7 @@ export default function Admin() {
                 </div>
 
                 <div className="flex items-end">
-                  <button type="button" className={dangerButtonClass} onClick={() => removeNavItem(index)}>
+                  <button type="button" className={dangerButtonClass} onClick={() => removeMenuItem(index)}>
                     <Trash2 className="h-4 w-4" />
                     Quitar
                   </button>
@@ -1007,7 +1086,7 @@ export default function Admin() {
               </div>
             ))}
 
-            <button type="button" className={mutedButtonClass} onClick={addNavItem}>
+            <button type="button" className={mutedButtonClass} onClick={addMenuItem}>
               <Plus className="h-4 w-4" />
               Agregar subpágina al menú
             </button>
@@ -1177,7 +1256,7 @@ export default function Admin() {
           </p>
 
           <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
-            {JSON.stringify(siteSettings, null, 2)}
+            {JSON.stringify(serializeSiteSettings(siteSettings), null, 2)}
           </pre>
         </section>
       </div>
@@ -1225,11 +1304,7 @@ export default function Admin() {
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
-              {saveState === 'saving' ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Save className="h-4 w-4" />
-              )}
+              {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
               {saveLabel}
             </button>
           </div>
