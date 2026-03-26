@@ -83,14 +83,22 @@ type SocialLink = {
   visible: boolean;
 };
 
+type ThemeSettings = {
+  primaryColor: string;
+  primaryHoverColor: string;
+  secondaryColor: string;
+  accentColor: string;
+  dangerColor: string;
+  headerBackgroundColor: string;
+  footerBackgroundColor: string;
+  footerTextColor: string;
+  brandTextColor: string;
+};
+
 type SiteSettings = {
   siteName: string;
   logoUrl: string;
   logoAlt: string;
-  brandTextColor: string;
-  headerBackgroundColor: string;
-  footerBackgroundColor: string;
-  footerTextColor: string;
   navItems: NavItem[];
   footerTitle: string;
   footerDescription: string;
@@ -100,6 +108,7 @@ type SiteSettings = {
   copyrightText: string;
   creditsText: string;
   socialLinks: SocialLink[];
+  theme: ThemeSettings;
 };
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
@@ -176,10 +185,6 @@ const defaultSiteSettings: SiteSettings = {
   siteName: 'Educa TP',
   logoUrl: '',
   logoAlt: 'Logo del establecimiento',
-  brandTextColor: '#0f172a',
-  headerBackgroundColor: '#ffffff',
-  footerBackgroundColor: '#0f172a',
-  footerTextColor: '#ffffff',
   navItems: [
     { id: 'inicio', label: 'Inicio', path: '/', visible: true },
     { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
@@ -200,6 +205,17 @@ const defaultSiteSettings: SiteSettings = {
     { id: 'instagram', label: 'Instagram', url: '', visible: false },
     { id: 'youtube', label: 'YouTube', url: '', visible: false },
   ],
+  theme: {
+    primaryColor: '#064e3b',
+    primaryHoverColor: '#043d2f',
+    secondaryColor: '#eab308',
+    accentColor: '#991b1b',
+    dangerColor: '#dc2626',
+    headerBackgroundColor: '#ffffff',
+    footerBackgroundColor: '#0f172a',
+    footerTextColor: '#cbd5e1',
+    brandTextColor: '#0f172a',
+  },
 };
 
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
@@ -228,6 +244,10 @@ function mergeSiteSettings(content: Partial<SiteSettings> | null | undefined): S
     ...(content || {}),
     navItems: Array.isArray(content?.navItems) ? content.navItems : defaultSiteSettings.navItems,
     socialLinks: Array.isArray(content?.socialLinks) ? content.socialLinks : defaultSiteSettings.socialLinks,
+    theme: {
+      ...defaultSiteSettings.theme,
+      ...(content?.theme || {}),
+    },
   };
 }
 
@@ -326,27 +346,30 @@ function TitleColorField({
   colorValue,
   onTextChange,
   onColorChange,
+  disableTextInput = false,
 }: {
   label: string;
   textValue: string;
   colorValue: string;
   onTextChange: (value: string) => void;
   onColorChange: (value: string) => void;
+  disableTextInput?: boolean;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
       <div className="mb-4">
         <label className={labelClass}>{label}</label>
         <input
-          className={inputClass}
+          className={`${inputClass} ${disableTextInput ? 'bg-slate-100 text-slate-500 cursor-not-allowed' : ''}`}
           value={textValue}
           onChange={(e) => onTextChange(e.target.value)}
           placeholder="Texto"
+          disabled={disableTextInput}
         />
       </div>
 
       <div className="mb-4">
-        <label className={labelClass}>Color de la palabra</label>
+        <label className={labelClass}>Color</label>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <input
             type="color"
@@ -586,6 +609,16 @@ export default function Admin() {
     }));
   }
 
+  function updateThemeField<K extends keyof ThemeSettings>(field: K, value: ThemeSettings[K]) {
+    setSiteSettings((prev) => ({
+      ...prev,
+      theme: {
+        ...prev.theme,
+        [field]: value,
+      },
+    }));
+  }
+
   function updateNavItem(index: number, field: keyof NavItem, value: string | boolean) {
     setSiteSettings((prev) => {
       const next = [...prev.navItems];
@@ -784,7 +817,7 @@ export default function Admin() {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Encabezado del sitio</h2>
-              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y colores base.</p>
+              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuración base.</p>
             </div>
           </div>
 
@@ -816,26 +849,103 @@ export default function Admin() {
                 placeholder="https://..."
               />
             </div>
+          </div>
+        </section>
 
-            <div>
-              <label className={labelClass}>Color del texto de marca</label>
-              <input
-                className={inputClass}
-                value={siteSettings.brandTextColor}
-                onChange={(e) => updateSiteField('brandTextColor', e.target.value)}
-                placeholder="#0f172a"
-              />
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <Palette className="h-5 w-5 text-slate-700" />
             </div>
+            <div>
+              <h2 className={sectionTitleClass}>Colores globales del sitio</h2>
+              <p className="text-sm text-slate-500">
+                Desde aquí controlas la identidad visual general del proyecto.
+              </p>
+            </div>
+          </div>
 
-            <div>
-              <label className={labelClass}>Color de fondo del encabezado</label>
-              <input
-                className={inputClass}
-                value={siteSettings.headerBackgroundColor}
-                onChange={(e) => updateSiteField('headerBackgroundColor', e.target.value)}
-                placeholder="#ffffff"
-              />
-            </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <TitleColorField
+              label="Color principal"
+              textValue="Botones principales / menú activo"
+              colorValue={siteSettings.theme.primaryColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('primaryColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Hover color principal"
+              textValue="Hover de botones principales"
+              colorValue={siteSettings.theme.primaryHoverColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('primaryHoverColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Color secundario"
+              textValue="Destacados secundarios"
+              colorValue={siteSettings.theme.secondaryColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('secondaryColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Color acento"
+              textValue="Elementos de énfasis"
+              colorValue={siteSettings.theme.accentColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('accentColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Color de peligro"
+              textValue="Alertas y acciones destructivas"
+              colorValue={siteSettings.theme.dangerColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('dangerColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Color texto de marca"
+              textValue="Nombre del establecimiento"
+              colorValue={siteSettings.theme.brandTextColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('brandTextColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Fondo encabezado"
+              textValue="Navbar"
+              colorValue={siteSettings.theme.headerBackgroundColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('headerBackgroundColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Fondo footer"
+              textValue="Pie de página"
+              colorValue={siteSettings.theme.footerBackgroundColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('footerBackgroundColor', value)}
+              disableTextInput
+            />
+
+            <TitleColorField
+              label="Texto footer"
+              textValue="Contenido pie de página"
+              colorValue={siteSettings.theme.footerTextColor}
+              onTextChange={() => {}}
+              onColorChange={(value) => updateThemeField('footerTextColor', value)}
+              disableTextInput
+            />
           </div>
         </section>
 
@@ -911,7 +1021,7 @@ export default function Admin() {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Pie de página</h2>
-              <p className="text-sm text-slate-500">Controla la parte inferior del sitio y su identidad visual.</p>
+              <p className="text-sm text-slate-500">Controla la parte inferior del sitio y su contenido general.</p>
             </div>
           </div>
 
@@ -922,26 +1032,6 @@ export default function Admin() {
                 className={inputClass}
                 value={siteSettings.footerTitle}
                 onChange={(e) => updateSiteField('footerTitle', e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label className={labelClass}>Color fondo footer</label>
-              <input
-                className={inputClass}
-                value={siteSettings.footerBackgroundColor}
-                onChange={(e) => updateSiteField('footerBackgroundColor', e.target.value)}
-                placeholder="#0f172a"
-              />
-            </div>
-
-            <div>
-              <label className={labelClass}>Color texto footer</label>
-              <input
-                className={inputClass}
-                value={siteSettings.footerTextColor}
-                onChange={(e) => updateSiteField('footerTextColor', e.target.value)}
-                placeholder="#ffffff"
               />
             </div>
 
