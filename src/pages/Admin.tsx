@@ -35,6 +35,8 @@ type SpecialtyCard = {
   title: string;
   description: string;
   icon: string;
+  iconUrl?: string;
+  imageUrl?: string;
   link: string;
 };
 
@@ -171,18 +173,24 @@ const defaultHomeContent: HomeContent = {
       title: 'Administración',
       description: 'Formación en gestión, organización, procesos administrativos y herramientas digitales.',
       icon: 'Users',
+      iconUrl: '',
+      imageUrl: '',
       link: '/especialidades/administracion',
     },
     {
       title: 'Agropecuaria',
       description: 'Desarrollo de competencias vinculadas al trabajo agrícola, producción y sostenibilidad.',
       icon: 'Beef',
+      iconUrl: '',
+      imageUrl: '',
       link: '/especialidades/agropecuaria',
     },
     {
       title: 'Atención de Párvulos',
       description: 'Preparación para apoyar procesos educativos y de cuidado en primera infancia.',
       icon: 'Baby',
+      iconUrl: '',
+      imageUrl: '',
       link: '/especialidades/atencion-de-parvulos',
     },
   ],
@@ -660,6 +668,8 @@ export default function Admin() {
           title: '',
           description: '',
           icon: 'Users',
+          iconUrl: '',
+          imageUrl: '',
           link: '/especialidades',
         },
       ],
@@ -1612,6 +1622,26 @@ export default function Admin() {
                       />
                     </div>
 
+                    <div>
+                      <label className={labelClass}>URL del logo</label>
+                      <input
+                        className={inputClass}
+                        value={item.iconUrl || ''}
+                        onChange={(e) => updateSpecialty(index, 'iconUrl', e.target.value)}
+                        placeholder="https://... o /images/especialidades/logo-admin.png"
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>URL imagen de fondo</label>
+                      <input
+                        className={inputClass}
+                        value={item.imageUrl || ''}
+                        onChange={(e) => updateSpecialty(index, 'imageUrl', e.target.value)}
+                        placeholder="https://... o /images/especialidades/fondo-admin.jpg"
+                      />
+                    </div>
+
                     <div className="md:col-span-2">
                       <label className={labelClass}>Descripción</label>
                       <textarea
@@ -1629,6 +1659,13 @@ export default function Admin() {
                         onChange={(e) => updateSpecialty(index, 'link', e.target.value)}
                         placeholder="/especialidades/..."
                       />
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <p className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-xs text-slate-500">
+                        La imagen de fondo se usará en la tarjeta de especialidad. En el siguiente paso la dejaremos en
+                        blanco y negro por defecto, con color al pasar el mouse.
+                      </p>
                     </div>
                   </div>
                 </div>
