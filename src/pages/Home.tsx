@@ -20,6 +20,8 @@ type SpecialtyCard = {
   title: string;
   description: string;
   icon: string;
+  iconUrl?: string;
+  imageUrl?: string;
   link: string;
 };
 
@@ -90,6 +92,8 @@ const fallbackContent: HomeContent = {
       description:
         'Formación en gestión, organización, procesos administrativos y herramientas digitales.',
       icon: 'Users',
+      iconUrl: '',
+      imageUrl: '',
       link: '/especialidades/administracion',
     },
     {
@@ -97,6 +101,8 @@ const fallbackContent: HomeContent = {
       description:
         'Desarrollo de competencias vinculadas al trabajo agrícola, producción y sostenibilidad.',
       icon: 'Beef',
+      iconUrl: '',
+      imageUrl: '',
       link: '/especialidades/agropecuaria',
     },
     {
@@ -104,6 +110,8 @@ const fallbackContent: HomeContent = {
       description:
         'Preparación para apoyar procesos educativos y de cuidado en primera infancia.',
       icon: 'Baby',
+      iconUrl: '',
+      imageUrl: '',
       link: '/especialidades/atencion-de-parvulos',
     },
   ],
@@ -377,28 +385,61 @@ export default function Home() {
               >
                 <Link
                   to={spec.link || '/especialidades'}
-                  className="group block h-full rounded-[3rem] border border-slate-200 bg-white p-8 shadow-xl transition-all hover:-translate-y-1 hover:shadow-indigo-500/10"
+                  className="group relative block h-[680px] overflow-hidden rounded-[3rem] border border-slate-200 bg-slate-900 shadow-xl transition-all hover:-translate-y-1 hover:shadow-indigo-500/10"
                 >
-                  <div
-                    className={cn(
-                      'mb-6 flex h-16 w-16 items-center justify-center rounded-2xl text-white shadow-lg',
-                      getSpecialtyColor(spec.icon)
-                    )}
-                  >
-                    <Icon className="h-8 w-8" />
-                  </div>
+                  {spec.imageUrl ? (
+                    <>
+                      <img
+                        src={spec.imageUrl}
+                        alt={spec.title}
+                        className="absolute inset-0 h-full w-full object-cover grayscale transition duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/35 to-slate-200/10" />
+                    </>
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-700 to-slate-950" />
+                  )}
 
-                  <h3 className="mb-4 text-3xl font-black leading-tight text-slate-900">
-                    {spec.title}
-                  </h3>
+                  <div className="relative z-10 flex h-full flex-col justify-between p-8">
+                    <div>
+                      <div className="mb-8">
+                        {spec.iconUrl ? (
+                          <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white/15 backdrop-blur-md shadow-lg">
+                            <img
+                              src={spec.iconUrl}
+                              alt={`Logo ${spec.title}`}
+                              className="h-12 w-12 object-contain"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                        ) : (
+                          <div
+                            className={cn(
+                              'flex h-20 w-20 items-center justify-center rounded-2xl text-white shadow-lg backdrop-blur-md',
+                              getSpecialtyColor(spec.icon)
+                            )}
+                          >
+                            <Icon className="h-10 w-10" />
+                          </div>
+                        )}
+                      </div>
 
-                  <p className="mb-8 text-sm font-medium text-slate-600">
-                    {spec.description}
-                  </p>
+                      <h3 className="max-w-[260px] text-4xl font-black leading-tight text-white">
+                        {spec.title}
+                      </h3>
 
-                  <div className="flex items-center gap-2 pt-2 text-xs font-bold uppercase tracking-widest text-indigo-600">
-                    Explorar ahora
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-2" />
+                      {spec.description ? (
+                        <p className="mt-5 max-w-[280px] text-sm font-medium leading-relaxed text-white/80">
+                          {spec.description}
+                        </p>
+                      ) : null}
+                    </div>
+
+                    <div className="flex items-center gap-2 pt-6 text-sm font-black uppercase tracking-[0.18em] text-white">
+                      Explorar ahora
+                      <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-2" />
+                    </div>
                   </div>
                 </Link>
               </motion.div>
