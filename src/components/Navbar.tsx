@@ -98,6 +98,42 @@ function BrandMark() {
   );
 }
 
+function ByBadge({
+  primaryColor,
+  accentColor,
+}: {
+  primaryColor: string;
+  accentColor: string;
+}) {
+  return (
+    <motion.div
+      className="flex items-center gap-[1px] cursor-pointer select-none italic text-[7px] font-black shrink-0"
+      whileHover="hover"
+    >
+      <motion.span
+        variants={{ hover: { rotate: -20, scale: 1.4, y: -2 } }}
+        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+        style={{ color: primaryColor }}
+      >
+        b
+      </motion.span>
+      <motion.span
+        variants={{ hover: { rotate: 20, scale: 1.4, y: -2 } }}
+        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+        style={{ color: accentColor }}
+      >
+        y
+      </motion.span>
+      <motion.span
+        variants={{ hover: { scale: 2, y: -2 } }}
+        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+        className="w-[3px] h-[3px] rounded-full ml-[1px]"
+        style={{ backgroundColor: '#991b1b' }}
+      />
+    </motion.div>
+  );
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [settings, setSettings] = React.useState<SiteSettings>({});
@@ -214,32 +250,11 @@ export default function Navbar() {
                     {siteName}
                   </span>
 
-                  {shouldShowFallbackLogo && (
-                    <motion.div
-                      className="flex items-center gap-[1px] cursor-pointer select-none italic text-[7px] font-black shrink-0"
-                      whileHover="hover"
-                    >
-                      <motion.span
-                        variants={{ hover: { rotate: -20, scale: 1.4, y: -2 } }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                        style={{ color: primaryColor }}
-                      >
-                        b
-                      </motion.span>
-                      <motion.span
-                        variants={{ hover: { rotate: 20, scale: 1.4, y: -2 } }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                        style={{ color: accentColor }}
-                      >
-                        y
-                      </motion.span>
-                      <motion.span
-                        variants={{ hover: { scale: 2, y: -2 } }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
-                        className="w-[3px] h-[3px] rounded-full ml-[1px]"
-                        style={{ backgroundColor: '#991b1b' }}
-                      />
-                    </motion.div>
+                  {!loading && (
+                    <ByBadge
+                      primaryColor={primaryColor}
+                      accentColor={accentColor}
+                    />
                   )}
                 </div>
 
