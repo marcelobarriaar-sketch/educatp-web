@@ -4,9 +4,23 @@ import type {
   ResourceStatus,
   ResourceType,
   SpecialtyItem,
-  SubjectItem
+  SubjectItem,
 } from "../../types/education";
-import { RESOURCE_STATUSES, RESOURCE_TYPES } from "../../data/resourceOptions";
+
+const RESOURCE_TYPES: { value: ResourceType; label: string }[] = [
+  { value: "document", label: "Documento" },
+  { value: "pdf", label: "PDF" },
+  { value: "presentation", label: "Presentación" },
+  { value: "video", label: "Video" },
+  { value: "guide", label: "Guía" },
+  { value: "form", label: "Formulario" },
+];
+
+const RESOURCE_STATUSES: { value: ResourceStatus; label: string }[] = [
+  { value: "active", label: "Activo" },
+  { value: "draft", label: "Borrador" },
+  { value: "archived", label: "Archivado" },
+];
 
 interface ResourceFormProps {
   specialty: SpecialtyItem;
@@ -43,7 +57,7 @@ export default function ResourceForm({
   specialty,
   onSave,
   initialLevelId,
-  initialSubjectId
+  initialSubjectId,
 }: ResourceFormProps) {
   const defaultLevelId = initialLevelId || specialty.levels[0]?.id || "";
   const defaultSubjects =
@@ -62,7 +76,7 @@ export default function ResourceForm({
     status: "active",
     order: 1,
     levelId: defaultLevelId,
-    subjectId: defaultSubjectId
+    subjectId: defaultSubjectId,
   });
 
   const selectedLevel = useMemo(() => {
@@ -81,7 +95,7 @@ export default function ResourceForm({
     if (!subjectExists) {
       setForm((prev) => ({
         ...prev,
-        subjectId: availableSubjects[0].id
+        subjectId: availableSubjects[0].id,
       }));
     }
   }, [availableSubjects, form.subjectId]);
@@ -90,13 +104,10 @@ export default function ResourceForm({
     return availableSubjects.find((subject) => subject.id === form.subjectId);
   }, [availableSubjects, form.subjectId]);
 
-  const handleChange = (
-    field: keyof FormState,
-    value: string | number
-  ) => {
+  const handleChange = (field: keyof FormState, value: string | number) => {
     setForm((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -107,7 +118,7 @@ export default function ResourceForm({
     setForm((prev) => ({
       ...prev,
       levelId,
-      subjectId: firstSubjectId
+      subjectId: firstSubjectId,
     }));
   };
 
@@ -151,7 +162,7 @@ export default function ResourceForm({
         .map((tag) => tag.trim())
         .filter(Boolean),
       status: form.status,
-      order: Number(form.order) || 1
+      order: Number(form.order) || 1,
     };
 
     onSave(resource);
@@ -167,32 +178,35 @@ export default function ResourceForm({
       teacher: prev.teacher,
       tags: "",
       status: "active",
-      order: 1
+      order: 1,
     }));
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border p-6 bg-white shadow-sm">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 rounded-2xl border bg-white p-6 shadow-sm"
+    >
       <div>
         <h2 className="text-2xl font-bold">Nuevo recurso</h2>
-        <p className="text-sm text-gray-600 mt-1">
+        <p className="mt-1 text-sm text-gray-600">
           Agrega un recurso liviano mediante enlace externo y metadatos.
         </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium mb-1">Especialidad</label>
+          <label className="mb-1 block text-sm font-medium">Especialidad</label>
           <input
             type="text"
             value={specialty.name}
             disabled
-            className="w-full rounded-lg border px-3 py-2 bg-gray-100"
+            className="w-full rounded-lg border bg-gray-100 px-3 py-2"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Nivel</label>
+          <label className="mb-1 block text-sm font-medium">Nivel</label>
           <select
             value={form.levelId}
             onChange={(e) => handleLevelChange(e.target.value)}
@@ -207,7 +221,7 @@ export default function ResourceForm({
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium mb-1">Asignatura</label>
+          <label className="mb-1 block text-sm font-medium">Asignatura</label>
           <select
             value={form.subjectId}
             onChange={(e) => handleChange("subjectId", e.target.value)}
@@ -224,7 +238,9 @@ export default function ResourceForm({
 
       <div className="grid gap-4 md:grid-cols-2">
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium mb-1">Título del recurso</label>
+          <label className="mb-1 block text-sm font-medium">
+            Título del recurso
+          </label>
           <input
             type="text"
             value={form.title}
@@ -235,7 +251,7 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Tema o unidad</label>
+          <label className="mb-1 block text-sm font-medium">Tema o unidad</label>
           <input
             type="text"
             value={form.topic}
@@ -246,7 +262,9 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Tipo de recurso</label>
+          <label className="mb-1 block text-sm font-medium">
+            Tipo de recurso
+          </label>
           <select
             value={form.type}
             onChange={(e) => handleChange("type", e.target.value as ResourceType)}
@@ -261,7 +279,7 @@ export default function ResourceForm({
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium mb-1">Descripción</label>
+          <label className="mb-1 block text-sm font-medium">Descripción</label>
           <textarea
             value={form.description}
             onChange={(e) => handleChange("description", e.target.value)}
@@ -272,7 +290,7 @@ export default function ResourceForm({
         </div>
 
         <div className="md:col-span-2">
-          <label className="block text-sm font-medium mb-1">Enlace</label>
+          <label className="mb-1 block text-sm font-medium">Enlace</label>
           <input
             type="url"
             value={form.url}
@@ -283,7 +301,9 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Fecha de publicación</label>
+          <label className="mb-1 block text-sm font-medium">
+            Fecha de publicación
+          </label>
           <input
             type="date"
             value={form.createdAt}
@@ -293,7 +313,7 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Docente</label>
+          <label className="mb-1 block text-sm font-medium">Docente</label>
           <input
             type="text"
             value={form.teacher}
@@ -304,7 +324,7 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Etiquetas</label>
+          <label className="mb-1 block text-sm font-medium">Etiquetas</label>
           <input
             type="text"
             value={form.tags}
@@ -318,10 +338,12 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Estado</label>
+          <label className="mb-1 block text-sm font-medium">Estado</label>
           <select
             value={form.status}
-            onChange={(e) => handleChange("status", e.target.value as ResourceStatus)}
+            onChange={(e) =>
+              handleChange("status", e.target.value as ResourceStatus)
+            }
             className="w-full rounded-lg border px-3 py-2"
           >
             {RESOURCE_STATUSES.map((item) => (
@@ -333,7 +355,7 @@ export default function ResourceForm({
         </div>
 
         <div>
-          <label className="block text-sm font-medium mb-1">Orden</label>
+          <label className="mb-1 block text-sm font-medium">Orden</label>
           <input
             type="number"
             min={1}
@@ -347,7 +369,7 @@ export default function ResourceForm({
       <div className="flex justify-end">
         <button
           type="submit"
-          className="rounded-xl px-5 py-2.5 font-medium text-white bg-blue-600 hover:bg-blue-700 transition"
+          className="rounded-xl bg-blue-600 px-5 py-2.5 font-medium text-white transition hover:bg-blue-700"
         >
           Guardar recurso
         </button>
