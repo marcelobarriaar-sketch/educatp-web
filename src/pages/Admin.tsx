@@ -1822,7 +1822,7 @@ export default function Admin() {
     );
   }
 
-  function renderResourcesEditor() {
+   function renderResourcesEditor() {
     return (
       <div className="grid gap-6">
         <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
@@ -1872,7 +1872,88 @@ export default function Admin() {
             </div>
           </div>
 
-          <ResourceForm />
+          <ResourceForm
+            specialty={mockSpecialty}
+            onSave={handleSaveResource}
+            initialLevelId="tercero-medio"
+            initialSubjectId="aplicaciones-informaticas"
+          />
+        </section>
+
+        <section className={cardClass}>
+          <div className="mb-6 flex items-center gap-3">
+            <div className="rounded-xl bg-slate-100 p-2">
+              <BookOpen className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h2 className={sectionTitleClass}>Recursos cargados en esta sesión</h2>
+              <p className="text-sm text-slate-500">
+                Esto sirve para verificar visualmente que el formulario ya está funcionando.
+              </p>
+            </div>
+          </div>
+
+          {resources.length === 0 ? (
+            <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
+              Aún no has agregado recursos en esta sesión.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {resources.map((resource) => (
+                <div
+                  key={resource.id}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+                >
+                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                    <div className="space-y-2">
+                      <h3 className="text-lg font-semibold text-slate-900">{resource.title}</h3>
+                      <p className="text-sm text-slate-600">{resource.description || 'Sin descripción.'}</p>
+
+                      <div className="flex flex-wrap gap-2 text-xs text-slate-500">
+                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                          {resource.specialty}
+                        </span>
+                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                          {resource.level}
+                        </span>
+                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                          {resource.subject}
+                        </span>
+                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                          {resource.type}
+                        </span>
+                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                          {resource.status}
+                        </span>
+                      </div>
+
+                      <div className="text-sm">
+                        <a
+                          href={resource.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-blue-600 hover:underline"
+                        >
+                          Abrir recurso
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start">
+                      <button
+                        type="button"
+                        className={dangerButtonClass}
+                        onClick={() => removeResource(resource.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </section>
 
         <section className={cardClass}>
@@ -1885,7 +1966,6 @@ export default function Admin() {
       </div>
     );
   }
-
   function renderContent() {
     switch (currentSection) {
       case 'dashboard':
