@@ -26,7 +26,42 @@ import {
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ResourceForm from '../components/admin/ResourceForm';
+type ResourceStatus = 'active' | 'draft' | 'archived';
+type ResourceType = 'document' | 'pdf' | 'presentation' | 'video' | 'guide' | 'form';
 
+type ResourceItem = {
+  id: string;
+  title: string;
+  topic: string;
+  description: string;
+  type: ResourceType;
+  url: string;
+  createdAt: string;
+  teacher: string;
+  level: string;
+  subject: string;
+  specialty: string;
+  tags: string[];
+  status: ResourceStatus;
+  order: number;
+};
+
+type SubjectItem = {
+  id: string;
+  name: string;
+};
+
+type LevelItem = {
+  id: string;
+  name: string;
+  subjects: SubjectItem[];
+};
+
+type SpecialtyItem = {
+  id: string;
+  name: string;
+  levels: LevelItem[];
+};
 type StatItem = {
   value: string;
   label: string;
