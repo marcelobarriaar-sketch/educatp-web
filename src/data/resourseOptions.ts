@@ -1,34 +1,16 @@
-export const resourceCategories = [
-  'Administración',
-  'Informática',
-  'Emprendimiento',
-  'Legislación laboral',
-  'Normativa comercial y tributaria',
-  'Desarrollo y bienestar organizacional',
-  'Organización de oficinas',
-  'Procesos administrativos',
-  'Orientación',
-  'Convivencia escolar',
-  'General',
-];
+// src/data/resourceOptions.ts
 
-export const resourceTypes = [
-  'Documento',
-  'PDF',
-  'Presentación',
-  'Video',
-  'Guía',
-  'Formulario',
-  'Plantilla',
-  'Enlace externo',
-  'Otro',
-];
+export const RESOURCE_TYPES = [
+  { value: "document", label: "Documento" },
+  { value: "pdf", label: "PDF" },
+  { value: "presentation", label: "Presentación" },
+  { value: "video", label: "Video" },
+  { value: "guide", label: "Guía" },
+  { value: "form", label: "Formulario" },
+] as const;
 
-export const educationLevels = [
-  '1° Medio',
-  '2° Medio',
-  '3° Medio TP',
-  '4° Medio TP',
-  'Docentes',
-  'General',
-];
+export const RESOURCE_STATUSES = [
+  { value: "active", label: "Activo" },
+  { value: "draft", label: "Borrador" },
+  { value: "archived", label: "Archivado" },
+] as const;
