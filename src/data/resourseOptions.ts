@@ -1,5 +1,3 @@
-// src/data/resourceOptions.ts
-
 export const RESOURCE_TYPES = [
   { value: "document", label: "Documento" },
   { value: "pdf", label: "PDF" },
