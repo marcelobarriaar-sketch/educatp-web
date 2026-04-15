@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ResourceForm from '../components/admin/ResourceForm';
+
 type ResourceStatus = 'active' | 'draft' | 'archived';
 type ResourceType = 'document' | 'pdf' | 'presentation' | 'video' | 'guide' | 'form';
 
@@ -62,6 +63,7 @@ type SpecialtyItem = {
   name: string;
   levels: LevelItem[];
 };
+
 type StatItem = {
   value: string;
   label: string;
@@ -156,13 +158,13 @@ type SiteSettings = {
   socialLinks: SocialLink[];
   theme: ThemeSettings;
 
-  // compatibilidad legacy
   navItems?: LegacyNavItem[];
   brandTextColor?: string;
   headerBgColor?: string;
 };
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
+
 type AdminSection =
   | 'dashboard'
   | 'central'
@@ -521,7 +523,6 @@ function TitleColorField({
 
 export default function Admin() {
   const [currentSection, setCurrentSection] = useState<AdminSection>('dashboard');
-
   const [form, setForm] = useState<HomeContent>(defaultHomeContent);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
 
@@ -531,6 +532,7 @@ export default function Admin() {
 
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
+
   const mockSpecialty: SpecialtyItem = {
     id: 'administracion',
     name: 'Administración',
@@ -557,15 +559,13 @@ export default function Admin() {
   const [resources, setResources] = useState<ResourceItem[]>([]);
 
   function handleSaveResource(resource: ResourceItem) {
-    setResources((prev) => {
-      const next = [...prev, resource].sort((a, b) => a.order - b.order);
-      return next;
-    });
+    setResources((prev) => [...prev, resource].sort((a, b) => a.order - b.order));
   }
 
   function removeResource(resourceId: string) {
     setResources((prev) => prev.filter((item) => item.id !== resourceId));
   }
+
   const saveLabel = useMemo(() => {
     if (saveState === 'saving') return 'Guardando...';
     if (saveState === 'saved') return 'Guardado';
@@ -583,12 +583,7 @@ export default function Admin() {
       setLoading(true);
       setErrorMsg('');
 
-      const { data, error } = await supabase
-        .from('pages')
-        .select('slug, content')
-        .eq('slug', 'home')
-        .maybeSingle();
-
+      const { data, error } = await supabase.from('pages').select('slug, content').eq('slug', 'home').maybeSingle();
       if (error) throw error;
 
       if (!data) {
@@ -597,8 +592,7 @@ export default function Admin() {
         return;
       }
 
-      const merged = mergeHomeContent(data.content as Partial<HomeContent>);
-      setForm(merged);
+      setForm(mergeHomeContent(data.content as Partial<HomeContent>));
       setHomeLoaded(true);
     } catch (error: any) {
       console.error('Error cargando Home:', error);
@@ -627,8 +621,7 @@ export default function Admin() {
         return;
       }
 
-      const merged = mergeSiteSettings(data.content as Partial<SiteSettings>);
-      setSiteSettings(merged);
+      setSiteSettings(mergeSiteSettings(data.content as Partial<SiteSettings>));
       setCentralLoaded(true);
     } catch (error: any) {
       console.error('Error cargando site_settings:', error);
@@ -651,7 +644,6 @@ export default function Admin() {
           },
           { onConflict: 'slug' }
         );
-
         if (error) throw error;
       }
 
@@ -665,7 +657,6 @@ export default function Admin() {
           },
           { onConflict: 'slug' }
         );
-
         if (error) throw error;
 
         setSiteSettings(mergeSiteSettings(payload));
@@ -687,44 +678,29 @@ export default function Admin() {
   }
 
   function updateField<K extends keyof HomeContent>(field: K, value: HomeContent[K]) {
-    setForm((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setForm((prev) => ({ ...prev, [field]: value }));
   }
 
   function updateStat(index: number, field: keyof StatItem, value: string) {
     setForm((prev) => {
       const next = [...prev.stats];
-      next[index] = {
-        ...next[index],
-        [field]: value,
-      };
+      next[index] = { ...next[index], [field]: value };
       return { ...prev, stats: next };
     });
   }
 
   function addStat() {
-    setForm((prev) => ({
-      ...prev,
-      stats: [...prev.stats, { value: '', label: '' }],
-    }));
+    setForm((prev) => ({ ...prev, stats: [...prev.stats, { value: '', label: '' }] }));
   }
 
   function removeStat(index: number) {
-    setForm((prev) => ({
-      ...prev,
-      stats: prev.stats.filter((_, i) => i !== index),
-    }));
+    setForm((prev) => ({ ...prev, stats: prev.stats.filter((_, i) => i !== index) }));
   }
 
   function updateSpecialty(index: number, field: keyof SpecialtyCard, value: string) {
     setForm((prev) => {
       const next = [...prev.specialties];
-      next[index] = {
-        ...next[index],
-        [field]: value,
-      };
+      next[index] = { ...next[index], [field]: value };
       return { ...prev, specialties: next };
     });
   }
@@ -754,10 +730,7 @@ export default function Admin() {
   }
 
   function updateSiteField<K extends keyof SiteSettings>(field: K, value: SiteSettings[K]) {
-    setSiteSettings((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    setSiteSettings((prev) => ({ ...prev, [field]: value }));
   }
 
   function updateThemeField<K extends keyof ThemeSettings>(field: K, value: ThemeSettings[K]) {
@@ -775,10 +748,7 @@ export default function Admin() {
   function updateMenuItem(index: number, field: keyof MenuItem, value: string | boolean) {
     setSiteSettings((prev) => {
       const next = [...prev.menuItems];
-      next[index] = {
-        ...next[index],
-        [field]: value,
-      };
+      next[index] = { ...next[index], [field]: value };
       return { ...prev, menuItems: next };
     });
   }
@@ -808,10 +778,7 @@ export default function Admin() {
   function updateSocialLink(index: number, field: keyof SocialLink, value: string | boolean) {
     setSiteSettings((prev) => {
       const next = [...prev.socialLinks];
-      next[index] = {
-        ...next[index],
-        [field]: value,
-      };
+      next[index] = { ...next[index], [field]: value };
       return { ...prev, socialLinks: next };
     });
   }
@@ -1033,7 +1000,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('primaryColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Hover color principal"
               textValue="Hover de botones principales"
@@ -1042,7 +1008,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('primaryHoverColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Color secundario"
               textValue="Destacados secundarios"
@@ -1051,7 +1016,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('secondaryColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Color acento"
               textValue="Elementos de énfasis"
@@ -1060,7 +1024,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('accentColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Color de peligro"
               textValue="Alertas y acciones destructivas"
@@ -1069,7 +1032,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('dangerColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Color texto de marca"
               textValue="Nombre del establecimiento"
@@ -1078,7 +1040,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('brandTextColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Fondo encabezado"
               textValue="Navbar"
@@ -1087,7 +1048,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('headerBackgroundColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Fondo footer"
               textValue="Pie de página"
@@ -1096,7 +1056,6 @@ export default function Admin() {
               onColorChange={(value) => updateThemeField('footerBackgroundColor', value)}
               disableTextInput
             />
-
             <TitleColorField
               label="Texto footer"
               textValue="Contenido pie de página"
@@ -1822,7 +1781,7 @@ export default function Admin() {
     );
   }
 
-   function renderResourcesEditor() {
+  function renderResourcesEditor() {
     return (
       <div className="grid gap-6">
         <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
@@ -1900,29 +1859,26 @@ export default function Admin() {
           ) : (
             <div className="space-y-4">
               {resources.map((resource) => (
-                <div
-                  key={resource.id}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
-                >
+                <div key={resource.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
                   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div className="space-y-2">
                       <h3 className="text-lg font-semibold text-slate-900">{resource.title}</h3>
                       <p className="text-sm text-slate-600">{resource.description || 'Sin descripción.'}</p>
 
                       <div className="flex flex-wrap gap-2 text-xs text-slate-500">
-                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
                           {resource.specialty}
                         </span>
-                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
                           {resource.level}
                         </span>
-                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
                           {resource.subject}
                         </span>
-                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
                           {resource.type}
                         </span>
-                        <span className="rounded-full bg-white px-3 py-1 border border-slate-200">
+                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
                           {resource.status}
                         </span>
                       </div>
@@ -1959,85 +1915,72 @@ export default function Admin() {
         <section className={cardClass}>
           <h2 className={`${sectionTitleClass} mb-4`}>Recomendación técnica</h2>
           <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
-            Para mantener el sitio rápido y estable, sube preferentemente recursos mediante enlaces públicos
-            externos en vez de almacenar archivos pesados directamente dentro del proyecto.
+            Para mantener el sitio rápido y estable, sube preferentemente recursos mediante enlaces públicos externos
+            en vez de almacenar archivos pesados directamente dentro del proyecto.
           </div>
         </section>
       </div>
     );
   }
- function renderContent() {
-  switch (currentSection) {
-    case 'dashboard':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Dashboard OK</h1>
-          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
-        </div>
-      );
 
-    case 'central':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Central OK</h1>
-          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
-        </div>
-      );
+  function renderContent() {
+    switch (currentSection) {
+      case 'dashboard':
+        return renderDashboard();
 
-    case 'home':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Home OK</h1>
-          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
-        </div>
-      );
+      case 'central':
+        return renderCentralEditor();
 
-    case 'specialties':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Especialidades OK</h1>
-          <p className="mt-2 text-slate-600">Este bloque simple sí cargó.</p>
-        </div>
-      );
+      case 'home':
+        return renderHomeEditor();
 
-    case 'resources':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Recursos OK</h1>
-          <p className="mt-2 text-slate-600">Este bloque simple sí cargó.</p>
-        </div>
-      );
+      case 'specialties':
+        return (
+          <SectionPlaceholder
+            title="Especialidades"
+            description="Aquí luego conectaremos el editor completo de especialidades."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
 
-    case 'blog':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Blog OK</h1>
-          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
-        </div>
-      );
+      case 'resources':
+        return renderResourcesEditor();
 
-    case 'internships':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Prácticas OK</h1>
-          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
-        </div>
-      );
+      case 'blog':
+        return (
+          <SectionPlaceholder
+            title="Blog TP"
+            description="Aquí luego conectaremos el editor del blog y noticias."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
 
-    case 'playground':
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Patio de juegos OK</h1>
-          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
-        </div>
-      );
+      case 'internships':
+        return (
+          <SectionPlaceholder
+            title="Prácticas"
+            description="Aquí luego conectaremos el editor de prácticas y convenios."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
 
-    default:
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <h1 className="text-2xl font-bold text-slate-900">Default OK</h1>
-          <p className="mt-2 text-slate-600">Render por defecto.</p>
-        </div>
-      );
+      case 'playground':
+        return (
+          <SectionPlaceholder
+            title="Patio de Juegos"
+            description="Aquí luego conectaremos actividades y recursos interactivos."
+            onBack={() => setCurrentSection('dashboard')}
+          />
+        );
+
+      default:
+        return renderDashboard();
+    }
   }
+
+  return (
+    <main className="min-h-screen bg-slate-100 px-4 py-6 md:px-8">
+      <div className="mx-auto max-w-7xl">{renderContent()}</div>
+    </main>
+  );
 }
