@@ -49,22 +49,6 @@ type ResourceItem = {
   status: ResourceStatus;
   order: number;
 };
-type SubjectItem = {
-  id: string;
-  name: string;
-};
-
-type LevelItem = {
-  id: string;
-  name: string;
-  subjects: SubjectItem[];
-};
-
-type SpecialtyItem = {
-  id: string;
-  name: string;
-  levels: LevelItem[];
-};
 
 type StatItem = {
   value: string;
