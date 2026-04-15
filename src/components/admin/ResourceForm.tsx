@@ -1,11 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
-import type {
-  ResourceItem,
-  ResourceStatus,
-  ResourceType,
-  SpecialtyItem,
-  SubjectItem,
-} from "../../types/education";
+import { EDUCATION_OPTIONS } from "../../data/educationOptions";
+
+type ResourceStatus = "active" | "draft" | "archived";
+type ResourceType = "document" | "pdf" | "presentation" | "video" | "guide" | "form";
+
+type ResourceItem = {
+  id: string;
+  title: string;
+  topic: string;
+  description: string;
+  type: ResourceType;
+  url: string;
+  createdAt: string;
+  teacher: string;
+  level: string;
+  subject: string;
+  specialty: string;
+  tags: string[];
+  status: ResourceStatus;
+  order: number;
+};
 
 const RESOURCE_TYPES: { value: ResourceType; label: string }[] = [
   { value: "document", label: "Documento" },
@@ -23,13 +37,16 @@ const RESOURCE_STATUSES: { value: ResourceStatus; label: string }[] = [
 ];
 
 interface ResourceFormProps {
-  specialty: SpecialtyItem;
   onSave: (resource: ResourceItem) => void;
+  initialSpecialtyId?: string;
   initialLevelId?: string;
   initialSubjectId?: string;
 }
 
 interface FormState {
+  specialtyId: string;
+  levelId: string;
+  subjectId: string;
   title: string;
   topic: string;
   description: string;
@@ -40,8 +57,6 @@ interface FormState {
   tags: string;
   status: ResourceStatus;
   order: number;
-  levelId: string;
-  subjectId: string;
 }
 
 const getToday = () => {
@@ -54,17 +69,27 @@ const createResourceId = () => {
 };
 
 export default function ResourceForm({
-  specialty,
   onSave,
+  initialSpecialtyId,
   initialLevelId,
   initialSubjectId,
 }: ResourceFormProps) {
-  const defaultLevelId = initialLevelId || specialty.levels[0]?.id || "";
-  const defaultSubjects =
-    specialty.levels.find((level) => level.id === defaultLevelId)?.subjects || [];
-  const defaultSubjectId = initialSubjectId || defaultSubjects[0]?.id || "";
+  const defaultSpecialty =
+    EDUCATION_OPTIONS.find((item) => item.id === initialSpecialtyId) ||
+    EDUCATION_OPTIONS[0];
+
+  const defaultLevel =
+    defaultSpecialty?.levels.find((level) => level.id === initialLevelId) ||
+    defaultSpecialty?.levels[0];
+
+  const defaultSubject =
+    defaultLevel?.subjects.find((subject) => subject.id === initialSubjectId) ||
+    defaultLevel?.subjects[0];
 
   const [form, setForm] = useState<FormState>({
+    specialtyId: defaultSpecialty?.id || "",
+    levelId: defaultLevel?.id || "",
+    subjectId: defaultSubject?.id || "",
     title: "",
     topic: "",
     description: "",
@@ -75,34 +100,55 @@ export default function ResourceForm({
     tags: "",
     status: "active",
     order: 1,
-    levelId: defaultLevelId,
-    subjectId: defaultSubjectId,
   });
 
-  const selectedLevel = useMemo(() => {
-    return specialty.levels.find((level) => level.id === form.levelId);
-  }, [specialty.levels, form.levelId]);
+  const selectedSpecialty = useMemo(() => {
+    return EDUCATION_OPTIONS.find((item) => item.id === form.specialtyId);
+  }, [form.specialtyId]);
 
-  const availableSubjects: SubjectItem[] = selectedLevel?.subjects || [];
+  const availableLevels = selectedSpecialty?.levels || [];
+
+  const selectedLevel = useMemo(() => {
+    return availableLevels.find((level) => level.id === form.levelId);
+  }, [availableLevels, form.levelId]);
+
+  const availableSubjects = selectedLevel?.subjects || [];
+
+  const selectedSubject = useMemo(() => {
+    return availableSubjects.find((subject) => subject.id === form.subjectId);
+  }, [availableSubjects, form.subjectId]);
 
   useEffect(() => {
-    if (!availableSubjects.length) return;
+    if (!selectedSpecialty || !selectedSpecialty.levels.length) return;
 
-    const subjectExists = availableSubjects.some(
+    const levelExists = selectedSpecialty.levels.some(
+      (level) => level.id === form.levelId
+    );
+
+    if (!levelExists) {
+      const firstLevel = selectedSpecialty.levels[0];
+      setForm((prev) => ({
+        ...prev,
+        levelId: firstLevel?.id || "",
+        subjectId: firstLevel?.subjects?.[0]?.id || "",
+      }));
+    }
+  }, [selectedSpecialty, form.levelId]);
+
+  useEffect(() => {
+    if (!selectedLevel || !selectedLevel.subjects.length) return;
+
+    const subjectExists = selectedLevel.subjects.some(
       (subject) => subject.id === form.subjectId
     );
 
     if (!subjectExists) {
       setForm((prev) => ({
         ...prev,
-        subjectId: availableSubjects[0].id,
+        subjectId: selectedLevel.subjects[0]?.id || "",
       }));
     }
-  }, [availableSubjects, form.subjectId]);
-
-  const selectedSubject = useMemo(() => {
-    return availableSubjects.find((subject) => subject.id === form.subjectId);
-  }, [availableSubjects, form.subjectId]);
+  }, [selectedLevel, form.subjectId]);
 
   const handleChange = (field: keyof FormState, value: string | number) => {
     setForm((prev) => ({
@@ -111,22 +157,35 @@ export default function ResourceForm({
     }));
   };
 
+  const handleSpecialtyChange = (specialtyId: string) => {
+    const newSpecialty = EDUCATION_OPTIONS.find((item) => item.id === specialtyId);
+    const firstLevel = newSpecialty?.levels?.[0];
+    const firstSubject = firstLevel?.subjects?.[0];
+
+    setForm((prev) => ({
+      ...prev,
+      specialtyId,
+      levelId: firstLevel?.id || "",
+      subjectId: firstSubject?.id || "",
+    }));
+  };
+
   const handleLevelChange = (levelId: string) => {
-    const newLevel = specialty.levels.find((level) => level.id === levelId);
-    const firstSubjectId = newLevel?.subjects?.[0]?.id || "";
+    const newLevel = availableLevels.find((level) => level.id === levelId);
+    const firstSubject = newLevel?.subjects?.[0];
 
     setForm((prev) => ({
       ...prev,
       levelId,
-      subjectId: firstSubjectId,
+      subjectId: firstSubject?.id || "",
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!selectedLevel || !selectedSubject) {
-      alert("Debes seleccionar un nivel y una asignatura válidos.");
+    if (!selectedSpecialty || !selectedLevel || !selectedSubject) {
+      alert("Debes seleccionar una especialidad, nivel y asignatura válidos.");
       return;
     }
 
@@ -156,7 +215,7 @@ export default function ResourceForm({
       teacher: form.teacher.trim() || "Docente",
       level: selectedLevel.name,
       subject: selectedSubject.name,
-      specialty: specialty.name,
+      specialty: selectedSpecialty.name,
       tags: form.tags
         .split(",")
         .map((tag) => tag.trim())
@@ -197,12 +256,17 @@ export default function ResourceForm({
       <div className="grid gap-4 md:grid-cols-2">
         <div>
           <label className="mb-1 block text-sm font-medium">Especialidad</label>
-          <input
-            type="text"
-            value={specialty.name}
-            disabled
-            className="w-full rounded-lg border bg-gray-100 px-3 py-2"
-          />
+          <select
+            value={form.specialtyId}
+            onChange={(e) => handleSpecialtyChange(e.target.value)}
+            className="w-full rounded-lg border px-3 py-2"
+          >
+            {EDUCATION_OPTIONS.map((specialty) => (
+              <option key={specialty.id} value={specialty.id}>
+                {specialty.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>
@@ -212,7 +276,7 @@ export default function ResourceForm({
             onChange={(e) => handleLevelChange(e.target.value)}
             className="w-full rounded-lg border px-3 py-2"
           >
-            {specialty.levels.map((level) => (
+            {availableLevels.map((level) => (
               <option key={level.id} value={level.id}>
                 {level.name}
               </option>
