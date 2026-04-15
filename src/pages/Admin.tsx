@@ -32,6 +32,12 @@ type ResourceType = 'document' | 'pdf' | 'presentation' | 'video' | 'guide' | 'f
 
 type ResourceItem = {
   id: string;
+  specialtyId: string;
+  levelId: string;
+  subjectId: string;
+  specialty: string;
+  level: string;
+  subject: string;
   title: string;
   topic: string;
   description: string;
@@ -39,9 +45,6 @@ type ResourceItem = {
   url: string;
   createdAt: string;
   teacher: string;
-  level: string;
-  subject: string;
-  specialty: string;
   tags: string[];
   status: ResourceStatus;
   order: number;
