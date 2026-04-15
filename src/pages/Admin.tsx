@@ -1745,6 +1745,53 @@ export default function Admin() {
   }
 
   function renderResourcesEditor() {
+    const groupedResources = resources.reduce<
+      Record<
+        string,
+        {
+          specialtyName: string;
+          levels: Record<
+            string,
+            {
+              levelName: string;
+              subjects: Record<
+                string,
+                {
+                  subjectName: string;
+                  items: ResourceItem[];
+                }
+              >;
+            }
+          >;
+        }
+      >
+    >((acc, resource) => {
+      if (!acc[resource.specialtyId]) {
+        acc[resource.specialtyId] = {
+          specialtyName: resource.specialty,
+          levels: {},
+        };
+      }
+
+      if (!acc[resource.specialtyId].levels[resource.levelId]) {
+        acc[resource.specialtyId].levels[resource.levelId] = {
+          levelName: resource.level,
+          subjects: {},
+        };
+      }
+
+      if (!acc[resource.specialtyId].levels[resource.levelId].subjects[resource.subjectId]) {
+        acc[resource.specialtyId].levels[resource.levelId].subjects[resource.subjectId] = {
+          subjectName: resource.subject,
+          items: [],
+        };
+      }
+
+      acc[resource.specialtyId].levels[resource.levelId].subjects[resource.subjectId].items.push(resource);
+
+      return acc;
+    }, {});
+
     return (
       <div className="grid gap-6">
         <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
@@ -1795,22 +1842,22 @@ export default function Admin() {
           </div>
 
           <ResourceForm
-  onSave={handleSaveResource}
-  initialSpecialtyId="administracion"
-  initialLevelId="tercero-medio"
-  initialSubjectId="aplicaciones-informaticas"
-/>
+            onSave={handleSaveResource}
+            initialSpecialtyId="administracion"
+            initialLevelId="tercero-medio"
+            initialSubjectId="aplicaciones-informaticas"
+          />
         </section>
 
         <section className={cardClass}>
           <div className="mb-6 flex items-center gap-3">
             <div className="rounded-xl bg-slate-100 p-2">
-              <BookOpen className="h-5 w-5 text-slate-700" />
+              <GraduationCap className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Recursos cargados en esta sesión</h2>
+              <h2 className={sectionTitleClass}>Recursos organizados por estructura académica</h2>
               <p className="text-sm text-slate-500">
-                Esto sirve para verificar visualmente que el formulario ya está funcionando.
+                Vista jerárquica por especialidad, nivel, asignatura y recurso.
               </p>
             </div>
           </div>
@@ -1820,54 +1867,123 @@ export default function Admin() {
               Aún no has agregado recursos en esta sesión.
             </div>
           ) : (
-            <div className="space-y-4">
-              {resources.map((resource) => (
-                <div key={resource.id} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                  <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-                    <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-slate-900">{resource.title}</h3>
-                      <p className="text-sm text-slate-600">{resource.description || 'Sin descripción.'}</p>
+            <div className="space-y-6">
+              {Object.entries(groupedResources).map(([specialtyId, specialtyGroup]) => (
+                <div
+                  key={specialtyId}
+                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
+                >
+                  <div className="mb-4">
+                    <h3 className="text-xl font-bold text-slate-900">{specialtyGroup.specialtyName}</h3>
+                    <p className="text-sm text-slate-500">Especialidad</p>
+                  </div>
 
-                      <div className="flex flex-wrap gap-2 text-xs text-slate-500">
-                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
-                          {resource.specialty}
-                        </span>
-                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
-                          {resource.level}
-                        </span>
-                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
-                          {resource.subject}
-                        </span>
-                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
-                          {resource.type}
-                        </span>
-                        <span className="rounded-full border border-slate-200 bg-white px-3 py-1">
-                          {resource.status}
-                        </span>
-                      </div>
-
-                      <div className="text-sm">
-                        <a
-                          href={resource.url}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-blue-600 hover:underline"
-                        >
-                          Abrir recurso
-                        </a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start">
-                      <button
-                        type="button"
-                        className={dangerButtonClass}
-                        onClick={() => removeResource(resource.id)}
+                  <div className="space-y-5">
+                    {Object.entries(specialtyGroup.levels).map(([levelId, levelGroup]) => (
+                      <div
+                        key={levelId}
+                        className="rounded-2xl border border-slate-200 bg-white p-4"
                       >
-                        <Trash2 className="h-4 w-4" />
-                        Eliminar
-                      </button>
-                    </div>
+                        <div className="mb-4">
+                          <h4 className="text-lg font-semibold text-slate-900">{levelGroup.levelName}</h4>
+                          <p className="text-sm text-slate-500">Nivel / curso</p>
+                        </div>
+
+                        <div className="space-y-4">
+                          {Object.entries(levelGroup.subjects).map(([subjectId, subjectGroup]) => (
+                            <div
+                              key={subjectId}
+                              className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
+                            >
+                              <div className="mb-3">
+                                <h5 className="text-base font-semibold text-slate-900">
+                                  {subjectGroup.subjectName}
+                                </h5>
+                                <p className="text-sm text-slate-500">Asignatura</p>
+                              </div>
+
+                              <div className="space-y-3">
+                                {subjectGroup.items
+                                  .sort((a, b) => a.order - b.order)
+                                  .map((resource) => (
+                                    <div
+                                      key={resource.id}
+                                      className="rounded-2xl border border-slate-200 bg-white p-4"
+                                    >
+                                      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                                        <div className="space-y-2">
+                                          <div className="flex flex-wrap items-center gap-2">
+                                            <h6 className="text-base font-semibold text-slate-900">
+                                              {resource.title}
+                                            </h6>
+                                            <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs text-slate-600">
+                                              Orden {resource.order}
+                                            </span>
+                                          </div>
+
+                                          <p className="text-sm text-slate-600">
+                                            {resource.description || 'Sin descripción.'}
+                                          </p>
+
+                                          <div className="flex flex-wrap gap-2 text-xs text-slate-500">
+                                            <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                                              {resource.type}
+                                            </span>
+                                            <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                                              {resource.status}
+                                            </span>
+                                            <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                                              {resource.topic}
+                                            </span>
+                                            <span className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1">
+                                              {resource.teacher}
+                                            </span>
+                                          </div>
+
+                                          {resource.tags.length > 0 && (
+                                            <div className="flex flex-wrap gap-2 text-xs text-slate-500">
+                                              {resource.tags.map((tag, index) => (
+                                                <span
+                                                  key={`${resource.id}-tag-${index}`}
+                                                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1"
+                                                >
+                                                  #{tag}
+                                                </span>
+                                              ))}
+                                            </div>
+                                          )}
+
+                                          <div className="text-sm">
+                                            <a
+                                              href={resource.url}
+                                              target="_blank"
+                                              rel="noreferrer"
+                                              className="text-blue-600 hover:underline"
+                                            >
+                                              Abrir recurso
+                                            </a>
+                                          </div>
+                                        </div>
+
+                                        <div className="flex items-start">
+                                          <button
+                                            type="button"
+                                            className={dangerButtonClass}
+                                            onClick={() => removeResource(resource.id)}
+                                          >
+                                            <Trash2 className="h-4 w-4" />
+                                            Eliminar
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
