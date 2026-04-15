@@ -4,23 +4,6 @@ import { EDUCATION_OPTIONS } from "../../data/educationOptions";
 type ResourceStatus = "active" | "draft" | "archived";
 type ResourceType = "document" | "pdf" | "presentation" | "video" | "guide" | "form";
 
-type ResourceItem = {
-  id: string;
-  title: string;
-  topic: string;
-  description: string;
-  type: ResourceType;
-  url: string;
-  createdAt: string;
-  teacher: string;
-  level: string;
-  subject: string;
-  specialty: string;
-  tags: string[];
-  status: ResourceStatus;
-  order: number;
-};
-
 type SubjectOption = {
   id: string;
   name: string;
@@ -38,20 +21,25 @@ type SpecialtyOption = {
   levels: LevelOption[];
 };
 
-const RESOURCE_TYPES: { value: ResourceType; label: string }[] = [
-  { value: "document", label: "Documento" },
-  { value: "pdf", label: "PDF" },
-  { value: "presentation", label: "Presentación" },
-  { value: "video", label: "Video" },
-  { value: "guide", label: "Guía" },
-  { value: "form", label: "Formulario" },
-];
-
-const RESOURCE_STATUSES: { value: ResourceStatus; label: string }[] = [
-  { value: "active", label: "Activo" },
-  { value: "draft", label: "Borrador" },
-  { value: "archived", label: "Archivado" },
-];
+type ResourceItem = {
+  id: string;
+  specialtyId: string;
+  levelId: string;
+  subjectId: string;
+  specialty: string;
+  level: string;
+  subject: string;
+  title: string;
+  topic: string;
+  description: string;
+  type: ResourceType;
+  url: string;
+  createdAt: string;
+  teacher: string;
+  tags: string[];
+  status: ResourceStatus;
+  order: number;
+};
 
 interface ResourceFormProps {
   onSave: (resource: ResourceItem) => void;
@@ -75,6 +63,21 @@ interface FormState {
   status: ResourceStatus;
   order: number;
 }
+
+const RESOURCE_TYPES: { value: ResourceType; label: string }[] = [
+  { value: "document", label: "Documento" },
+  { value: "pdf", label: "PDF" },
+  { value: "presentation", label: "Presentación" },
+  { value: "video", label: "Video" },
+  { value: "guide", label: "Guía" },
+  { value: "form", label: "Formulario" },
+];
+
+const RESOURCE_STATUSES: { value: ResourceStatus; label: string }[] = [
+  { value: "active", label: "Activo" },
+  { value: "draft", label: "Borrador" },
+  { value: "archived", label: "Archivado" },
+];
 
 const inputClass =
   "w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-slate-500 focus:ring-2 focus:ring-slate-200";
@@ -274,6 +277,12 @@ export default function ResourceForm({
 
     const resource: ResourceItem = {
       id: createResourceId(),
+      specialtyId: selectedSpecialty.id,
+      levelId: selectedLevel.id,
+      subjectId: selectedSubject.id,
+      specialty: selectedSpecialty.name,
+      level: selectedLevel.name,
+      subject: selectedSubject.name,
       title: form.title.trim(),
       topic: form.topic.trim(),
       description: form.description.trim(),
@@ -281,9 +290,6 @@ export default function ResourceForm({
       url: form.url.trim(),
       createdAt: form.createdAt,
       teacher: form.teacher.trim() || "Docente",
-      level: selectedLevel.name,
-      subject: selectedSubject.name,
-      specialty: selectedSpecialty.name,
       tags: form.tags
         .split(",")
         .map((tag) => tag.trim())
@@ -313,7 +319,7 @@ export default function ResourceForm({
       <div>
         <h2 className="text-2xl font-bold text-slate-900">Nuevo recurso</h2>
         <p className="mt-1 text-sm text-slate-600">
-          Agrega un recurso liviano mediante enlace externo y metadatos.
+          Agrega un recurso asociado a una especialidad, nivel y asignatura.
         </p>
       </div>
 
@@ -322,6 +328,12 @@ export default function ResourceForm({
           {formError}
         </div>
       )}
+
+      <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+        <strong>Ruta académica seleccionada:</strong>{" "}
+        {selectedSpecialty?.name || "Sin especialidad"} / {selectedLevel?.name || "Sin nivel"} /{" "}
+        {selectedSubject?.name || "Sin asignatura"}
+      </div>
 
       <div className="grid gap-4 md:grid-cols-2">
         <div>
