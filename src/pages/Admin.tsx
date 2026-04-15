@@ -536,29 +536,6 @@ export default function Admin() {
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
 
-  const mockSpecialty: SpecialtyItem = {
-    id: 'administracion',
-    name: 'Administración',
-    levels: [
-      {
-        id: 'tercero-medio',
-        name: '3° Medio TP',
-        subjects: [
-          { id: 'aplicaciones-informaticas', name: 'Aplicaciones informáticas para la gestión administrativa' },
-          { id: 'organizacion-oficinas', name: 'Organización de oficinas' },
-        ],
-      },
-      {
-        id: 'cuarto-medio',
-        name: '4° Medio TP',
-        subjects: [
-          { id: 'emprendimiento-empleabilidad', name: 'Emprendimiento y empleabilidad' },
-          { id: 'legislacion-laboral', name: 'Legislación laboral' },
-        ],
-      },
-    ],
-  };
-
   const [resources, setResources] = useState<ResourceItem[]>([]);
 
   function handleSaveResource(resource: ResourceItem) {
