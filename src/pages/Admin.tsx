@@ -1966,56 +1966,78 @@ export default function Admin() {
       </div>
     );
   }
-  function renderContent() {
-    switch (currentSection) {
-      case 'dashboard':
-        return renderDashboard();
-      case 'central':
-        return renderCentralEditor();
-      case 'home':
-        return renderHomeEditor();
-      case 'specialties':
-        return (
-          <SectionPlaceholder
-            title="Editor de Especialidades"
-            description="Aquí podrás editar la página de especialidades y sus contenidos asociados."
-            onBack={() => setCurrentSection('dashboard')}
-          />
-        );
-      case 'resources':
-        return renderResourcesEditor();
-      case 'blog':
-        return (
-          <SectionPlaceholder
-            title="Editor de Blog TP"
-            description="Aquí podrás administrar publicaciones, noticias y novedades del sitio."
-            onBack={() => setCurrentSection('dashboard')}
-          />
-        );
-      case 'internships':
-        return (
-          <SectionPlaceholder
-            title="Editor de Prácticas"
-            description="Aquí podrás gestionar prácticas, convenios, orientaciones y oportunidades."
-            onBack={() => setCurrentSection('dashboard')}
-          />
-        );
-      case 'playground':
-        return (
-          <SectionPlaceholder
-            title="Editor de Patio de Juegos"
-            description="Aquí podrás crear actividades interactivas y experiencias para los alumnos."
-            onBack={() => setCurrentSection('dashboard')}
-          />
-        );
-      default:
-        return renderDashboard();
-    }
-  }
+ function renderContent() {
+  switch (currentSection) {
+    case 'dashboard':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Dashboard OK</h1>
+          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
+        </div>
+      );
 
-  return (
-    <div className="min-h-screen bg-slate-50 px-4 py-6 md:px-6 md:py-10">
-      <div className="mx-auto max-w-6xl">{renderContent()}</div>
-    </div>
-  );
+    case 'central':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Central OK</h1>
+          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
+        </div>
+      );
+
+    case 'home':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Home OK</h1>
+          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
+        </div>
+      );
+
+    case 'specialties':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Especialidades OK</h1>
+          <p className="mt-2 text-slate-600">Este bloque simple sí cargó.</p>
+        </div>
+      );
+
+    case 'resources':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Recursos OK</h1>
+          <p className="mt-2 text-slate-600">Este bloque simple sí cargó.</p>
+        </div>
+      );
+
+    case 'blog':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Blog OK</h1>
+          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
+        </div>
+      );
+
+    case 'internships':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Prácticas OK</h1>
+          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
+        </div>
+      );
+
+    case 'playground':
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Patio de juegos OK</h1>
+          <p className="mt-2 text-slate-600">Se está renderizando bien.</p>
+        </div>
+      );
+
+    default:
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <h1 className="text-2xl font-bold text-slate-900">Default OK</h1>
+          <p className="mt-2 text-slate-600">Render por defecto.</p>
+        </div>
+      );
+  }
 }
