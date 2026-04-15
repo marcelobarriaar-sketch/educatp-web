@@ -1832,11 +1832,11 @@ export default function Admin() {
           </div>
 
           <ResourceForm
-            specialty={mockSpecialty}
-            onSave={handleSaveResource}
-            initialLevelId="tercero-medio"
-            initialSubjectId="aplicaciones-informaticas"
-          />
+  onSave={handleSaveResource}
+  initialSpecialtyId="administracion"
+  initialLevelId="tercero-medio"
+  initialSubjectId="aplicaciones-informaticas"
+/>
         </section>
 
         <section className={cardClass}>
