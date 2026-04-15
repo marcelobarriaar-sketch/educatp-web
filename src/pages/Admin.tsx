@@ -49,7 +49,6 @@ type ResourceItem = {
   status: ResourceStatus;
   order: number;
 };
-
 type SubjectItem = {
   id: string;
   name: string;
