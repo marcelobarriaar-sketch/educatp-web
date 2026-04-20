@@ -23,6 +23,11 @@ import {
   Eye,
   EyeOff,
   Link as LinkIcon,
+  History,
+  Layout,
+  Lightbulb,
+  FileText,
+  Video,
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import ResourceForm from '../components/admin/ResourceForm';
@@ -143,10 +148,44 @@ type SiteSettings = {
   creditsText: string;
   socialLinks: SocialLink[];
   theme: ThemeSettings;
-
   navItems?: LegacyNavItem[];
   brandTextColor?: string;
   headerBgColor?: string;
+};
+
+type SpecialtyResource = {
+  title: string;
+  type: 'ppt' | 'video' | 'game' | 'document';
+  url: string;
+};
+
+type SpecialtyActivity = {
+  title: string;
+  description: string;
+  type: 'quiz' | 'interactive' | 'task';
+};
+
+type SpecialtySubject = {
+  name: string;
+  resources: SpecialtyResource[];
+  activities: SpecialtyActivity[];
+};
+
+type SpecialtyDetailItem = {
+  id: string;
+  name: string;
+  shortName: string;
+  description: string;
+  history: string;
+  color: string;
+  icon: string;
+  virtualRoomUrl: string;
+  tips: string[];
+  subjects: SpecialtySubject[];
+};
+
+type SpecialtiesContent = {
+  specialties: SpecialtyDetailItem[];
 };
 
 type SaveState = 'idle' | 'saving' | 'saved' | 'error';
@@ -274,6 +313,141 @@ const defaultSiteSettings: SiteSettings = {
   headerBgColor: '#ffffff',
 };
 
+const defaultSpecialtiesContent: SpecialtiesContent = {
+  specialties: [
+    {
+      id: 'administracion',
+      name: 'Administración Mención Recursos Humanos',
+      shortName: 'Administración RRHH',
+      description:
+        'Formamos profesionales capaces de gestionar el capital más valioso de cualquier organización: las personas.',
+      history:
+        'La especialidad de Administración nació en el año 2010 como respuesta a la creciente demanda de gestores administrativos en la región. Desde entonces, ha evolucionado integrando tecnologías digitales y enfoques modernos de bienestar laboral.',
+      color: 'bg-red-800',
+      icon: 'Users',
+      virtualRoomUrl: 'https://picsum.photos/seed/office/800/600',
+      tips: [
+        'Mantén siempre tu CV actualizado.',
+        'La empatía es la base de una buena gestión de personas.',
+        'Domina Excel, es tu mejor herramienta.',
+        'Aprende sobre legislación laboral vigente.',
+      ],
+      subjects: [
+        {
+          name: 'Gestión de Personal',
+          resources: [
+            { title: 'PPT: Introducción a RRHH', type: 'ppt', url: '#' },
+            { title: 'Video: El proceso de Selección', type: 'video', url: '#' },
+            { title: 'Juego: Simulador de Entrevistas', type: 'game', url: '#' },
+          ],
+          activities: [
+            {
+              title: 'Quiz de Contratos',
+              description: 'Evalúa tus conocimientos sobre tipos de contratos en Chile.',
+              type: 'quiz',
+            },
+            {
+              title: 'Taller de Clima Laboral',
+              description: 'Diseña una encuesta de clima para una empresa ficticia.',
+              type: 'task',
+            },
+          ],
+        },
+        {
+          name: 'Legislación Laboral',
+          resources: [
+            { title: 'PPT: Código del Trabajo', type: 'ppt', url: '#' },
+            { title: 'Guía: Derechos del Trabajador', type: 'document', url: '#' },
+          ],
+          activities: [
+            {
+              title: 'Cálculo de Finiquitos',
+              description: 'Ejercicio práctico de cálculo de indemnizaciones.',
+              type: 'task',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'agricola',
+      name: 'Técnico Agrícola Mención Pecuaria',
+      shortName: 'Agrícola Pecuaria',
+      description: 'Conexión directa con la tierra y la producción animal sustentable.',
+      history:
+        'Nuestra especialidad más antigua, arraigada en la tradición agrícola de la zona. Se fundó con el colegio, enfocándose inicialmente en cultivos y expandiéndose luego a la mención pecuaria con tecnología de punta.',
+      color: 'bg-emerald-900',
+      icon: 'Beef',
+      virtualRoomUrl: 'https://picsum.photos/seed/farm/800/600',
+      tips: [
+        'La observación diaria de los animales previene enfermedades.',
+        'El bienestar animal mejora la productividad.',
+        'Mantén registros precisos de alimentación.',
+        'La higiene en los corrales es fundamental.',
+      ],
+      subjects: [
+        {
+          name: 'Manejo de Ganado',
+          resources: [
+            { title: 'PPT: Nutrición Bovina', type: 'ppt', url: '#' },
+            { title: 'Video: Técnicas de Ordeño', type: 'video', url: '#' },
+          ],
+          activities: [
+            {
+              title: 'Plan de Vacunación',
+              description: 'Crea un calendario sanitario para un rebaño.',
+              type: 'task',
+            },
+            {
+              title: 'Identificación de Razas',
+              description: 'Juego interactivo para reconocer razas ovinas y bovinas.',
+              type: 'interactive',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: 'parvularia',
+      name: 'Técnico en Educación Parvularia',
+      shortName: 'Ed. Parvularia',
+      description: 'Dedicación y pedagogía para los primeros pasos de las futuras generaciones.',
+      history:
+        'Creada para profesionalizar el cuidado y educación inicial. Se destaca por su laboratorio de simulación que recrea un ambiente real de jardín infantil.',
+      color: 'bg-yellow-500',
+      icon: 'Baby',
+      virtualRoomUrl: 'https://picsum.photos/seed/kindergarten/800/600',
+      tips: [
+        'El juego es la principal herramienta de aprendizaje.',
+        'Fomenta la autonomía desde los primeros años.',
+        'La paciencia y el amor son tus mejores aliados.',
+        'Crea ambientes seguros y estimulantes.',
+      ],
+      subjects: [
+        {
+          name: 'Material Didáctico',
+          resources: [
+            { title: 'PPT: Teorías del Aprendizaje', type: 'ppt', url: '#' },
+            { title: 'Guía: Creación de Títeres', type: 'document', url: '#' },
+          ],
+          activities: [
+            {
+              title: 'Diseño de Rincón de Juegos',
+              description: 'Propón un espacio educativo temático.',
+              type: 'task',
+            },
+            {
+              title: 'Cuentacuentos Online',
+              description: 'Graba y sube tu narración de un cuento infantil.',
+              type: 'task',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
 const cardClass = 'rounded-2xl border border-slate-200 bg-white p-6 shadow-sm';
 const inputClass =
@@ -342,6 +516,12 @@ function mergeSiteSettings(content: Partial<SiteSettings> | null | undefined): S
   };
 }
 
+function mergeSpecialtiesContent(content: Partial<SpecialtiesContent> | null | undefined): SpecialtiesContent {
+  return {
+    specialties: Array.isArray(content?.specialties) ? content.specialties : defaultSpecialtiesContent.specialties,
+  };
+}
+
 function serializeSiteSettings(settings: SiteSettings) {
   const legacyNavItems: LegacyNavItem[] = settings.menuItems.map((item) => ({
     id: item.id,
@@ -380,7 +560,7 @@ const adminSections: Array<{
   {
     key: 'specialties',
     title: 'Especialidades',
-    description: 'Gestiona la información general de las especialidades.',
+    description: 'Gestiona el detalle completo de cada especialidad.',
     icon: GraduationCap,
   },
   {
@@ -437,8 +617,7 @@ function SectionPlaceholder({
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
           <p className="text-lg font-semibold text-slate-800">Esta sección quedará lista en el siguiente paso.</p>
           <p className="mt-2 text-sm text-slate-600">
-            La estructura del panel ya está preparada para que después conectemos este módulo a Supabase, tal como
-            hicimos con Inicio y Panel central.
+            La estructura del panel ya está preparada para que después conectemos este módulo a Supabase.
           </p>
         </div>
       </section>
@@ -511,10 +690,12 @@ export default function Admin() {
   const [currentSection, setCurrentSection] = useState<AdminSection>('dashboard');
   const [form, setForm] = useState<HomeContent>(defaultHomeContent);
   const [siteSettings, setSiteSettings] = useState<SiteSettings>(defaultSiteSettings);
+  const [specialtiesContent, setSpecialtiesContent] = useState<SpecialtiesContent>(defaultSpecialtiesContent);
 
   const [loading, setLoading] = useState(false);
   const [homeLoaded, setHomeLoaded] = useState(false);
   const [centralLoaded, setCentralLoaded] = useState(false);
+  const [specialtiesLoaded, setSpecialtiesLoaded] = useState(false);
 
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -539,7 +720,8 @@ export default function Admin() {
   useEffect(() => {
     if (currentSection === 'home' && !homeLoaded) loadHome();
     if (currentSection === 'central' && !centralLoaded) loadSiteSettings();
-  }, [currentSection, homeLoaded, centralLoaded]);
+    if (currentSection === 'specialties' && !specialtiesLoaded) loadSpecialties();
+  }, [currentSection, homeLoaded, centralLoaded, specialtiesLoaded]);
 
   async function loadHome() {
     try {
@@ -594,6 +776,35 @@ export default function Admin() {
     }
   }
 
+  async function loadSpecialties() {
+    try {
+      setLoading(true);
+      setErrorMsg('');
+
+      const { data, error } = await supabase
+        .from('pages')
+        .select('slug, content')
+        .eq('slug', 'specialties')
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (!data) {
+        setSpecialtiesContent(defaultSpecialtiesContent);
+        setSpecialtiesLoaded(true);
+        return;
+      }
+
+      setSpecialtiesContent(mergeSpecialtiesContent(data.content as Partial<SpecialtiesContent>));
+      setSpecialtiesLoaded(true);
+    } catch (error: any) {
+      console.error('Error cargando specialties:', error);
+      setErrorMsg(error?.message || 'No se pudo cargar el contenido de especialidades.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function handleSave() {
     try {
       setSaveState('saving');
@@ -623,6 +834,17 @@ export default function Admin() {
         if (error) throw error;
 
         setSiteSettings(mergeSiteSettings(payload));
+      }
+
+      if (currentSection === 'specialties') {
+        const { error } = await supabase.from('pages').upsert(
+          {
+            slug: 'specialties',
+            content: specialtiesContent,
+          },
+          { onConflict: 'slug' }
+        );
+        if (error) throw error;
       }
 
       setSaveState('saved');
@@ -766,6 +988,205 @@ export default function Admin() {
       ...prev,
       socialLinks: prev.socialLinks.filter((_, i) => i !== index),
     }));
+  }
+
+  function updateSpecialtyDetail(index: number, field: keyof SpecialtyDetailItem, value: any) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      next[index] = { ...next[index], [field]: value };
+      return { ...prev, specialties: next };
+    });
+  }
+
+  function addSpecialtyDetail() {
+    setSpecialtiesContent((prev) => ({
+      specialties: [
+        ...prev.specialties,
+        {
+          id: `especialidad-${Date.now()}`,
+          name: '',
+          shortName: '',
+          description: '',
+          history: '',
+          color: 'bg-slate-800',
+          icon: 'Users',
+          virtualRoomUrl: '',
+          tips: [''],
+          subjects: [
+            {
+              name: '',
+              resources: [{ title: '', type: 'document', url: '' }],
+              activities: [{ title: '', description: '', type: 'task' }],
+            },
+          ],
+        },
+      ],
+    }));
+  }
+
+  function removeSpecialtyDetail(index: number) {
+    setSpecialtiesContent((prev) => ({
+      specialties: prev.specialties.filter((_, i) => i !== index),
+    }));
+  }
+
+  function addTip(specialtyIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      next[specialtyIndex] = {
+        ...next[specialtyIndex],
+        tips: [...next[specialtyIndex].tips, ''],
+      };
+      return { specialties: next };
+    });
+  }
+
+  function updateTip(specialtyIndex: number, tipIndex: number, value: string) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const tips = [...next[specialtyIndex].tips];
+      tips[tipIndex] = value;
+      next[specialtyIndex] = { ...next[specialtyIndex], tips };
+      return { specialties: next };
+    });
+  }
+
+  function removeTip(specialtyIndex: number, tipIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      next[specialtyIndex] = {
+        ...next[specialtyIndex],
+        tips: next[specialtyIndex].tips.filter((_, i) => i !== tipIndex),
+      };
+      return { specialties: next };
+    });
+  }
+
+  function addSubject(specialtyIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      next[specialtyIndex] = {
+        ...next[specialtyIndex],
+        subjects: [
+          ...next[specialtyIndex].subjects,
+          {
+            name: '',
+            resources: [{ title: '', type: 'document', url: '' }],
+            activities: [{ title: '', description: '', type: 'task' }],
+          },
+        ],
+      };
+      return { specialties: next };
+    });
+  }
+
+  function updateSubjectName(specialtyIndex: number, subjectIndex: number, value: string) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      subjects[subjectIndex] = { ...subjects[subjectIndex], name: value };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
+  }
+
+  function removeSubject(specialtyIndex: number, subjectIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      next[specialtyIndex] = {
+        ...next[specialtyIndex],
+        subjects: next[specialtyIndex].subjects.filter((_, i) => i !== subjectIndex),
+      };
+      return { specialties: next };
+    });
+  }
+
+  function addSubjectResource(specialtyIndex: number, subjectIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      subjects[subjectIndex] = {
+        ...subjects[subjectIndex],
+        resources: [...subjects[subjectIndex].resources, { title: '', type: 'document', url: '' }],
+      };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
+  }
+
+  function updateSubjectResource(
+    specialtyIndex: number,
+    subjectIndex: number,
+    resourceIndex: number,
+    field: keyof SpecialtyResource,
+    value: string
+  ) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      const resources = [...subjects[subjectIndex].resources];
+      resources[resourceIndex] = { ...resources[resourceIndex], [field]: value } as SpecialtyResource;
+      subjects[subjectIndex] = { ...subjects[subjectIndex], resources };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
+  }
+
+  function removeSubjectResource(specialtyIndex: number, subjectIndex: number, resourceIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      subjects[subjectIndex] = {
+        ...subjects[subjectIndex],
+        resources: subjects[subjectIndex].resources.filter((_, i) => i !== resourceIndex),
+      };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
+  }
+
+  function addSubjectActivity(specialtyIndex: number, subjectIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      subjects[subjectIndex] = {
+        ...subjects[subjectIndex],
+        activities: [...subjects[subjectIndex].activities, { title: '', description: '', type: 'task' }],
+      };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
+  }
+
+  function updateSubjectActivity(
+    specialtyIndex: number,
+    subjectIndex: number,
+    activityIndex: number,
+    field: keyof SpecialtyActivity,
+    value: string
+  ) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      const activities = [...subjects[subjectIndex].activities];
+      activities[activityIndex] = { ...activities[activityIndex], [field]: value } as SpecialtyActivity;
+      subjects[subjectIndex] = { ...subjects[subjectIndex], activities };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
+  }
+
+  function removeSubjectActivity(specialtyIndex: number, subjectIndex: number, activityIndex: number) {
+    setSpecialtiesContent((prev) => {
+      const next = [...prev.specialties];
+      const subjects = [...next[specialtyIndex].subjects];
+      subjects[subjectIndex] = {
+        ...subjects[subjectIndex],
+        activities: subjects[subjectIndex].activities.filter((_, i) => i !== activityIndex),
+      };
+      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+      return { specialties: next };
+    });
   }
 
   function renderDashboard() {
@@ -1655,8 +2076,7 @@ export default function Admin() {
 
                     <div className="md:col-span-2">
                       <p className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-xs text-slate-500">
-                        La imagen de fondo se usará en la tarjeta de especialidad. En el siguiente paso la dejaremos en
-                        blanco y negro por defecto, con color al pasar el mouse.
+                        La imagen de fondo se usará en la tarjeta de especialidad.
                       </p>
                     </div>
                   </div>
@@ -1740,6 +2160,463 @@ export default function Admin() {
             </pre>
           </section>
         </div>
+      </div>
+    );
+  }
+
+  function renderSpecialtiesEditor() {
+    if (loading) {
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <div className="flex items-center justify-center text-slate-700">
+            <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
+            Cargando editor de Especialidades...
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid gap-6">
+        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="mb-3 flex items-center gap-2">
+              <button
+                type="button"
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
+                onClick={() => setCurrentSection('dashboard')}
+              >
+                <ArrowLeft className="h-4 w-4" />
+                Volver al panel
+              </button>
+            </div>
+
+            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Especialidades</h1>
+            <p className="mt-2 text-sm text-slate-600">
+              Aquí puedes editar el detalle completo de cada especialidad: hero, historia, sala virtual, tips,
+              asignaturas, recursos y actividades.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button onClick={handleLogout} className={mutedButtonClass} type="button">
+              <LogOut className="h-4 w-4" />
+              Cerrar sesión
+            </button>
+
+            <button onClick={handleSave} className={primaryButtonClass} type="button">
+              {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {saveLabel}
+            </button>
+          </div>
+        </div>
+
+        {errorMsg && (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errorMsg}
+          </div>
+        )}
+
+        <div className="space-y-6">
+          {specialtiesContent.specialties.map((specialty, specialtyIndex) => (
+            <section key={specialty.id} className={cardClass}>
+              <div className="mb-6 flex items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-xl bg-slate-100 p-2">
+                    <GraduationCap className="h-5 w-5 text-slate-700" />
+                  </div>
+                  <div>
+                    <h2 className={sectionTitleClass}>{specialty.name || `Especialidad ${specialtyIndex + 1}`}</h2>
+                    <p className="text-sm text-slate-500">Configuración completa de la especialidad.</p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  className={dangerButtonClass}
+                  onClick={() => removeSpecialtyDetail(specialtyIndex)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Eliminar especialidad
+                </button>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
+                  <label className={labelClass}>ID / slug</label>
+                  <input
+                    className={inputClass}
+                    value={specialty.id}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'id', e.target.value)}
+                    placeholder="administracion"
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Nombre corto</label>
+                  <input
+                    className={inputClass}
+                    value={specialty.shortName}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'shortName', e.target.value)}
+                    placeholder="Administración RRHH"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className={labelClass}>Nombre completo</label>
+                  <input
+                    className={inputClass}
+                    value={specialty.name}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'name', e.target.value)}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Ícono</label>
+                  <input
+                    className={inputClass}
+                    value={specialty.icon}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'icon', e.target.value)}
+                    placeholder="Users / Beef / Baby"
+                  />
+                </div>
+
+                <div>
+                  <label className={labelClass}>Clase de color hero</label>
+                  <input
+                    className={inputClass}
+                    value={specialty.color}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'color', e.target.value)}
+                    placeholder="bg-red-800"
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className={labelClass}>Descripción</label>
+                  <textarea
+                    className={`${inputClass} min-h-[110px]`}
+                    value={specialty.description}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'description', e.target.value)}
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className={labelClass}>Historia</label>
+                  <textarea
+                    className={`${inputClass} min-h-[140px]`}
+                    value={specialty.history}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'history', e.target.value)}
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className={labelClass}>URL sala virtual / imagen</label>
+                  <input
+                    className={inputClass}
+                    value={specialty.virtualRoomUrl}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'virtualRoomUrl', e.target.value)}
+                    placeholder="https://..."
+                  />
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div className="mb-4 flex items-center gap-3">
+                  <Lightbulb className="h-5 w-5 text-slate-700" />
+                  <div>
+                    <h3 className="text-base font-semibold text-slate-900">Tips rápidos</h3>
+                    <p className="text-sm text-slate-500">Consejos cortos que aparecerán al costado en la vista pública.</p>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  {specialty.tips.map((tip, tipIndex) => (
+                    <div key={`${specialty.id}-tip-${tipIndex}`} className="grid gap-3 md:grid-cols-[1fr_auto]">
+                      <input
+                        className={inputClass}
+                        value={tip}
+                        onChange={(e) => updateTip(specialtyIndex, tipIndex, e.target.value)}
+                        placeholder={`Tip ${tipIndex + 1}`}
+                      />
+                      <button
+                        type="button"
+                        className={dangerButtonClass}
+                        onClick={() => removeTip(specialtyIndex, tipIndex)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                        Quitar
+                      </button>
+                    </div>
+                  ))}
+
+                  <button type="button" className={mutedButtonClass} onClick={() => addTip(specialtyIndex)}>
+                    <Plus className="h-4 w-4" />
+                    Agregar tip
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+                <div className="mb-4 flex items-center gap-3">
+                  <BookOpen className="h-5 w-5 text-slate-700" />
+                  <div>
+                    <h3 className="text-base font-semibold text-slate-900">Asignaturas, recursos y actividades</h3>
+                    <p className="text-sm text-slate-500">
+                      Aquí administras la parte más profunda de la especialidad.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  {specialty.subjects.map((subject, subjectIndex) => (
+                    <div key={`${specialty.id}-subject-${subjectIndex}`} className="rounded-2xl border border-slate-200 bg-white p-5">
+                      <div className="mb-4 flex items-center justify-between gap-4">
+                        <div className="flex-1">
+                          <label className={labelClass}>Nombre de la asignatura</label>
+                          <input
+                            className={inputClass}
+                            value={subject.name}
+                            onChange={(e) => updateSubjectName(specialtyIndex, subjectIndex, e.target.value)}
+                            placeholder="Legislación Laboral"
+                          />
+                        </div>
+
+                        <div className="pt-7">
+                          <button
+                            type="button"
+                            className={dangerButtonClass}
+                            onClick={() => removeSubject(specialtyIndex, subjectIndex)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                            Eliminar asignatura
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="grid gap-6 lg:grid-cols-2">
+                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                          <div className="mb-4 flex items-center gap-3">
+                            <FileText className="h-5 w-5 text-slate-700" />
+                            <div>
+                              <h4 className="font-semibold text-slate-900">Recursos</h4>
+                              <p className="text-sm text-slate-500">PPT, video, documento o juego.</p>
+                            </div>
+                          </div>
+
+                          <div className="space-y-4">
+                            {subject.resources.map((resource, resourceIndex) => (
+                              <div
+                                key={`${specialty.id}-subject-${subjectIndex}-resource-${resourceIndex}`}
+                                className="rounded-2xl border border-slate-200 bg-white p-4"
+                              >
+                                <div className="grid gap-3">
+                                  <div>
+                                    <label className={labelClass}>Título</label>
+                                    <input
+                                      className={inputClass}
+                                      value={resource.title}
+                                      onChange={(e) =>
+                                        updateSubjectResource(
+                                          specialtyIndex,
+                                          subjectIndex,
+                                          resourceIndex,
+                                          'title',
+                                          e.target.value
+                                        )
+                                      }
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <label className={labelClass}>Tipo</label>
+                                    <select
+                                      className={inputClass}
+                                      value={resource.type}
+                                      onChange={(e) =>
+                                        updateSubjectResource(
+                                          specialtyIndex,
+                                          subjectIndex,
+                                          resourceIndex,
+                                          'type',
+                                          e.target.value
+                                        )
+                                      }
+                                    >
+                                      <option value="document">document</option>
+                                      <option value="ppt">ppt</option>
+                                      <option value="video">video</option>
+                                      <option value="game">game</option>
+                                    </select>
+                                  </div>
+
+                                  <div>
+                                    <label className={labelClass}>URL</label>
+                                    <input
+                                      className={inputClass}
+                                      value={resource.url}
+                                      onChange={(e) =>
+                                        updateSubjectResource(
+                                          specialtyIndex,
+                                          subjectIndex,
+                                          resourceIndex,
+                                          'url',
+                                          e.target.value
+                                        )
+                                      }
+                                      placeholder="https://..."
+                                    />
+                                  </div>
+
+                                  <button
+                                    type="button"
+                                    className={dangerButtonClass}
+                                    onClick={() =>
+                                      removeSubjectResource(specialtyIndex, subjectIndex, resourceIndex)
+                                    }
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                    Quitar recurso
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+
+                            <button
+                              type="button"
+                              className={mutedButtonClass}
+                              onClick={() => addSubjectResource(specialtyIndex, subjectIndex)}
+                            >
+                              <Plus className="h-4 w-4" />
+                              Agregar recurso
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                          <div className="mb-4 flex items-center gap-3">
+                            <Video className="h-5 w-5 text-slate-700" />
+                            <div>
+                              <h4 className="font-semibold text-slate-900">Actividades</h4>
+                              <p className="text-sm text-slate-500">Quiz, interactiva o tarea.</p>
+                            </div>
+                          </div>
+
+                          <div className="space-y-4">
+                            {subject.activities.map((activity, activityIndex) => (
+                              <div
+                                key={`${specialty.id}-subject-${subjectIndex}-activity-${activityIndex}`}
+                                className="rounded-2xl border border-slate-200 bg-white p-4"
+                              >
+                                <div className="grid gap-3">
+                                  <div>
+                                    <label className={labelClass}>Título</label>
+                                    <input
+                                      className={inputClass}
+                                      value={activity.title}
+                                      onChange={(e) =>
+                                        updateSubjectActivity(
+                                          specialtyIndex,
+                                          subjectIndex,
+                                          activityIndex,
+                                          'title',
+                                          e.target.value
+                                        )
+                                      }
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <label className={labelClass}>Descripción</label>
+                                    <textarea
+                                      className={`${inputClass} min-h-[100px]`}
+                                      value={activity.description}
+                                      onChange={(e) =>
+                                        updateSubjectActivity(
+                                          specialtyIndex,
+                                          subjectIndex,
+                                          activityIndex,
+                                          'description',
+                                          e.target.value
+                                        )
+                                      }
+                                    />
+                                  </div>
+
+                                  <div>
+                                    <label className={labelClass}>Tipo</label>
+                                    <select
+                                      className={inputClass}
+                                      value={activity.type}
+                                      onChange={(e) =>
+                                        updateSubjectActivity(
+                                          specialtyIndex,
+                                          subjectIndex,
+                                          activityIndex,
+                                          'type',
+                                          e.target.value
+                                        )
+                                      }
+                                    >
+                                      <option value="quiz">quiz</option>
+                                      <option value="interactive">interactive</option>
+                                      <option value="task">task</option>
+                                    </select>
+                                  </div>
+
+                                  <button
+                                    type="button"
+                                    className={dangerButtonClass}
+                                    onClick={() =>
+                                      removeSubjectActivity(specialtyIndex, subjectIndex, activityIndex)
+                                    }
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                    Quitar actividad
+                                  </button>
+                                </div>
+                              </div>
+                            ))}
+
+                            <button
+                              type="button"
+                              className={mutedButtonClass}
+                              onClick={() => addSubjectActivity(specialtyIndex, subjectIndex)}
+                            >
+                              <Plus className="h-4 w-4" />
+                              Agregar actividad
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <button type="button" className={mutedButtonClass} onClick={() => addSubject(specialtyIndex)}>
+                    <Plus className="h-4 w-4" />
+                    Agregar asignatura
+                  </button>
+                </div>
+              </div>
+            </section>
+          ))}
+
+          <button type="button" className={mutedButtonClass} onClick={addSpecialtyDetail}>
+            <Plus className="h-4 w-4" />
+            Agregar especialidad completa
+          </button>
+        </div>
+
+        <section className={cardClass}>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON de especialidades</h2>
+          <p className="mb-4 text-sm text-slate-500">
+            Este bloque muestra exactamente lo que se guardará en Supabase bajo el slug <code>specialties</code>.
+          </p>
+
+          <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
+            {JSON.stringify(specialtiesContent, null, 2)}
+          </pre>
+        </section>
       </div>
     );
   }
@@ -1869,10 +2746,7 @@ export default function Admin() {
           ) : (
             <div className="space-y-6">
               {Object.entries(groupedResources).map(([specialtyId, specialtyGroup]) => (
-                <div
-                  key={specialtyId}
-                  className="rounded-2xl border border-slate-200 bg-slate-50 p-5"
-                >
+                <div key={specialtyId} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
                   <div className="mb-4">
                     <h3 className="text-xl font-bold text-slate-900">{specialtyGroup.specialtyName}</h3>
                     <p className="text-sm text-slate-500">Especialidad</p>
@@ -1880,10 +2754,7 @@ export default function Admin() {
 
                   <div className="space-y-5">
                     {Object.entries(specialtyGroup.levels).map(([levelId, levelGroup]) => (
-                      <div
-                        key={levelId}
-                        className="rounded-2xl border border-slate-200 bg-white p-4"
-                      >
+                      <div key={levelId} className="rounded-2xl border border-slate-200 bg-white p-4">
                         <div className="mb-4">
                           <h4 className="text-lg font-semibold text-slate-900">{levelGroup.levelName}</h4>
                           <p className="text-sm text-slate-500">Nivel / curso</p>
@@ -1891,14 +2762,9 @@ export default function Admin() {
 
                         <div className="space-y-4">
                           {Object.entries(levelGroup.subjects).map(([subjectId, subjectGroup]) => (
-                            <div
-                              key={subjectId}
-                              className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
-                            >
+                            <div key={subjectId} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                               <div className="mb-3">
-                                <h5 className="text-base font-semibold text-slate-900">
-                                  {subjectGroup.subjectName}
-                                </h5>
+                                <h5 className="text-base font-semibold text-slate-900">{subjectGroup.subjectName}</h5>
                                 <p className="text-sm text-slate-500">Asignatura</p>
                               </div>
 
@@ -2014,13 +2880,7 @@ export default function Admin() {
         return renderHomeEditor();
 
       case 'specialties':
-        return (
-          <SectionPlaceholder
-            title="Especialidades"
-            description="Aquí luego conectaremos el editor completo de especialidades."
-            onBack={() => setCurrentSection('dashboard')}
-          />
-        );
+        return renderSpecialtiesEditor();
 
       case 'resources':
         return renderResourcesEditor();
@@ -2038,7 +2898,7 @@ export default function Admin() {
         return (
           <SectionPlaceholder
             title="Prácticas"
-            description="Aquí luego conectaremos el editor de prácticas y convenios."
+            description="Aquí luego conectaremos el editor de prácticas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2047,7 +2907,7 @@ export default function Admin() {
         return (
           <SectionPlaceholder
             title="Patio de Juegos"
-            description="Aquí luego conectaremos actividades y recursos interactivos."
+            description="Aquí luego conectaremos el editor de juegos y actividades interactivas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2057,9 +2917,5 @@ export default function Admin() {
     }
   }
 
-  return (
-    <main className="min-h-screen bg-slate-100 px-4 py-6 md:px-8">
-      <div className="mx-auto max-w-7xl">{renderContent()}</div>
-    </main>
-  );
+  return <div className="min-h-screen bg-slate-100 p-4 md:p-6">{renderContent()}</div>;
 }
