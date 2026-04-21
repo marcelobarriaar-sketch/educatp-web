@@ -203,38 +203,38 @@ type AdminSection =
 const STORAGE_KEY = 'educatp_admin_auth';
 
 const defaultHomeContent: HomeContent = {
-  heroBadge: 'Liceo Técnico Profesional',
+  heroBadge: 'Liceo T√©cnico Profesional',
   heroTitleLine1: 'Formando talentos para el futuro',
   heroTitleLine1Color: '#0f172a',
-  heroTitleGreen: 'Administración',
+  heroTitleGreen: 'Administraci√≥n',
   heroTitleGreenColor: '#064e3b',
   heroTitleYellow: 'Agropecuaria',
   heroTitleYellowColor: '#eab308',
-  heroTitleRed: 'Atención de Párvulos',
+  heroTitleRed: 'Atenci√≥n de P√°rvulos',
   heroTitleRedColor: '#991b1b',
   heroDescription:
-    'Impulsamos una educación técnico profesional conectada con el territorio, la innovación y el desarrollo de competencias para la vida y el trabajo.',
+    'Impulsamos una educaci√≥n t√©cnico profesional conectada con el territorio, la innovaci√≥n y el desarrollo de competencias para la vida y el trabajo.',
   heroPrimaryButtonText: 'Conoce nuestras especialidades',
   heroPrimaryButtonLink: '/especialidades',
-  heroSecondaryButtonText: 'Ver prácticas',
+  heroSecondaryButtonText: 'Ver pr√°cticas',
   heroSecondaryButtonLink: '/practicas',
   heroImageUrl: '',
   heroImageAlt: 'Estudiantes del liceo',
-  heroFeatureTitle: 'Educación TP conectada con el mundo real',
-  heroFeatureSubtitle: 'Aprendizaje práctico, vinculación con empresas y desarrollo integral.',
+  heroFeatureTitle: 'Educaci√≥n TP conectada con el mundo real',
+  heroFeatureSubtitle: 'Aprendizaje pr√°ctico, vinculaci√≥n con empresas y desarrollo integral.',
   stats: [
     { value: '3', label: 'Especialidades' },
-    { value: '100%', label: 'Compromiso con la formación' },
-    { value: 'TP', label: 'Educación técnico profesional' },
+    { value: '100%', label: 'Compromiso con la formaci√≥n' },
+    { value: 'TP', label: 'Educaci√≥n t√©cnico profesional' },
   ],
   specialtiesBadge: 'Especialidades',
-  specialtiesTitle: 'Áreas de formación',
+  specialtiesTitle: '√Åreas de formaci√≥n',
   specialtiesSubtitle:
-    'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo académico y laboral.',
+    'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo acad√©mico y laboral.',
   specialties: [
     {
-      title: 'Administración',
-      description: 'Formación en gestión, organización, procesos administrativos y herramientas digitales.',
+      title: 'Administraci√≥n',
+      description: 'Formaci√≥n en gesti√≥n, organizaci√≥n, procesos administrativos y herramientas digitales.',
       icon: 'Users',
       iconUrl: '',
       imageUrl: '',
@@ -242,15 +242,15 @@ const defaultHomeContent: HomeContent = {
     },
     {
       title: 'Agropecuaria',
-      description: 'Desarrollo de competencias vinculadas al trabajo agrícola, producción y sostenibilidad.',
+      description: 'Desarrollo de competencias vinculadas al trabajo agr√≠cola, producci√≥n y sostenibilidad.',
       icon: 'Beef',
       iconUrl: '',
       imageUrl: '',
       link: '/especialidades/agropecuaria',
     },
     {
-      title: 'Atención de Párvulos',
-      description: 'Preparación para apoyar procesos educativos y de cuidado en primera infancia.',
+      title: 'Atenci√≥n de P√°rvulos',
+      description: 'Preparaci√≥n para apoyar procesos educativos y de cuidado en primera infancia.',
       icon: 'Baby',
       iconUrl: '',
       imageUrl: '',
@@ -269,22 +269,22 @@ const defaultSiteSettings: SiteSettings = {
   siteName: 'Educa TP',
   logoUrl: '',
   logoAlt: 'Logo del establecimiento',
-  schoolSubtitle: 'Liceo Carlos Ibáñez del Campo',
+  schoolSubtitle: 'Liceo Carlos Ib√°√±ez del Campo',
   menuItems: [
     { id: 'inicio', name: 'Inicio', path: '/', visible: true },
     { id: 'especialidades', name: 'Especialidades', path: '/especialidades', visible: true },
     { id: 'recursos', name: 'Recursos', path: '/recursos', visible: true },
     { id: 'blog', name: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', name: 'Prácticas', path: '/practicas', visible: true },
+    { id: 'practicas', name: 'Pr√°cticas', path: '/practicas', visible: true },
     { id: 'patio', name: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   footerTitle: 'Educa TP',
-  footerDescription: 'Formación técnico profesional conectada con el territorio, la innovación y el futuro.',
-  address: 'Fresia, Región de Los Lagos, Chile',
+  footerDescription: 'Formaci√≥n t√©cnico profesional conectada con el territorio, la innovaci√≥n y el futuro.',
+  address: 'Fresia, Regi√≥n de Los Lagos, Chile',
   email: 'contacto@educatp.cl',
   phone: '+56 9 0000 0000',
   copyrightText: 'Todos los derechos reservados.',
-  creditsText: 'Espacio creado por el docente Marcelo Barría Arismendi.',
+  creditsText: 'Espacio creado por el docente Marcelo Barr√≠a Arismendi.',
   socialLinks: [
     { id: 'facebook', label: 'Facebook', url: '', visible: false },
     { id: 'instagram', label: 'Instagram', url: '', visible: false },
@@ -306,7 +306,7 @@ const defaultSiteSettings: SiteSettings = {
     { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
     { id: 'recursos', label: 'Recursos', path: '/recursos', visible: true },
     { id: 'blog', label: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', label: 'Prácticas', path: '/practicas', visible: true },
+    { id: 'practicas', label: 'Pr√°cticas', path: '/practicas', visible: true },
     { id: 'patio', label: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   brandTextColor: '#0f172a',
@@ -317,52 +317,52 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
   specialties: [
     {
       id: 'administracion',
-      name: 'Administración Mención Recursos Humanos',
-      shortName: 'Administración RRHH',
+      name: 'Administraci√≥n Menci√≥n Recursos Humanos',
+      shortName: 'Administraci√≥n RRHH',
       description:
-        'Formamos profesionales capaces de gestionar el capital más valioso de cualquier organización: las personas.',
+        'Formamos profesionales capaces de gestionar el capital m√°s valioso de cualquier organizaci√≥n: las personas.',
       history:
-        'La especialidad de Administración nació en el año 2010 como respuesta a la creciente demanda de gestores administrativos en la región. Desde entonces, ha evolucionado integrando tecnologías digitales y enfoques modernos de bienestar laboral.',
+        'La especialidad de Administraci√≥n naci√≥ en el a√±o 2010 como respuesta a la creciente demanda de gestores administrativos en la regi√≥n. Desde entonces, ha evolucionado integrando tecnolog√≠as digitales y enfoques modernos de bienestar laboral.',
       color: 'bg-red-800',
       icon: 'Users',
       virtualRoomUrl: 'https://picsum.photos/seed/office/800/600',
       tips: [
-        'Mantén siempre tu CV actualizado.',
-        'La empatía es la base de una buena gestión de personas.',
+        'Mant√©n siempre tu CV actualizado.',
+        'La empat√≠a es la base de una buena gesti√≥n de personas.',
         'Domina Excel, es tu mejor herramienta.',
-        'Aprende sobre legislación laboral vigente.',
+        'Aprende sobre legislaci√≥n laboral vigente.',
       ],
       subjects: [
         {
-          name: 'Gestión de Personal',
+          name: 'Gesti√≥n de Personal',
           resources: [
-            { title: 'PPT: Introducción a RRHH', type: 'ppt', url: '#' },
-            { title: 'Video: El proceso de Selección', type: 'video', url: '#' },
+            { title: 'PPT: Introducci√≥n a RRHH', type: 'ppt', url: '#' },
+            { title: 'Video: El proceso de Selecci√≥n', type: 'video', url: '#' },
             { title: 'Juego: Simulador de Entrevistas', type: 'game', url: '#' },
           ],
           activities: [
             {
               title: 'Quiz de Contratos',
-              description: 'Evalúa tus conocimientos sobre tipos de contratos en Chile.',
+              description: 'Eval√∫a tus conocimientos sobre tipos de contratos en Chile.',
               type: 'quiz',
             },
             {
               title: 'Taller de Clima Laboral',
-              description: 'Diseña una encuesta de clima para una empresa ficticia.',
+              description: 'Dise√±a una encuesta de clima para una empresa ficticia.',
               type: 'task',
             },
           ],
         },
         {
-          name: 'Legislación Laboral',
+          name: 'Legislaci√≥n Laboral',
           resources: [
-            { title: 'PPT: Código del Trabajo', type: 'ppt', url: '#' },
-            { title: 'Guía: Derechos del Trabajador', type: 'document', url: '#' },
+            { title: 'PPT: C√≥digo del Trabajo', type: 'ppt', url: '#' },
+            { title: 'Gu√≠a: Derechos del Trabajador', type: 'document', url: '#' },
           ],
           activities: [
             {
-              title: 'Cálculo de Finiquitos',
-              description: 'Ejercicio práctico de cálculo de indemnizaciones.',
+              title: 'C√°lculo de Finiquitos',
+              description: 'Ejercicio pr√°ctico de c√°lculo de indemnizaciones.',
               type: 'task',
             },
           ],
@@ -371,35 +371,35 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
     {
       id: 'agricola',
-      name: 'Técnico Agrícola Mención Pecuaria',
-      shortName: 'Agrícola Pecuaria',
-      description: 'Conexión directa con la tierra y la producción animal sustentable.',
+      name: 'T√©cnico Agr√≠cola Menci√≥n Pecuaria',
+      shortName: 'Agr√≠cola Pecuaria',
+      description: 'Conexi√≥n directa con la tierra y la producci√≥n animal sustentable.',
       history:
-        'Nuestra especialidad más antigua, arraigada en la tradición agrícola de la zona. Se fundó con el colegio, enfocándose inicialmente en cultivos y expandiéndose luego a la mención pecuaria con tecnología de punta.',
+        'Nuestra especialidad m√°s antigua, arraigada en la tradici√≥n agr√≠cola de la zona. Se fund√≥ con el colegio, enfoc√°ndose inicialmente en cultivos y expandi√©ndose luego a la menci√≥n pecuaria con tecnolog√≠a de punta.',
       color: 'bg-emerald-900',
       icon: 'Beef',
       virtualRoomUrl: 'https://picsum.photos/seed/farm/800/600',
       tips: [
-        'La observación diaria de los animales previene enfermedades.',
+        'La observaci√≥n diaria de los animales previene enfermedades.',
         'El bienestar animal mejora la productividad.',
-        'Mantén registros precisos de alimentación.',
+        'Mant√©n registros precisos de alimentaci√≥n.',
         'La higiene en los corrales es fundamental.',
       ],
       subjects: [
         {
           name: 'Manejo de Ganado',
           resources: [
-            { title: 'PPT: Nutrición Bovina', type: 'ppt', url: '#' },
-            { title: 'Video: Técnicas de Ordeño', type: 'video', url: '#' },
+            { title: 'PPT: Nutrici√≥n Bovina', type: 'ppt', url: '#' },
+            { title: 'Video: T√©cnicas de Orde√±o', type: 'video', url: '#' },
           ],
           activities: [
             {
-              title: 'Plan de Vacunación',
-              description: 'Crea un calendario sanitario para un rebaño.',
+              title: 'Plan de Vacunaci√≥n',
+              description: 'Crea un calendario sanitario para un reba√±o.',
               type: 'task',
             },
             {
-              title: 'Identificación de Razas',
+              title: 'Identificaci√≥n de Razas',
               description: 'Juego interactivo para reconocer razas ovinas y bovinas.',
               type: 'interactive',
             },
@@ -409,36 +409,36 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
     {
       id: 'parvularia',
-      name: 'Técnico en Educación Parvularia',
+      name: 'T√©cnico en Educaci√≥n Parvularia',
       shortName: 'Ed. Parvularia',
-      description: 'Dedicación y pedagogía para los primeros pasos de las futuras generaciones.',
+      description: 'Dedicaci√≥n y pedagog√≠a para los primeros pasos de las futuras generaciones.',
       history:
-        'Creada para profesionalizar el cuidado y educación inicial. Se destaca por su laboratorio de simulación que recrea un ambiente real de jardín infantil.',
+        'Creada para profesionalizar el cuidado y educaci√≥n inicial. Se destaca por su laboratorio de simulaci√≥n que recrea un ambiente real de jard√≠n infantil.',
       color: 'bg-yellow-500',
       icon: 'Baby',
       virtualRoomUrl: 'https://picsum.photos/seed/kindergarten/800/600',
       tips: [
         'El juego es la principal herramienta de aprendizaje.',
-        'Fomenta la autonomía desde los primeros años.',
+        'Fomenta la autonom√≠a desde los primeros a√±os.',
         'La paciencia y el amor son tus mejores aliados.',
         'Crea ambientes seguros y estimulantes.',
       ],
       subjects: [
         {
-          name: 'Material Didáctico',
+          name: 'Material Did√°ctico',
           resources: [
-            { title: 'PPT: Teorías del Aprendizaje', type: 'ppt', url: '#' },
-            { title: 'Guía: Creación de Títeres', type: 'document', url: '#' },
+            { title: 'PPT: Teor√≠as del Aprendizaje', type: 'ppt', url: '#' },
+            { title: 'Gu√≠a: Creaci√≥n de T√≠teres', type: 'document', url: '#' },
           ],
           activities: [
             {
-              title: 'Diseño de Rincón de Juegos',
-              description: 'Propón un espacio educativo temático.',
+              title: 'Dise√±o de Rinc√≥n de Juegos',
+              description: 'Prop√≥n un espacio educativo tem√°tico.',
               type: 'task',
             },
             {
               title: 'Cuentacuentos Online',
-              description: 'Graba y sube tu narración de un cuento infantil.',
+              description: 'Graba y sube tu narraci√≥n de un cuento infantil.',
               type: 'task',
             },
           ],
@@ -516,10 +516,114 @@ function mergeSiteSettings(content: Partial<SiteSettings> | null | undefined): S
   };
 }
 
-function mergeSpecialtiesContent(content: Partial<SpecialtiesContent> | null | undefined): SpecialtiesContent {
+function normalizeSpecialtyResource(resource: Partial<SpecialtyResource> | null | undefined): SpecialtyResource {
   return {
-    specialties: Array.isArray(content?.specialties) ? content.specialties : defaultSpecialtiesContent.specialties,
+    title: resource?.title || '',
+    type:
+      resource?.type === 'ppt' || resource?.type === 'video' || resource?.type === 'game' || resource?.type === 'document'
+        ? resource.type
+        : 'document',
+    url: resource?.url || '',
   };
+}
+
+function normalizeSpecialtyActivity(activity: Partial<SpecialtyActivity> | null | undefined): SpecialtyActivity {
+  return {
+    title: activity?.title || '',
+    description: activity?.description || '',
+    type:
+      activity?.type === 'quiz' || activity?.type === 'interactive' || activity?.type === 'task'
+        ? activity.type
+        : 'task',
+  };
+}
+
+function normalizeSpecialtySubject(subject: Partial<SpecialtySubject> | null | undefined): SpecialtySubject {
+  return {
+    name: subject?.name || '',
+    resources: Array.isArray(subject?.resources)
+      ? subject.resources.map((resource) => normalizeSpecialtyResource(resource))
+      : [],
+    activities: Array.isArray(subject?.activities)
+      ? subject.activities.map((activity) => normalizeSpecialtyActivity(activity))
+      : [],
+  };
+}
+
+function normalizeSpecialtyDetailItem(
+  specialty: Partial<SpecialtyDetailItem> | null | undefined,
+  index: number
+): SpecialtyDetailItem {
+  return {
+    id: specialty?.id || `especialidad-${index + 1}`,
+    name: specialty?.name || '',
+    shortName: specialty?.shortName || '',
+    description: specialty?.description || '',
+    history: specialty?.history || '',
+    color: specialty?.color || 'bg-slate-800',
+    icon: specialty?.icon || 'Users',
+    virtualRoomUrl: specialty?.virtualRoomUrl || '',
+    tips: Array.isArray(specialty?.tips) ? specialty.tips.map((tip) => String(tip || '')) : [],
+    subjects: Array.isArray(specialty?.subjects)
+      ? specialty.subjects.map((subject) => normalizeSpecialtySubject(subject))
+      : [],
+  };
+}
+
+function mergeSpecialtiesContent(content: Partial<SpecialtiesContent> | null | undefined): SpecialtiesContent {
+  const specialtiesSource = Array.isArray(content?.specialties)
+    ? content.specialties
+    : defaultSpecialtiesContent.specialties;
+
+  return {
+    specialties: specialtiesSource.map((specialty, index) => normalizeSpecialtyDetailItem(specialty, index)),
+  };
+}
+
+function normalizeResourceItem(resource: Partial<ResourceItem> | null | undefined): ResourceItem | null {
+  if (!resource?.id || !resource?.specialtyId || !resource?.levelId || !resource?.subjectId) {
+    return null;
+  }
+
+  return {
+    id: resource.id,
+    specialtyId: resource.specialtyId,
+    levelId: resource.levelId,
+    subjectId: resource.subjectId,
+    specialty: resource.specialty || '',
+    level: resource.level || '',
+    subject: resource.subject || '',
+    title: resource.title || '',
+    topic: resource.topic || '',
+    description: resource.description || '',
+    type:
+      resource.type === 'document' ||
+      resource.type === 'pdf' ||
+      resource.type === 'presentation' ||
+      resource.type === 'video' ||
+      resource.type === 'guide' ||
+      resource.type === 'form'
+        ? resource.type
+        : 'document',
+    url: resource.url || '',
+    createdAt: resource.createdAt || '',
+    teacher: resource.teacher || '',
+    tags: Array.isArray(resource.tags) ? resource.tags.map((tag) => String(tag)) : [],
+    status:
+      resource.status === 'active' || resource.status === 'draft' || resource.status === 'archived'
+        ? resource.status
+        : 'draft',
+    order: typeof resource.order === 'number' && Number.isFinite(resource.order) ? resource.order : 1,
+  };
+}
+
+function mergeResourcesContent(content: { resources?: Partial<ResourceItem>[] } | null | undefined): ResourceItem[] {
+  if (!Array.isArray(content?.resources)) return [];
+
+  return content.resources
+    .map((resource) => normalizeResourceItem(resource))
+    .filter((resource): resource is ResourceItem => Boolean(resource))
+    .sort((a, b) => a.order - b.order);
 }
 
 function serializeSiteSettings(settings: SiteSettings) {
@@ -548,7 +652,7 @@ const adminSections: Array<{
   {
     key: 'central',
     title: 'Panel central',
-    description: 'Edita logo, nombre del sitio, menú, footer, redes y datos generales.',
+    description: 'Edita logo, nombre del sitio, men√∫, footer, redes y datos generales.',
     icon: Settings,
   },
   {
@@ -577,14 +681,14 @@ const adminSections: Array<{
   },
   {
     key: 'internships',
-    title: 'Prácticas',
-    description: 'Gestiona información de prácticas, empresas y oportunidades.',
+    title: 'Pr√°cticas',
+    description: 'Gestiona informaci√≥n de pr√°cticas, empresas y oportunidades.',
     icon: Briefcase,
   },
   {
     key: 'playground',
     title: 'Patio de Juegos',
-    description: 'Prepara actividades interactivas y contenido dinámico.',
+    description: 'Prepara actividades interactivas y contenido din√°mico.',
     icon: Gamepad2,
   },
 ];
@@ -615,9 +719,9 @@ function SectionPlaceholder({
         </div>
 
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-          <p className="text-lg font-semibold text-slate-800">Esta sección quedará lista en el siguiente paso.</p>
+          <p className="text-lg font-semibold text-slate-800">Esta secci√≥n quedar√° lista en el siguiente paso.</p>
           <p className="mt-2 text-sm text-slate-600">
-            La estructura del panel ya está preparada para que después conectemos este módulo a Supabase.
+            La estructura del panel ya est√° preparada para que despu√©s conectemos este m√≥dulo a Supabase.
           </p>
         </div>
       </section>
@@ -696,6 +800,7 @@ export default function Admin() {
   const [homeLoaded, setHomeLoaded] = useState(false);
   const [centralLoaded, setCentralLoaded] = useState(false);
   const [specialtiesLoaded, setSpecialtiesLoaded] = useState(false);
+  const [resourcesLoaded, setResourcesLoaded] = useState(false);
 
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -721,7 +826,8 @@ export default function Admin() {
     if (currentSection === 'home' && !homeLoaded) loadHome();
     if (currentSection === 'central' && !centralLoaded) loadSiteSettings();
     if (currentSection === 'specialties' && !specialtiesLoaded) loadSpecialties();
-  }, [currentSection, homeLoaded, centralLoaded, specialtiesLoaded]);
+    if (currentSection === 'resources' && !resourcesLoaded) loadResources();
+  }, [currentSection, homeLoaded, centralLoaded, specialtiesLoaded, resourcesLoaded]);
 
   async function loadHome() {
     try {
@@ -770,7 +876,7 @@ export default function Admin() {
       setCentralLoaded(true);
     } catch (error: any) {
       console.error('Error cargando site_settings:', error);
-      setErrorMsg(error?.message || 'No se pudo cargar la configuración general.');
+      setErrorMsg(error?.message || 'No se pudo cargar la configuraci√≥n general.');
     } finally {
       setLoading(false);
     }
@@ -800,6 +906,31 @@ export default function Admin() {
     } catch (error: any) {
       console.error('Error cargando specialties:', error);
       setErrorMsg(error?.message || 'No se pudo cargar el contenido de especialidades.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function loadResources() {
+    try {
+      setLoading(true);
+      setErrorMsg('');
+
+      const { data, error } = await supabase.from('pages').select('slug, content').eq('slug', 'resources').maybeSingle();
+
+      if (error) throw error;
+
+      if (!data) {
+        setResources([]);
+        setResourcesLoaded(true);
+        return;
+      }
+
+      setResources(mergeResourcesContent(data.content as { resources?: Partial<ResourceItem>[] }));
+      setResourcesLoaded(true);
+    } catch (error: any) {
+      console.error('Error cargando resources:', error);
+      setErrorMsg(error?.message || 'No se pudo cargar el contenido de recursos.');
     } finally {
       setLoading(false);
     }
@@ -845,6 +976,23 @@ export default function Admin() {
           { onConflict: 'slug' }
         );
         if (error) throw error;
+      }
+
+      if (currentSection === 'resources') {
+        const payload = {
+          resources: resources.sort((a, b) => a.order - b.order),
+        };
+
+        const { error } = await supabase.from('pages').upsert(
+          {
+            slug: 'resources',
+            content: payload,
+          },
+          { onConflict: 'slug' }
+        );
+        if (error) throw error;
+
+        setResources(mergeResourcesContent(payload));
       }
 
       setSaveState('saved');
@@ -1200,13 +1348,13 @@ export default function Admin() {
                 Bienvenido a tu panel de administrador
               </h1>
               <p className="mt-3 max-w-2xl text-sm text-slate-600">
-                Desde aquí puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
+                Desde aqu√≠ puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
               </p>
             </div>
 
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesión
+              Cerrar sesi√≥n
             </button>
           </div>
         </section>
@@ -1217,7 +1365,7 @@ export default function Admin() {
               <LayoutDashboard className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">Páginas y subpáginas</h2>
+              <h2 className="text-xl font-semibold text-slate-900">P√°ginas y subp√°ginas</h2>
               <p className="text-sm text-slate-500">
                 Selecciona el sector que deseas editar dentro del sitio educatp.cl.
               </p>
@@ -1286,7 +1434,7 @@ export default function Admin() {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Panel central</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aquí puedes editar la estructura superior e inferior del sitio, la visibilidad del menú y la información
+              Aqu√≠ puedes editar la estructura superior e inferior del sitio, la visibilidad del men√∫ y la informaci√≥n
               institucional global.
             </p>
           </div>
@@ -1294,7 +1442,7 @@ export default function Admin() {
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesión
+              Cerrar sesi√≥n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -1317,7 +1465,7 @@ export default function Admin() {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Encabezado del sitio</h2>
-              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuración base.</p>
+              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuraci√≥n base.</p>
             </div>
           </div>
 
@@ -1332,12 +1480,12 @@ export default function Admin() {
             </div>
 
             <div>
-              <label className={labelClass}>Subtítulo del establecimiento</label>
+              <label className={labelClass}>Subt√≠tulo del establecimiento</label>
               <input
                 className={inputClass}
                 value={siteSettings.schoolSubtitle}
                 onChange={(e) => updateSiteField('schoolSubtitle', e.target.value)}
-                placeholder="Liceo Carlos Ibáñez del Campo"
+                placeholder="Liceo Carlos Ib√°√±ez del Campo"
               />
             </div>
 
@@ -1370,7 +1518,7 @@ export default function Admin() {
             <div>
               <h2 className={sectionTitleClass}>Colores globales del sitio</h2>
               <p className="text-sm text-slate-500">
-                Desde aquí controlas la identidad visual general del proyecto.
+                Desde aqu√≠ controlas la identidad visual general del proyecto.
               </p>
             </div>
           </div>
@@ -1378,7 +1526,7 @@ export default function Admin() {
           <div className="grid gap-4 md:grid-cols-2">
             <TitleColorField
               label="Color principal"
-              textValue="Botones principales / menú activo"
+              textValue="Botones principales / men√∫ activo"
               colorValue={siteSettings.theme.primaryColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('primaryColor', value)}
@@ -1402,7 +1550,7 @@ export default function Admin() {
             />
             <TitleColorField
               label="Color acento"
-              textValue="Elementos de énfasis"
+              textValue="Elementos de √©nfasis"
               colorValue={siteSettings.theme.accentColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('accentColor', value)}
@@ -1434,7 +1582,7 @@ export default function Admin() {
             />
             <TitleColorField
               label="Fondo footer"
-              textValue="Pie de página"
+              textValue="Pie de p√°gina"
               colorValue={siteSettings.theme.footerBackgroundColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('footerBackgroundColor', value)}
@@ -1442,7 +1590,7 @@ export default function Admin() {
             />
             <TitleColorField
               label="Texto footer"
-              textValue="Contenido pie de página"
+              textValue="Contenido pie de p√°gina"
               colorValue={siteSettings.theme.footerTextColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('footerTextColor', value)}
@@ -1457,9 +1605,9 @@ export default function Admin() {
               <Settings className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Subpáginas y menú principal</h2>
+              <h2 className={sectionTitleClass}>Subp√°ginas y men√∫ principal</h2>
               <p className="text-sm text-slate-500">
-                Puedes agregar, ocultar o mostrar páginas sin borrarlas definitivamente.
+                Puedes agregar, ocultar o mostrar p√°ginas sin borrarlas definitivamente.
               </p>
             </div>
           </div>
@@ -1511,7 +1659,7 @@ export default function Admin() {
 
             <button type="button" className={mutedButtonClass} onClick={addMenuItem}>
               <Plus className="h-4 w-4" />
-              Agregar subpágina al menú
+              Agregar subp√°gina al men√∫
             </button>
           </div>
         </section>
@@ -1522,14 +1670,14 @@ export default function Admin() {
               <Palette className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Pie de página</h2>
+              <h2 className={sectionTitleClass}>Pie de p√°gina</h2>
               <p className="text-sm text-slate-500">Controla la parte inferior del sitio y su contenido general.</p>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className={labelClass}>Título del footer</label>
+              <label className={labelClass}>T√≠tulo del footer</label>
               <input
                 className={inputClass}
                 value={siteSettings.footerTitle}
@@ -1547,7 +1695,7 @@ export default function Admin() {
             </div>
 
             <div className="md:col-span-2">
-              <label className={labelClass}>Descripción del footer</label>
+              <label className={labelClass}>Descripci√≥n del footer</label>
               <textarea
                 className={`${inputClass} min-h-[110px]`}
                 value={siteSettings.footerDescription}
@@ -1556,7 +1704,7 @@ export default function Admin() {
             </div>
 
             <div className="md:col-span-2">
-              <label className={labelClass}>Créditos / reconocimiento</label>
+              <label className={labelClass}>Cr√©ditos / reconocimiento</label>
               <input
                 className={inputClass}
                 value={siteSettings.creditsText}
@@ -1574,13 +1722,13 @@ export default function Admin() {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Datos de contacto</h2>
-              <p className="text-sm text-slate-500">Dirección, correo y teléfono visibles en el sitio.</p>
+              <p className="text-sm text-slate-500">Direcci√≥n, correo y tel√©fono visibles en el sitio.</p>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label className={labelClass}>Dirección</label>
+              <label className={labelClass}>Direcci√≥n</label>
               <input
                 className={inputClass}
                 value={siteSettings.address}
@@ -1598,7 +1746,7 @@ export default function Admin() {
             </div>
 
             <div>
-              <label className={labelClass}>Teléfono</label>
+              <label className={labelClass}>Tel√©fono</label>
               <input
                 className={inputClass}
                 value={siteSettings.phone}
@@ -1615,7 +1763,7 @@ export default function Admin() {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Redes sociales</h2>
-              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales según te convenga.</p>
+              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales seg√∫n te convenga.</p>
             </div>
           </div>
 
@@ -1673,9 +1821,9 @@ export default function Admin() {
         </section>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON general</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON general</h2>
           <p className="mb-4 text-sm text-slate-500">
-            Este bloque te muestra exactamente lo que se guardará como configuración global del sitio.
+            Este bloque te muestra exactamente lo que se guardar√° como configuraci√≥n global del sitio.
           </p>
 
           <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -1716,14 +1864,14 @@ export default function Admin() {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de contenido Home</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Desde aquí puedes editar el contenido principal de la portada del sitio.
+              Desde aqu√≠ puedes editar el contenido principal de la portada del sitio.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesión
+              Cerrar sesi√≥n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -1746,8 +1894,8 @@ export default function Admin() {
                 <Home className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Sección Hero</h2>
-                <p className="text-sm text-slate-500">Título principal, textos, botones e imagen.</p>
+                <h2 className={sectionTitleClass}>Secci√≥n Hero</h2>
+                <p className="text-sm text-slate-500">T√≠tulo principal, textos, botones e imagen.</p>
               </div>
             </div>
 
@@ -1776,16 +1924,16 @@ export default function Admin() {
                     <Palette className="h-5 w-5 text-slate-700" />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-slate-900">Título principal con colores editables</h3>
+                    <h3 className="text-base font-semibold text-slate-900">T√≠tulo principal con colores editables</h3>
                     <p className="text-sm text-slate-500">
-                      Aquí puedes cambiar cada palabra y su color sin tocar el código.
+                      Aqu√≠ puedes cambiar cada palabra y su color sin tocar el c√≥digo.
                     </p>
                   </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <TitleColorField
-                    label="Palabra 1 / línea inicial"
+                    label="Palabra 1 / l√≠nea inicial"
                     textValue={form.heroTitleLine1}
                     colorValue={form.heroTitleLine1Color}
                     onTextChange={(value) => updateField('heroTitleLine1', value)}
@@ -1819,11 +1967,11 @@ export default function Admin() {
 
                 <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-6">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Vista previa del título completo
+                    Vista previa del t√≠tulo completo
                   </p>
                   <h3 className="text-2xl font-black leading-tight tracking-tight md:text-4xl">
                     <span style={{ color: form.heroTitleLine1Color || '#0f172a' }}>
-                      {form.heroTitleLine1 || 'Título'}
+                      {form.heroTitleLine1 || 'T√≠tulo'}
                     </span>{' '}
                     <span style={{ color: form.heroTitleGreenColor || '#064e3b' }}>
                       {form.heroTitleGreen || 'Palabra'}
@@ -1832,14 +1980,14 @@ export default function Admin() {
                       {form.heroTitleYellow || 'Editable'}
                     </span>{' '}
                     <span style={{ color: form.heroTitleRedColor || '#991b1b' }}>
-                      {form.heroTitleRed || 'Aquí'}
+                      {form.heroTitleRed || 'Aqu√≠'}
                     </span>
                   </h3>
                 </div>
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Descripción</label>
+                <label className={labelClass}>Descripci√≥n</label>
                 <textarea
                   className={`${inputClass} min-h-[110px]`}
                   value={form.heroDescription}
@@ -1858,7 +2006,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Texto botón principal</label>
+                <label className={labelClass}>Texto bot√≥n principal</label>
                 <input
                   className={inputClass}
                   value={form.heroPrimaryButtonText}
@@ -1867,7 +2015,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Link botón principal</label>
+                <label className={labelClass}>Link bot√≥n principal</label>
                 <input
                   className={inputClass}
                   value={form.heroPrimaryButtonLink}
@@ -1876,7 +2024,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Texto botón secundario</label>
+                <label className={labelClass}>Texto bot√≥n secundario</label>
                 <input
                   className={inputClass}
                   value={form.heroSecondaryButtonText}
@@ -1885,7 +2033,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Link botón secundario</label>
+                <label className={labelClass}>Link bot√≥n secundario</label>
                 <input
                   className={inputClass}
                   value={form.heroSecondaryButtonLink}
@@ -1894,7 +2042,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Título destacado lateral</label>
+                <label className={labelClass}>T√≠tulo destacado lateral</label>
                 <input
                   className={inputClass}
                   value={form.heroFeatureTitle}
@@ -1903,7 +2051,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Subtítulo destacado lateral</label>
+                <label className={labelClass}>Subt√≠tulo destacado lateral</label>
                 <input
                   className={inputClass}
                   value={form.heroFeatureSubtitle}
@@ -1919,8 +2067,8 @@ export default function Admin() {
                 <BarChart3 className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Estadísticas</h2>
-                <p className="text-sm text-slate-500">Bloques tipo número + etiqueta.</p>
+                <h2 className={sectionTitleClass}>Estad√≠sticas</h2>
+                <p className="text-sm text-slate-500">Bloques tipo n√∫mero + etiqueta.</p>
               </div>
             </div>
 
@@ -1959,7 +2107,7 @@ export default function Admin() {
 
               <button type="button" className={mutedButtonClass} onClick={addStat}>
                 <Plus className="h-4 w-4" />
-                Agregar estadística
+                Agregar estad√≠stica
               </button>
             </div>
           </section>
@@ -1970,7 +2118,7 @@ export default function Admin() {
                 <GraduationCap className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Sección especialidades</h2>
+                <h2 className={sectionTitleClass}>Secci√≥n especialidades</h2>
                 <p className="text-sm text-slate-500">Encabezado y tarjetas de especialidades.</p>
               </div>
             </div>
@@ -1986,7 +2134,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Título</label>
+                <label className={labelClass}>T√≠tulo</label>
                 <input
                   className={inputClass}
                   value={form.specialtiesTitle}
@@ -1995,7 +2143,7 @@ export default function Admin() {
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Subtítulo</label>
+                <label className={labelClass}>Subt√≠tulo</label>
                 <textarea
                   className={`${inputClass} min-h-[100px]`}
                   value={form.specialtiesSubtitle}
@@ -2017,7 +2165,7 @@ export default function Admin() {
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                      <label className={labelClass}>Título</label>
+                      <label className={labelClass}>T√≠tulo</label>
                       <input
                         className={inputClass}
                         value={item.title}
@@ -2026,7 +2174,7 @@ export default function Admin() {
                     </div>
 
                     <div>
-                      <label className={labelClass}>Ícono</label>
+                      <label className={labelClass}>√çcono</label>
                       <input
                         className={inputClass}
                         value={item.icon}
@@ -2056,7 +2204,7 @@ export default function Admin() {
                     </div>
 
                     <div className="md:col-span-2">
-                      <label className={labelClass}>Descripción</label>
+                      <label className={labelClass}>Descripci√≥n</label>
                       <textarea
                         className={`${inputClass} min-h-[100px]`}
                         value={item.description}
@@ -2076,7 +2224,7 @@ export default function Admin() {
 
                     <div className="md:col-span-2">
                       <p className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-xs text-slate-500">
-                        La imagen de fondo se usará en la tarjeta de especialidad.
+                        La imagen de fondo se usar√° en la tarjeta de especialidad.
                       </p>
                     </div>
                   </div>
@@ -2096,8 +2244,8 @@ export default function Admin() {
                 <Megaphone className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Llamado a la acción final</h2>
-                <p className="text-sm text-slate-500">Bloque de cierre o invitación principal.</p>
+                <h2 className={sectionTitleClass}>Llamado a la acci√≥n final</h2>
+                <p className="text-sm text-slate-500">Bloque de cierre o invitaci√≥n principal.</p>
               </div>
             </div>
 
@@ -2112,7 +2260,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Título</label>
+                <label className={labelClass}>T√≠tulo</label>
                 <input
                   className={inputClass}
                   value={form.ctaTitle}
@@ -2121,7 +2269,7 @@ export default function Admin() {
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Descripción</label>
+                <label className={labelClass}>Descripci√≥n</label>
                 <textarea
                   className={`${inputClass} min-h-[110px]`}
                   value={form.ctaDescription}
@@ -2130,7 +2278,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Texto botón</label>
+                <label className={labelClass}>Texto bot√≥n</label>
                 <input
                   className={inputClass}
                   value={form.ctaButtonText}
@@ -2139,7 +2287,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className={labelClass}>Link botón</label>
+                <label className={labelClass}>Link bot√≥n</label>
                 <input
                   className={inputClass}
                   value={form.ctaButtonLink}
@@ -2150,9 +2298,9 @@ export default function Admin() {
           </section>
 
           <section className={cardClass}>
-            <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON</h2>
+            <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON</h2>
             <p className="mb-4 text-sm text-slate-500">
-              Esto te sirve para revisar exactamente lo que se está guardando en Supabase.
+              Esto te sirve para revisar exactamente lo que se est√° guardando en Supabase.
             </p>
 
             <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -2194,7 +2342,7 @@ export default function Admin() {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Especialidades</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aquí puedes editar el detalle completo de cada especialidad: hero, historia, sala virtual, tips,
+              Aqu√≠ puedes editar el detalle completo de cada especialidad: hero, historia, sala virtual, tips,
               asignaturas, recursos y actividades.
             </p>
           </div>
@@ -2202,7 +2350,7 @@ export default function Admin() {
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesión
+              Cerrar sesi√≥n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -2219,7 +2367,7 @@ export default function Admin() {
         )}
 
         <div className="space-y-6">
-          {specialtiesContent.specialties.map((specialty, specialtyIndex) => (
+          {(specialtiesContent.specialties || []).map((specialty, specialtyIndex) => (
             <section key={specialty.id} className={cardClass}>
               <div className="mb-6 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
@@ -2228,7 +2376,7 @@ export default function Admin() {
                   </div>
                   <div>
                     <h2 className={sectionTitleClass}>{specialty.name || `Especialidad ${specialtyIndex + 1}`}</h2>
-                    <p className="text-sm text-slate-500">Configuración completa de la especialidad.</p>
+                    <p className="text-sm text-slate-500">Configuraci√≥n completa de la especialidad.</p>
                   </div>
                 </div>
 
@@ -2259,7 +2407,7 @@ export default function Admin() {
                     className={inputClass}
                     value={specialty.shortName}
                     onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'shortName', e.target.value)}
-                    placeholder="Administración RRHH"
+                    placeholder="Administraci√≥n RRHH"
                   />
                 </div>
 
@@ -2273,7 +2421,7 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className={labelClass}>Ícono</label>
+                  <label className={labelClass}>√çcono</label>
                   <input
                     className={inputClass}
                     value={specialty.icon}
@@ -2293,7 +2441,7 @@ export default function Admin() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className={labelClass}>Descripción</label>
+                  <label className={labelClass}>Descripci√≥n</label>
                   <textarea
                     className={`${inputClass} min-h-[110px]`}
                     value={specialty.description}
@@ -2325,13 +2473,13 @@ export default function Admin() {
                 <div className="mb-4 flex items-center gap-3">
                   <Lightbulb className="h-5 w-5 text-slate-700" />
                   <div>
-                    <h3 className="text-base font-semibold text-slate-900">Tips rápidos</h3>
-                    <p className="text-sm text-slate-500">Consejos cortos que aparecerán al costado en la vista pública.</p>
+                    <h3 className="text-base font-semibold text-slate-900">Tips r√°pidos</h3>
+                    <p className="text-sm text-slate-500">Consejos cortos que aparecer√°n al costado en la vista p√∫blica.</p>
                   </div>
                 </div>
 
                 <div className="space-y-3">
-                  {specialty.tips.map((tip, tipIndex) => (
+                  {(specialty.tips || []).map((tip, tipIndex) => (
                     <div key={`${specialty.id}-tip-${tipIndex}`} className="grid gap-3 md:grid-cols-[1fr_auto]">
                       <input
                         className={inputClass}
@@ -2363,13 +2511,13 @@ export default function Admin() {
                   <div>
                     <h3 className="text-base font-semibold text-slate-900">Asignaturas, recursos y actividades</h3>
                     <p className="text-sm text-slate-500">
-                      Aquí administras la parte más profunda de la especialidad.
+                      Aqu√≠ administras la parte m√°s profunda de la especialidad.
                     </p>
                   </div>
                 </div>
 
                 <div className="space-y-5">
-                  {specialty.subjects.map((subject, subjectIndex) => (
+                  {(specialty.subjects || []).map((subject, subjectIndex) => (
                     <div key={`${specialty.id}-subject-${subjectIndex}`} className="rounded-2xl border border-slate-200 bg-white p-5">
                       <div className="mb-4 flex items-center justify-between gap-4">
                         <div className="flex-1">
@@ -2378,7 +2526,7 @@ export default function Admin() {
                             className={inputClass}
                             value={subject.name}
                             onChange={(e) => updateSubjectName(specialtyIndex, subjectIndex, e.target.value)}
-                            placeholder="Legislación Laboral"
+                            placeholder="Legislaci√≥n Laboral"
                           />
                         </div>
 
@@ -2405,14 +2553,14 @@ export default function Admin() {
                           </div>
 
                           <div className="space-y-4">
-                            {subject.resources.map((resource, resourceIndex) => (
+                            {(subject.resources || []).map((resource, resourceIndex) => (
                               <div
                                 key={`${specialty.id}-subject-${subjectIndex}-resource-${resourceIndex}`}
                                 className="rounded-2xl border border-slate-200 bg-white p-4"
                               >
                                 <div className="grid gap-3">
                                   <div>
-                                    <label className={labelClass}>Título</label>
+                                    <label className={labelClass}>T√≠tulo</label>
                                     <input
                                       className={inputClass}
                                       value={resource.title}
@@ -2503,14 +2651,14 @@ export default function Admin() {
                           </div>
 
                           <div className="space-y-4">
-                            {subject.activities.map((activity, activityIndex) => (
+                            {(subject.activities || []).map((activity, activityIndex) => (
                               <div
                                 key={`${specialty.id}-subject-${subjectIndex}-activity-${activityIndex}`}
                                 className="rounded-2xl border border-slate-200 bg-white p-4"
                               >
                                 <div className="grid gap-3">
                                   <div>
-                                    <label className={labelClass}>Título</label>
+                                    <label className={labelClass}>T√≠tulo</label>
                                     <input
                                       className={inputClass}
                                       value={activity.title}
@@ -2527,7 +2675,7 @@ export default function Admin() {
                                   </div>
 
                                   <div>
-                                    <label className={labelClass}>Descripción</label>
+                                    <label className={labelClass}>Descripci√≥n</label>
                                     <textarea
                                       className={`${inputClass} min-h-[100px]`}
                                       value={activity.description}
@@ -2608,9 +2756,9 @@ export default function Admin() {
         </div>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON de especialidades</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON de especialidades</h2>
           <p className="mb-4 text-sm text-slate-500">
-            Este bloque muestra exactamente lo que se guardará en Supabase bajo el slug <code>specialties</code>.
+            Este bloque muestra exactamente lo que se guardar√° en Supabase bajo el slug <code>specialties</code>.
           </p>
 
           <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -2622,6 +2770,17 @@ export default function Admin() {
   }
 
   function renderResourcesEditor() {
+    if (loading && !resourcesLoaded) {
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <div className="flex items-center justify-center text-slate-700">
+            <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
+            Cargando editor de Recursos...
+          </div>
+        </div>
+      );
+    }
+
     const groupedResources = resources.reduce<
       Record<
         string,
@@ -2687,14 +2846,19 @@ export default function Admin() {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Recursos</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aquí podrás crear recursos educativos livianos mediante enlaces externos, sin sobrecargar el sistema.
+              Aqu√≠ podr√°s crear recursos educativos livianos mediante enlaces externos, sin sobrecargar el sistema.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesión
+              Cerrar sesi√≥n
+            </button>
+
+            <button onClick={handleSave} className={primaryButtonClass} type="button">
+              {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {saveLabel}
             </button>
           </div>
         </div>
@@ -2732,16 +2896,16 @@ export default function Admin() {
               <GraduationCap className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Recursos organizados por estructura académica</h2>
+              <h2 className={sectionTitleClass}>Recursos organizados por estructura acad√©mica</h2>
               <p className="text-sm text-slate-500">
-                Vista jerárquica por especialidad, nivel, asignatura y recurso.
+                Vista jer√°rquica por especialidad, nivel, asignatura y recurso.
               </p>
             </div>
           </div>
 
           {resources.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
-              Aún no has agregado recursos en esta sesión.
+              A√∫n no has agregado recursos. Cuando presiones ‚ÄúGuardar cambios‚Äù, quedar√°n persistentes en Supabase.
             </div>
           ) : (
             <div className="space-y-6">
@@ -2788,7 +2952,7 @@ export default function Admin() {
                                           </div>
 
                                           <p className="text-sm text-slate-600">
-                                            {resource.description || 'Sin descripción.'}
+                                            {resource.description || 'Sin descripci√≥n.'}
                                           </p>
 
                                           <div className="flex flex-wrap gap-2 text-xs text-slate-500">
@@ -2858,9 +3022,9 @@ export default function Admin() {
         </section>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Recomendación técnica</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Recomendaci√≥n t√©cnica</h2>
           <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
-            Para mantener el sitio rápido y estable, sube preferentemente recursos mediante enlaces públicos externos
+            Para mantener el sitio r√°pido y estable, sube preferentemente recursos mediante enlaces p√∫blicos externos
             en vez de almacenar archivos pesados directamente dentro del proyecto.
           </div>
         </section>
@@ -2889,7 +3053,7 @@ export default function Admin() {
         return (
           <SectionPlaceholder
             title="Blog TP"
-            description="Aquí luego conectaremos el editor del blog y noticias."
+            description="Aqu√≠ luego conectaremos el editor del blog y noticias."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2897,8 +3061,8 @@ export default function Admin() {
       case 'internships':
         return (
           <SectionPlaceholder
-            title="Prácticas"
-            description="Aquí luego conectaremos el editor de prácticas."
+            title="Pr√°cticas"
+            description="Aqu√≠ luego conectaremos el editor de pr√°cticas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2907,7 +3071,7 @@ export default function Admin() {
         return (
           <SectionPlaceholder
             title="Patio de Juegos"
-            description="Aquí luego conectaremos el editor de juegos y actividades interactivas."
+            description="Aqu√≠ luego conectaremos el editor de juegos y actividades interactivas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2919,3 +3083,4 @@ export default function Admin() {
 
   return <div className="min-h-screen bg-slate-100 p-4 md:p-6">{renderContent()}</div>;
 }
+
