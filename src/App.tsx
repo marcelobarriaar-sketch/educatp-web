@@ -6,6 +6,8 @@ import AdminRoute from './components/AdminRoute';
 import Home from './pages/Home';
 import Specialties from './pages/Specialties';
 import SpecialtyDetail from './pages/SpecialtyDetail';
+import Resources from './pages/Resources';
+import ResourcesBySpecialty from './pages/ResourcesBySpecialty';
 import Blog from './pages/Blog';
 import Internships from './pages/Internships';
 import Playground from './pages/Playground';
@@ -23,12 +25,19 @@ function AppContent() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+
+          {/* ESPECIALIDADES: catálogo institucional */}
           <Route path="/especialidades" element={<Specialties />} />
-          <Route path="/especialidades/:id" element={<SpecialtyDetail />} />
+          <Route path="/especialidades/:slug" element={<SpecialtyDetail />} />
+
+          {/* RECURSOS: catálogo académico + detalle por especialidad */}
+          <Route path="/recursos" element={<Resources />} />
+          <Route path="/recursos/:slug" element={<ResourcesBySpecialty />} />
+
           <Route path="/blog" element={<Blog />} />
           <Route path="/practicas" element={<Internships />} />
           <Route path="/juegos" element={<Playground />} />
-          <Route path="/recursos" element={<Specialties />} />
+
           <Route
             path="/admin"
             element={
