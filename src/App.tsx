@@ -26,13 +26,13 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
 
-          {/* ESPECIALIDADES: catálogo institucional */}
+          {/* Especialidades: vista institucional */}
           <Route path="/especialidades" element={<Specialties />} />
-          <Route path="/especialidades/:slug" element={<SpecialtyDetail />} />
+          <Route path="/especialidades/:id" element={<SpecialtyDetail />} />
 
-          {/* RECURSOS: catálogo académico + detalle por especialidad */}
+          {/* Recursos: acceso académico por especialidad */}
           <Route path="/recursos" element={<Resources />} />
-          <Route path="/recursos/:slug" element={<ResourcesBySpecialty />} />
+          <Route path="/recursos/:id" element={<ResourcesBySpecialty />} />
 
           <Route path="/blog" element={<Blog />} />
           <Route path="/practicas" element={<Internships />} />
