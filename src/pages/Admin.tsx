@@ -1211,101 +1211,43 @@ export default function Admin() {
   }
 
   function addSubject(specialtyIndex: number) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      next[specialtyIndex] = {
-        ...next[specialtyIndex],
-        subjects: [
-          ...next[specialtyIndex].subjects,
-          {
-            name: '',
-            resources: [{ title: '', type: 'document', url: '' }],
-            activities: [{ title: '', description: '', type: 'task' }],
-          },
-        ],
-      };
-      return { specialties: next };
-    });
-  }
+  setSpecialtiesContent((prev) => {
+    const next = [...prev.specialties];
+    next[specialtyIndex] = {
+      ...next[specialtyIndex],
+      subjects: [
+        ...next[specialtyIndex].subjects,
+        {
+          name: '',
+          resources: [],
+          activities: [],
+        },
+      ],
+    };
+    return { specialties: next };
+  });
+}
 
-  function updateSubjectName(specialtyIndex: number, subjectIndex: number, value: string) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      const subjects = [...next[specialtyIndex].subjects];
-      subjects[subjectIndex] = { ...subjects[subjectIndex], name: value };
-      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
-      return { specialties: next };
-    });
-  }
+function updateSubjectName(specialtyIndex: number, subjectIndex: number, value: string) {
+  setSpecialtiesContent((prev) => {
+    const next = [...prev.specialties];
+    const subjects = [...next[specialtyIndex].subjects];
+    subjects[subjectIndex] = { ...subjects[subjectIndex], name: value };
+    next[specialtyIndex] = { ...next[specialtyIndex], subjects };
+    return { specialties: next };
+  });
+}
 
-  function removeSubject(specialtyIndex: number, subjectIndex: number) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      next[specialtyIndex] = {
-        ...next[specialtyIndex],
-        subjects: next[specialtyIndex].subjects.filter((_, i) => i !== subjectIndex),
-      };
-      return { specialties: next };
-    });
-  }
-
-  function addSubjectResource(specialtyIndex: number, subjectIndex: number) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      const subjects = [...next[specialtyIndex].subjects];
-      subjects[subjectIndex] = {
-        ...subjects[subjectIndex],
-        resources: [...subjects[subjectIndex].resources, { title: '', type: 'document', url: '' }],
-      };
-      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
-      return { specialties: next };
-    });
-  }
-
-  function updateSubjectResource(
-    specialtyIndex: number,
-    subjectIndex: number,
-    resourceIndex: number,
-    field: keyof SpecialtyResource,
-    value: string
-  ) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      const subjects = [...next[specialtyIndex].subjects];
-      const resources = [...subjects[subjectIndex].resources];
-      resources[resourceIndex] = { ...resources[resourceIndex], [field]: value } as SpecialtyResource;
-      subjects[subjectIndex] = { ...subjects[subjectIndex], resources };
-      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
-      return { specialties: next };
-    });
-  }
-
-  function removeSubjectResource(specialtyIndex: number, subjectIndex: number, resourceIndex: number) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      const subjects = [...next[specialtyIndex].subjects];
-      subjects[subjectIndex] = {
-        ...subjects[subjectIndex],
-        resources: subjects[subjectIndex].resources.filter((_, i) => i !== resourceIndex),
-      };
-      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
-      return { specialties: next };
-    });
-  }
-
-  function addSubjectActivity(specialtyIndex: number, subjectIndex: number) {
-    setSpecialtiesContent((prev) => {
-      const next = [...prev.specialties];
-      const subjects = [...next[specialtyIndex].subjects];
-      subjects[subjectIndex] = {
-        ...subjects[subjectIndex],
-        activities: [...subjects[subjectIndex].activities, { title: '', description: '', type: 'task' }],
-      };
-      next[specialtyIndex] = { ...next[specialtyIndex], subjects };
-      return { specialties: next };
-    });
-  }
-
+function removeSubject(specialtyIndex: number, subjectIndex: number) {
+  setSpecialtiesContent((prev) => {
+    const next = [...prev.specialties];
+    next[specialtyIndex] = {
+      ...next[specialtyIndex],
+      subjects: next[specialtyIndex].subjects.filter((_, i) => i !== subjectIndex),
+    };
+    return { specialties: next };
+  });
+}
   function updateSubjectActivity(
     specialtyIndex: number,
     subjectIndex: number,
