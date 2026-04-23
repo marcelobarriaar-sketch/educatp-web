@@ -2255,83 +2255,88 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
   }
 
   function renderSpecialtiesEditor() {
-    if (loading) {
-      return (
-        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-          <div className="flex items-center justify-center text-slate-700">
-            <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
-            Cargando editor de Especialidades...
-          </div>
-        </div>
-      );
-    }
-
+  if (loading) {
     return (
+      <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+        <div className="flex items-center justify-center text-slate-700">
+          <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
+          Cargando editor de Especialidades...
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid gap-6">
+      <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+        <div>
+          <div className="mb-3 flex items-center gap-2">
+            <button
+              type="button"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
+              onClick={() => setCurrentSection('dashboard')}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Volver al panel
+            </button>
+          </div>
+
+          <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Especialidades</h1>
+          <p className="mt-2 text-sm text-slate-600">
+            Aquí puedes editar el contenido institucional de cada especialidad: historia, entorno formativo,
+            tips y asignaturas base.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-3">
+          <button onClick={handleLogout} className={mutedButtonClass} type="button">
+            <LogOut className="h-4 w-4" />
+            Cerrar sesión
+          </button>
+
+          <button onClick={handleSave} className={primaryButtonClass} type="button">
+            {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            {saveLabel}
+          </button>
+        </div>
+      </div>
+
+      {errorMsg && (
+        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+          {errorMsg}
+        </div>
+      )}
+
+      <section className={cardClass}>
+        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+          En este módulo se gestiona solo la parte institucional de las especialidades.
+          Los recursos y actividades académicas deben administrarse desde la sección <strong>Recursos</strong>.
+        </div>
+      </section>
+
       <div className="grid gap-6">
-        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="mb-3 flex items-center gap-2">
+        {specialtiesContent.specialties.map((specialty, specialtyIndex) => (
+          <section key={specialty.id} className={cardClass}>
+            <div className="mb-6 flex items-center justify-between gap-4">
+              <div>
+                <h2 className={sectionTitleClass}>{specialty.name || `Especialidad ${specialtyIndex + 1}`}</h2>
+                <p className="mt-1 text-sm text-slate-500">
+                  Configuración institucional de la especialidad.
+                </p>
+              </div>
+
               <button
                 type="button"
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
-                onClick={() => setCurrentSection('dashboard')}
+                className={dangerButtonClass}
+                onClick={() => removeSpecialtyDetail(specialtyIndex)}
               >
-                <ArrowLeft className="h-4 w-4" />
-                Volver al panel
+                <Trash2 className="h-4 w-4" />
+                Eliminar especialidad
               </button>
             </div>
 
-            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
-            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Especialidades</h1>
-            <p className="mt-2 text-sm text-slate-600">
-              Aqu√≠ puedes editar el detalle completo de cada especialidad: hero, historia, sala virtual, tips,
-              asignaturas, recursos y actividades.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3">
-            <button onClick={handleLogout} className={mutedButtonClass} type="button">
-              <LogOut className="h-4 w-4" />
-              Cerrar sesi√≥n
-            </button>
-
-            <button onClick={handleSave} className={primaryButtonClass} type="button">
-              {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-              {saveLabel}
-            </button>
-          </div>
-        </div>
-
-        {errorMsg && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            {errorMsg}
-          </div>
-        )}
-
-        <div className="space-y-6">
-          {(specialtiesContent.specialties || []).map((specialty, specialtyIndex) => (
-            <section key={specialty.id} className={cardClass}>
-              <div className="mb-6 flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-xl bg-slate-100 p-2">
-                    <GraduationCap className="h-5 w-5 text-slate-700" />
-                  </div>
-                  <div>
-                    <h2 className={sectionTitleClass}>{specialty.name || `Especialidad ${specialtyIndex + 1}`}</h2>
-                    <p className="text-sm text-slate-500">Configuraci√≥n completa de la especialidad.</p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  className={dangerButtonClass}
-                  onClick={() => removeSpecialtyDetail(specialtyIndex)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                  Eliminar especialidad
-                </button>
-              </div>
-
+            <div className="grid gap-6">
               <div className="grid gap-4 md:grid-cols-2">
                 <div>
                   <label className={labelClass}>ID / slug</label>
@@ -2349,7 +2354,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     className={inputClass}
                     value={specialty.shortName}
                     onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'shortName', e.target.value)}
-                    placeholder="Administraci√≥n RRHH"
+                    placeholder="Administración RRHH"
                   />
                 </div>
 
@@ -2359,21 +2364,12 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     className={inputClass}
                     value={specialty.name}
                     onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'name', e.target.value)}
+                    placeholder="Administración Mención Recursos Humanos"
                   />
                 </div>
 
                 <div>
-                  <label className={labelClass}>√çcono</label>
-                  <input
-                    className={inputClass}
-                    value={specialty.icon}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'icon', e.target.value)}
-                    placeholder="Users / Beef / Baby"
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>Clase de color hero</label>
+                  <label className={labelClass}>Color Tailwind</label>
                   <input
                     className={inputClass}
                     value={specialty.color}
@@ -2382,8 +2378,21 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                   />
                 </div>
 
+                <div>
+                  <label className={labelClass}>Ícono</label>
+                  <select
+                    className={inputClass}
+                    value={specialty.icon}
+                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'icon', e.target.value)}
+                  >
+                    <option value="Users">Users</option>
+                    <option value="Beef">Beef</option>
+                    <option value="Baby">Baby</option>
+                  </select>
+                </div>
+
                 <div className="md:col-span-2">
-                  <label className={labelClass}>Descripci√≥n</label>
+                  <label className={labelClass}>Descripción</label>
                   <textarea
                     className={`${inputClass} min-h-[110px]`}
                     value={specialty.description}
@@ -2401,7 +2410,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className={labelClass}>URL sala virtual / imagen</label>
+                  <label className={labelClass}>URL imagen entorno formativo / sala virtual</label>
                   <input
                     className={inputClass}
                     value={specialty.virtualRoomUrl}
@@ -2411,305 +2420,123 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 </div>
               </div>
 
-              <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                <div className="mb-4 flex items-center gap-3">
-                  <Lightbulb className="h-5 w-5 text-slate-700" />
-                  <div>
-                    <h3 className="text-base font-semibold text-slate-900">Tips r√°pidos</h3>
-                    <p className="text-sm text-slate-500">Consejos cortos que aparecer√°n al costado en la vista p√∫blica.</p>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  {(specialty.tips || []).map((tip, tipIndex) => (
-                    <div key={`${specialty.id}-tip-${tipIndex}`} className="grid gap-3 md:grid-cols-[1fr_auto]">
-                      <input
-                        className={inputClass}
-                        value={tip}
-                        onChange={(e) => updateTip(specialtyIndex, tipIndex, e.target.value)}
-                        placeholder={`Tip ${tipIndex + 1}`}
-                      />
-                      <button
-                        type="button"
-                        className={dangerButtonClass}
-                        onClick={() => removeTip(specialtyIndex, tipIndex)}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                        Quitar
-                      </button>
+              <div className="grid gap-6 lg:grid-cols-2">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <div className="mb-4 flex items-center gap-3">
+                    <Lightbulb className="h-5 w-5 text-slate-700" />
+                    <div>
+                      <h3 className="font-semibold text-slate-900">Tips rápidos</h3>
+                      <p className="text-sm text-slate-500">Consejos visibles en la ficha institucional.</p>
                     </div>
-                  ))}
+                  </div>
 
-                  <button type="button" className={mutedButtonClass} onClick={() => addTip(specialtyIndex)}>
-                    <Plus className="h-4 w-4" />
-                    Agregar tip
-                  </button>
-                </div>
-              </div>
+                  <div className="space-y-4">
+                    {specialty.tips.map((tip, tipIndex) => (
+                      <div
+                        key={`${specialty.id}-tip-${tipIndex}`}
+                        className="rounded-2xl border border-slate-200 bg-white p-4"
+                      >
+                        <div className="grid gap-3">
+                          <div>
+                            <label className={labelClass}>Tip #{tipIndex + 1}</label>
+                            <input
+                              className={inputClass}
+                              value={tip}
+                              onChange={(e) => updateTip(specialtyIndex, tipIndex, e.target.value)}
+                            />
+                          </div>
 
-              <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
-                <div className="mb-4 flex items-center gap-3">
-                  <BookOpen className="h-5 w-5 text-slate-700" />
-                  <div>
-                    <h3 className="text-base font-semibold text-slate-900">Asignaturas, recursos y actividades</h3>
-                    <p className="text-sm text-slate-500">
-                      Aqu√≠ administras la parte m√°s profunda de la especialidad.
-                    </p>
+                          <button
+                            type="button"
+                            className={dangerButtonClass}
+                            onClick={() => removeTip(specialtyIndex, tipIndex)}
+                          >
+                            <Trash2 className="h-4 w-4" />
+                            Quitar tip
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+
+                    <button type="button" className={mutedButtonClass} onClick={() => addTip(specialtyIndex)}>
+                      <Plus className="h-4 w-4" />
+                      Agregar tip
+                    </button>
                   </div>
                 </div>
 
-                <div className="space-y-5">
-                  {(specialty.subjects || []).map((subject, subjectIndex) => (
-                    <div key={`${specialty.id}-subject-${subjectIndex}`} className="rounded-2xl border border-slate-200 bg-white p-5">
-                      <div className="mb-4 flex items-center justify-between gap-4">
-                        <div className="flex-1">
-                          <label className={labelClass}>Nombre de la asignatura</label>
-                          <input
-                            className={inputClass}
-                            value={subject.name}
-                            onChange={(e) => updateSubjectName(specialtyIndex, subjectIndex, e.target.value)}
-                            placeholder="Legislaci√≥n Laboral"
-                          />
-                        </div>
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                  <div className="mb-4 flex items-center gap-3">
+                    <BookOpen className="h-5 w-5 text-slate-700" />
+                    <div>
+                      <h3 className="font-semibold text-slate-900">Asignaturas base</h3>
+                      <p className="text-sm text-slate-500">
+                        Aquí solo se define el nombre de la asignatura. Recursos y actividades van en el módulo Recursos.
+                      </p>
+                    </div>
+                  </div>
 
-                        <div className="pt-7">
+                  <div className="space-y-4">
+                    {specialty.subjects.map((subject, subjectIndex) => (
+                      <div
+                        key={`${specialty.id}-subject-${subjectIndex}`}
+                        className="rounded-2xl border border-slate-200 bg-white p-4"
+                      >
+                        <div className="grid gap-3">
+                          <div>
+                            <label className={labelClass}>Nombre de la asignatura</label>
+                            <input
+                              className={inputClass}
+                              value={subject.name}
+                              onChange={(e) =>
+                                updateSubjectName(specialtyIndex, subjectIndex, e.target.value)
+                              }
+                              placeholder="Legislación Laboral"
+                            />
+                          </div>
+
                           <button
                             type="button"
                             className={dangerButtonClass}
                             onClick={() => removeSubject(specialtyIndex, subjectIndex)}
                           >
                             <Trash2 className="h-4 w-4" />
-                            Eliminar asignatura
+                            Quitar asignatura
                           </button>
                         </div>
                       </div>
+                    ))}
 
-                      <div className="grid gap-6 lg:grid-cols-2">
-                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                          <div className="mb-4 flex items-center gap-3">
-                            <FileText className="h-5 w-5 text-slate-700" />
-                            <div>
-                              <h4 className="font-semibold text-slate-900">Recursos</h4>
-                              <p className="text-sm text-slate-500">PPT, video, documento o juego.</p>
-                            </div>
-                          </div>
-
-                          <div className="space-y-4">
-                            {(subject.resources || []).map((resource, resourceIndex) => (
-                              <div
-                                key={`${specialty.id}-subject-${subjectIndex}-resource-${resourceIndex}`}
-                                className="rounded-2xl border border-slate-200 bg-white p-4"
-                              >
-                                <div className="grid gap-3">
-                                  <div>
-                                    <label className={labelClass}>T√≠tulo</label>
-                                    <input
-                                      className={inputClass}
-                                      value={resource.title}
-                                      onChange={(e) =>
-                                        updateSubjectResource(
-                                          specialtyIndex,
-                                          subjectIndex,
-                                          resourceIndex,
-                                          'title',
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  </div>
-
-                                  <div>
-                                    <label className={labelClass}>Tipo</label>
-                                    <select
-                                      className={inputClass}
-                                      value={resource.type}
-                                      onChange={(e) =>
-                                        updateSubjectResource(
-                                          specialtyIndex,
-                                          subjectIndex,
-                                          resourceIndex,
-                                          'type',
-                                          e.target.value
-                                        )
-                                      }
-                                    >
-                                      <option value="document">document</option>
-                                      <option value="ppt">ppt</option>
-                                      <option value="video">video</option>
-                                      <option value="game">game</option>
-                                    </select>
-                                  </div>
-
-                                  <div>
-                                    <label className={labelClass}>URL</label>
-                                    <input
-                                      className={inputClass}
-                                      value={resource.url}
-                                      onChange={(e) =>
-                                        updateSubjectResource(
-                                          specialtyIndex,
-                                          subjectIndex,
-                                          resourceIndex,
-                                          'url',
-                                          e.target.value
-                                        )
-                                      }
-                                      placeholder="https://..."
-                                    />
-                                  </div>
-
-                                  <button
-                                    type="button"
-                                    className={dangerButtonClass}
-                                    onClick={() =>
-                                      removeSubjectResource(specialtyIndex, subjectIndex, resourceIndex)
-                                    }
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                    Quitar recurso
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-
-                            <button
-                              type="button"
-                              className={mutedButtonClass}
-                              onClick={() => addSubjectResource(specialtyIndex, subjectIndex)}
-                            >
-                              <Plus className="h-4 w-4" />
-                              Agregar recurso
-                            </button>
-                          </div>
-                        </div>
-
-                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-                          <div className="mb-4 flex items-center gap-3">
-                            <Video className="h-5 w-5 text-slate-700" />
-                            <div>
-                              <h4 className="font-semibold text-slate-900">Actividades</h4>
-                              <p className="text-sm text-slate-500">Quiz, interactiva o tarea.</p>
-                            </div>
-                          </div>
-
-                          <div className="space-y-4">
-                            {(subject.activities || []).map((activity, activityIndex) => (
-                              <div
-                                key={`${specialty.id}-subject-${subjectIndex}-activity-${activityIndex}`}
-                                className="rounded-2xl border border-slate-200 bg-white p-4"
-                              >
-                                <div className="grid gap-3">
-                                  <div>
-                                    <label className={labelClass}>T√≠tulo</label>
-                                    <input
-                                      className={inputClass}
-                                      value={activity.title}
-                                      onChange={(e) =>
-                                        updateSubjectActivity(
-                                          specialtyIndex,
-                                          subjectIndex,
-                                          activityIndex,
-                                          'title',
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  </div>
-
-                                  <div>
-                                    <label className={labelClass}>Descripci√≥n</label>
-                                    <textarea
-                                      className={`${inputClass} min-h-[100px]`}
-                                      value={activity.description}
-                                      onChange={(e) =>
-                                        updateSubjectActivity(
-                                          specialtyIndex,
-                                          subjectIndex,
-                                          activityIndex,
-                                          'description',
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  </div>
-
-                                  <div>
-                                    <label className={labelClass}>Tipo</label>
-                                    <select
-                                      className={inputClass}
-                                      value={activity.type}
-                                      onChange={(e) =>
-                                        updateSubjectActivity(
-                                          specialtyIndex,
-                                          subjectIndex,
-                                          activityIndex,
-                                          'type',
-                                          e.target.value
-                                        )
-                                      }
-                                    >
-                                      <option value="quiz">quiz</option>
-                                      <option value="interactive">interactive</option>
-                                      <option value="task">task</option>
-                                    </select>
-                                  </div>
-
-                                  <button
-                                    type="button"
-                                    className={dangerButtonClass}
-                                    onClick={() =>
-                                      removeSubjectActivity(specialtyIndex, subjectIndex, activityIndex)
-                                    }
-                                  >
-                                    <Trash2 className="h-4 w-4" />
-                                    Quitar actividad
-                                  </button>
-                                </div>
-                              </div>
-                            ))}
-
-                            <button
-                              type="button"
-                              className={mutedButtonClass}
-                              onClick={() => addSubjectActivity(specialtyIndex, subjectIndex)}
-                            >
-                              <Plus className="h-4 w-4" />
-                              Agregar actividad
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                  <button type="button" className={mutedButtonClass} onClick={() => addSubject(specialtyIndex)}>
-                    <Plus className="h-4 w-4" />
-                    Agregar asignatura
-                  </button>
+                    <button type="button" className={mutedButtonClass} onClick={() => addSubject(specialtyIndex)}>
+                      <Plus className="h-4 w-4" />
+                      Agregar asignatura
+                    </button>
+                  </div>
                 </div>
               </div>
-            </section>
-          ))}
+            </div>
+          </section>
+        ))}
 
-          <button type="button" className={mutedButtonClass} onClick={addSpecialtyDetail}>
-            <Plus className="h-4 w-4" />
-            Agregar especialidad completa
-          </button>
-        </div>
-
-        <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON de especialidades</h2>
-          <p className="mb-4 text-sm text-slate-500">
-            Este bloque muestra exactamente lo que se guardar√° en Supabase bajo el slug <code>specialties</code>.
-          </p>
-
-          <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
-            {JSON.stringify(specialtiesContent, null, 2)}
-          </pre>
-        </section>
+        <button type="button" className={mutedButtonClass} onClick={addSpecialtyDetail}>
+          <Plus className="h-4 w-4" />
+          Agregar especialidad completa
+        </button>
       </div>
-    );
-  }
+
+      <section className={cardClass}>
+        <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON de especialidades</h2>
+        <p className="mb-4 text-sm text-slate-500">
+          Este bloque muestra exactamente lo que se guardará en Supabase bajo el slug <code>specialties</code>.
+        </p>
+
+        <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
+          {JSON.stringify(specialtiesContent, null, 2)}
+        </pre>
+      </section>
+    </div>
+  );
+}
 
   function renderResourcesEditor() {
     if (loading && !resourcesLoaded) {
