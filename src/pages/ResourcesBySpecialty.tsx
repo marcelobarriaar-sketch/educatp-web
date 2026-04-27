@@ -46,6 +46,12 @@ type ResourceGroup = {
   resources: ResourceItem[];
 };
 
+type SpecialtyForSubjectLookup = {
+  subjects?: Array<{
+    name: string;
+  }>;
+};
+
 const specialtyIconMap: Record<string, IconComponent> = {
   Users,
   Beef,
@@ -102,6 +108,70 @@ function normalizeText(value: string) {
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .trim();
+}
+
+function slugify(value: string) {
+  return normalizeText(value)
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function humanizeSlug(value?: string) {
+  if (!value) return 'Recursos generales';
+
+  const connectors = new Set([
+    'a',
+    'al',
+    'de',
+    'del',
+    'la',
+    'las',
+    'los',
+    'y',
+    'e',
+    'en',
+    'para',
+    'por',
+    'con'
+  ]);
+
+  return value
+    .replace(/[-_]+/g, ' ')
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .map((word, index) => {
+      if (index !== 0 && connectors.has(word)) return word;
+
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+}
+
+function getSubjectDisplayName(
+  resource: ResourceItem,
+  specialty?: SpecialtyForSubjectLookup
+) {
+  const rawSubject =
+    resource.subjectName || resource.subjectId || 'Recursos generales';
+
+  if (!specialty?.subjects || specialty.subjects.length === 0) {
+    return humanizeSlug(rawSubject);
+  }
+
+  const normalizedRaw = normalizeText(rawSubject);
+  const slugRaw = slugify(rawSubject);
+
+  const matchingSubject = specialty.subjects.find((subject) => {
+    const subjectName = subject.name;
+
+    return (
+      normalizeText(subjectName) === normalizedRaw ||
+      slugify(subjectName) === slugRaw
+    );
+  });
+
+  return matchingSubject?.name || humanizeSlug(rawSubject);
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -340,12 +410,8 @@ export default function ResourcesBySpecialty() {
     const groups = new Map<string, ResourceGroup>();
 
     filteredResources.forEach((resource) => {
-      const subjectName =
-        resource.subjectName ||
-        resource.subjectId ||
-        'Recursos generales';
-
-      const groupId = normalizeText(subjectName);
+      const subjectName = getSubjectDisplayName(resource, specialty);
+      const groupId = slugify(subjectName);
 
       if (!groups.has(groupId)) {
         groups.set(groupId, {
@@ -359,7 +425,7 @@ export default function ResourcesBySpecialty() {
     });
 
     return Array.from(groups.values());
-  }, [filteredResources]);
+  }, [filteredResources, specialty]);
 
   if (!specialty) {
     return (
@@ -459,9 +525,7 @@ export default function ResourcesBySpecialty() {
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10">
-                  <div className="text-sm text-indigo-100">
-                    Secciones
-                  </div>
+                  <div className="text-sm text-indigo-100">Secciones</div>
                   <div className="text-2xl font-bold">
                     {groupedResources.length}
                   </div>
