@@ -1,9 +1,6 @@
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import {
-  Users,
-  Beef,
-  Baby,
   ArrowRight,
   BookOpen,
   FolderOpen,
@@ -11,18 +8,51 @@ import {
 } from 'lucide-react';
 
 import { SPECIALTIES } from '../data/content';
-import { cn } from '../lib/utils';
 
-const iconMap = {
-  Users,
-  Beef,
-  Baby
+const specialtyLogoMap: Record<string, string> = {
+  administracion: '/images/home/1.png',
+  agricola: '/images/home/LOGO%20TEC%20AGRICOLA.png',
+  pecuaria: '/images/home/LOGO%20TEC%20AGRICOLA.png',
+  parvularia: '/images/home/LOGO%20PARVULOS.jpeg',
+  parvulos: '/images/home/LOGO%20PARVULOS.jpeg'
 };
+
+function getSpecialtyLogo(spec: any) {
+  const rawText = `${spec.id ?? ''} ${spec.name ?? ''} ${spec.title ?? ''}`.toLowerCase();
+
+  if (
+    rawText.includes('administr') ||
+    rawText.includes('recursos humanos') ||
+    rawText.includes('rrhh')
+  ) {
+    return specialtyLogoMap.administracion;
+  }
+
+  if (
+    rawText.includes('agrícola') ||
+    rawText.includes('agricola') ||
+    rawText.includes('pecuaria') ||
+    rawText.includes('pecuario')
+  ) {
+    return specialtyLogoMap.agricola;
+  }
+
+  if (
+    rawText.includes('parvularia') ||
+    rawText.includes('parvulo') ||
+    rawText.includes('párvulo') ||
+    rawText.includes('educación parvularia')
+  ) {
+    return specialtyLogoMap.parvularia;
+  }
+
+  return '';
+}
 
 export default function Resources() {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <section className="bg-indigo-600 text-white py-20">
+      <section className="bg-black text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -36,7 +66,7 @@ export default function Resources() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-indigo-100 max-w-3xl mx-auto text-lg leading-relaxed"
+            className="text-slate-300 max-w-3xl mx-auto text-lg leading-relaxed"
           >
             Accede a guías, actividades, enlaces, videos y materiales de apoyo
             organizados por especialidad técnico profesional.
@@ -47,10 +77,11 @@ export default function Resources() {
       <section className="max-w-7xl mx-auto px-4 -mt-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SPECIALTIES.map((spec, index) => {
-            const Icon = iconMap[spec.icon as keyof typeof iconMap] || Users;
             const totalSubjects = Array.isArray(spec.subjects)
               ? spec.subjects.length
               : 0;
+
+            const logoUrl = getSpecialtyLogo(spec);
 
             return (
               <motion.article
@@ -61,21 +92,25 @@ export default function Resources() {
               >
                 <Link
                   to={`/recursos/${spec.id}`}
-                  className="group block bg-white rounded-[2.5rem] p-8 border border-slate-200 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition-all h-full"
+                  className="group block bg-white rounded-[2.5rem] p-8 border border-slate-200 shadow-xl hover:shadow-2xl hover:shadow-black/10 transition-all h-full"
                 >
                   <div className="flex flex-col h-full">
-                    <div
-                      className={cn(
-                        'w-24 h-24 mx-auto rounded-3xl flex items-center justify-center mb-8 transition-all group-hover:scale-110 group-hover:rotate-6',
-                        spec.color,
-                        'text-white shadow-lg'
+                    <div className="w-28 h-28 mx-auto rounded-3xl flex items-center justify-center mb-8 bg-white border border-slate-200 shadow-lg overflow-hidden transition-all group-hover:scale-110 group-hover:-rotate-2">
+                      {logoUrl ? (
+                        <img
+                          src={logoUrl}
+                          alt={`Logo ${spec.name}`}
+                          className="w-full h-full object-cover scale-110"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center bg-slate-900 text-white font-black text-3xl">
+                          TP
+                        </div>
                       )}
-                    >
-                      <Icon className="w-12 h-12" />
                     </div>
 
                     <div className="text-center mb-6">
-                      <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-600 transition-colors">
+                      <h2 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-black transition-colors">
                         {spec.name}
                       </h2>
 
@@ -106,7 +141,7 @@ export default function Resources() {
                           </span>
                         </div>
 
-                        <span className="text-sm font-bold text-indigo-600">
+                        <span className="text-sm font-bold text-black">
                           Disponible
                         </span>
                       </div>
@@ -126,12 +161,7 @@ export default function Resources() {
                     </div>
 
                     <div className="mt-auto text-center">
-                      <div
-                        className={cn(
-                          'inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all',
-                          'bg-slate-100 text-slate-600 group-hover:bg-indigo-600 group-hover:text-white'
-                        )}
-                      >
+                      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all bg-slate-100 text-slate-600 group-hover:bg-black group-hover:text-white">
                         Ver recursos
                         <ArrowRight className="w-4 h-4" />
                       </div>
