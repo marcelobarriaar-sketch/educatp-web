@@ -1,20 +1,59 @@
-import React from 'react';
 import { motion } from 'motion/react';
 import { SPECIALTIES } from '../data/content';
 import { Link } from 'react-router-dom';
-import { Users, Beef, Baby, ArrowRight } from 'lucide-react';
-import { cn } from '../lib/utils';
+import { ArrowRight } from 'lucide-react';
 
-const iconMap: Record<string, any> = {
-  Users,
-  Beef,
-  Baby
+const specialtyLogoMap: Record<string, string> = {
+  administracion: '/images/home/1.png',
+  agricola: '/images/home/LOGO%20TEC%20AGRICOLA.png',
+  pecuaria: '/images/home/LOGO%20TEC%20AGRICOLA.png',
+  parvularia: '/images/home/LOGO%20PARVULOS.jpeg',
+  parvulos: '/images/home/LOGO%20PARVULOS.jpeg'
 };
+
+function getSpecialtyLogo(spec: {
+  id?: string;
+  name?: string;
+  title?: string;
+  shortName?: string;
+}) {
+  const rawText = `${spec.id ?? ''} ${spec.name ?? ''} ${spec.title ?? ''} ${
+    spec.shortName ?? ''
+  }`.toLowerCase();
+
+  if (
+    rawText.includes('administr') ||
+    rawText.includes('recursos humanos') ||
+    rawText.includes('rrhh')
+  ) {
+    return specialtyLogoMap.administracion;
+  }
+
+  if (
+    rawText.includes('agrícola') ||
+    rawText.includes('agricola') ||
+    rawText.includes('pecuaria') ||
+    rawText.includes('pecuario')
+  ) {
+    return specialtyLogoMap.agricola;
+  }
+
+  if (
+    rawText.includes('parvularia') ||
+    rawText.includes('parvulo') ||
+    rawText.includes('párvulo') ||
+    rawText.includes('educación parvularia')
+  ) {
+    return specialtyLogoMap.parvularia;
+  }
+
+  return '';
+}
 
 export default function Specialties() {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <div className="bg-indigo-600 text-white py-20">
+      <div className="bg-black text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -24,7 +63,7 @@ export default function Specialties() {
             Nuestras Especialidades
           </motion.h1>
 
-          <p className="text-indigo-100 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-300 max-w-2xl mx-auto text-lg">
             Conoce cada especialidad, su enfoque formativo y las oportunidades que puede ofrecerte en el mundo académico y laboral.
           </p>
         </div>
@@ -33,7 +72,7 @@ export default function Specialties() {
       <div className="max-w-7xl mx-auto px-4 -mt-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SPECIALTIES.map((spec, index) => {
-            const Icon = iconMap[spec.icon] || Users;
+            const logoUrl = getSpecialtyLogo(spec);
 
             return (
               <motion.div
@@ -44,19 +83,23 @@ export default function Specialties() {
               >
                 <Link
                   to={`/especialidades/${spec.id}`}
-                  className="group block bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition-all text-center h-full"
+                  className="group block bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-xl hover:shadow-2xl hover:shadow-black/10 transition-all text-center h-full"
                 >
-                  <div
-                    className={cn(
-                      'w-24 h-24 mx-auto rounded-3xl flex items-center justify-center mb-8 transition-all group-hover:scale-110 group-hover:rotate-6',
-                      spec.color,
-                      'text-white shadow-lg'
+                  <div className="w-28 h-28 mx-auto rounded-3xl flex items-center justify-center mb-8 bg-white border border-slate-200 shadow-lg overflow-hidden transition-all group-hover:scale-110 group-hover:-rotate-2">
+                    {logoUrl ? (
+                      <img
+                        src={logoUrl}
+                        alt={`Logo ${spec.name}`}
+                        className="w-full h-full object-cover scale-110"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-slate-900 text-white font-black text-3xl">
+                        TP
+                      </div>
                     )}
-                  >
-                    <Icon className="w-12 h-12" />
                   </div>
 
-                  <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-4 group-hover:text-black transition-colors">
                     {spec.name}
                   </h2>
 
@@ -64,12 +107,7 @@ export default function Specialties() {
                     {spec.description}
                   </p>
 
-                  <div
-                    className={cn(
-                      'inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all',
-                      'bg-slate-100 text-slate-600 group-hover:bg-indigo-600 group-hover:text-white'
-                    )}
-                  >
+                  <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all bg-slate-100 text-slate-600 group-hover:bg-black group-hover:text-white">
                     Ver especialidad
                     <ArrowRight className="w-4 h-4" />
                   </div>
