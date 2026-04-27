@@ -297,6 +297,38 @@ function getFallbackSpecialtyLogoUrl(specialty: SpecialtyLogoLookup) {
   return undefined;
 }
 
+function getSpecialtyLogoImageClass(specialty: SpecialtyLogoLookup) {
+  const specialtyText = normalizeText(
+    `${specialty.id || ''} ${specialty.name || ''} ${specialty.shortName || ''}`
+  );
+
+  if (
+    specialtyText.includes('administracion') ||
+    specialtyText.includes('rrhh') ||
+    specialtyText.includes('recursos humanos')
+  ) {
+    return 'w-full h-full object-cover scale-110';
+  }
+
+  if (
+    specialtyText.includes('agropecuaria') ||
+    specialtyText.includes('agricola') ||
+    specialtyText.includes('pecuaria')
+  ) {
+    return 'w-full h-full object-cover scale-110';
+  }
+
+  if (
+    specialtyText.includes('parvulo') ||
+    specialtyText.includes('parvularia') ||
+    specialtyText.includes('educacion parvularia')
+  ) {
+    return 'w-full h-full object-cover scale-110';
+  }
+
+  return 'w-full h-full object-cover scale-110';
+}
+
 function normalizeResource(raw: unknown, index: number): ResourceItem | null {
   if (!isRecord(raw)) return null;
 
@@ -632,11 +664,11 @@ export default function ResourcesBySpecialty() {
           <div className="max-w-5xl">
             <div className="mb-8">
               {specialtyLogoUrl ? (
-                <div className="w-28 h-28 md:w-32 md:h-32 rounded-3xl bg-white/95 border border-white/20 shadow-2xl flex items-center justify-center overflow-hidden p-4">
+                <div className="w-28 h-28 md:w-32 md:h-32 rounded-3xl shadow-2xl overflow-hidden bg-transparent border border-white/10">
                   <img
                     src={specialtyLogoUrl}
                     alt={`Logo de ${specialty.shortName || specialty.name}`}
-                    className="w-full h-full object-contain"
+                    className={getSpecialtyLogoImageClass(specialty)}
                   />
                 </div>
               ) : (
