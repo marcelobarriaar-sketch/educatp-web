@@ -1,7 +1,15 @@
-import React from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { Users, Beef, Baby, ArrowRight, BookOpen, FolderOpen, ClipboardList } from 'lucide-react';
+import {
+  Users,
+  Beef,
+  Baby,
+  ArrowRight,
+  BookOpen,
+  FolderOpen,
+  ClipboardList
+} from 'lucide-react';
+
 import { SPECIALTIES } from '../data/content';
 import { cn } from '../lib/utils';
 
@@ -14,7 +22,7 @@ const iconMap = {
 export default function Resources() {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <div className="bg-indigo-600 text-white py-20">
+      <section className="bg-indigo-600 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -24,32 +32,30 @@ export default function Resources() {
             Recursos por Especialidad
           </motion.h1>
 
-          <p className="text-indigo-100 max-w-3xl mx-auto text-lg leading-relaxed">
-            Accede a materiales, actividades y recursos de aprendizaje organizados según tu especialidad.
-            Selecciona un área para ingresar directamente a sus contenidos académicos.
-          </p>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-indigo-100 max-w-3xl mx-auto text-lg leading-relaxed"
+          >
+            Accede a guías, actividades, enlaces, videos y materiales de apoyo
+            organizados por especialidad técnico profesional.
+          </motion.p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 -mt-12">
+      <section className="max-w-7xl mx-auto px-4 -mt-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SPECIALTIES.map((spec, index) => {
             const Icon = iconMap[spec.icon as keyof typeof iconMap] || Users;
-
-            const totalSubjects = spec.subjects.length;
-            const totalResources = spec.subjects.reduce(
-              (acc, subject) => acc + subject.resources.length,
-              0
-            );
-            const totalActivities = spec.subjects.reduce(
-              (acc, subject) => acc + subject.activities.length,
-              0
-            );
+            const totalSubjects = Array.isArray(spec.subjects)
+              ? spec.subjects.length
+              : 0;
 
             return (
-              <motion.div
+              <motion.article
                 key={spec.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
@@ -82,8 +88,11 @@ export default function Resources() {
                       <div className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 border border-slate-100">
                         <div className="flex items-center gap-2 text-slate-600">
                           <BookOpen className="w-4 h-4" />
-                          <span className="text-sm font-medium">Asignaturas</span>
+                          <span className="text-sm font-medium">
+                            Asignaturas base
+                          </span>
                         </div>
+
                         <span className="text-sm font-bold text-slate-900">
                           {totalSubjects}
                         </span>
@@ -92,20 +101,26 @@ export default function Resources() {
                       <div className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 border border-slate-100">
                         <div className="flex items-center gap-2 text-slate-600">
                           <FolderOpen className="w-4 h-4" />
-                          <span className="text-sm font-medium">Recursos</span>
+                          <span className="text-sm font-medium">
+                            Material académico
+                          </span>
                         </div>
-                        <span className="text-sm font-bold text-slate-900">
-                          {totalResources}
+
+                        <span className="text-sm font-bold text-indigo-600">
+                          Disponible
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3 border border-slate-100">
                         <div className="flex items-center gap-2 text-slate-600">
                           <ClipboardList className="w-4 h-4" />
-                          <span className="text-sm font-medium">Actividades</span>
+                          <span className="text-sm font-medium">
+                            Acceso
+                          </span>
                         </div>
+
                         <span className="text-sm font-bold text-slate-900">
-                          {totalActivities}
+                          Directo
                         </span>
                       </div>
                     </div>
@@ -123,11 +138,11 @@ export default function Resources() {
                     </div>
                   </div>
                 </Link>
-              </motion.div>
+              </motion.article>
             );
           })}
         </div>
-      </div>
+      </section>
     </div>
   );
 }
