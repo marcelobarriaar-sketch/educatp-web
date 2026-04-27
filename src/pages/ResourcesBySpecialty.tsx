@@ -55,6 +55,12 @@ type SpecialtyForSubjectLookup = {
   }>;
 };
 
+type SpecialtyLogoLookup = {
+  id?: string;
+  name?: string;
+  shortName?: string;
+};
+
 const LEVEL_OPTIONS: Array<{
   id: LevelKey;
   label: string;
@@ -65,13 +71,15 @@ const LEVEL_OPTIONS: Array<{
     id: '3',
     label: '3° Medio TP',
     shortLabel: '3° Medio',
-    description: 'Recursos, guías y actividades para estudiantes de tercer año medio técnico profesional.'
+    description:
+      'Recursos, guías y actividades para estudiantes de tercer año medio técnico profesional.'
   },
   {
     id: '4',
     label: '4° Medio TP',
     shortLabel: '4° Medio',
-    description: 'Materiales académicos orientados a estudiantes de cuarto año medio técnico profesional.'
+    description:
+      'Materiales académicos orientados a estudiantes de cuarto año medio técnico profesional.'
   }
 ];
 
@@ -244,7 +252,7 @@ function getStringValue(
   return undefined;
 }
 
-function getSpecialtyLogoUrl(specialty: unknown) {
+function getStoredSpecialtyLogoUrl(specialty: unknown) {
   if (!isRecord(specialty)) return undefined;
 
   return getStringValue(specialty, [
@@ -255,6 +263,38 @@ function getSpecialtyLogoUrl(specialty: unknown) {
     'badgeUrl',
     'emblemUrl'
   ]);
+}
+
+function getFallbackSpecialtyLogoUrl(specialty: SpecialtyLogoLookup) {
+  const specialtyText = normalizeText(
+    `${specialty.id || ''} ${specialty.name || ''} ${specialty.shortName || ''}`
+  );
+
+  if (
+    specialtyText.includes('administracion') ||
+    specialtyText.includes('rrhh') ||
+    specialtyText.includes('recursos humanos')
+  ) {
+    return '/images/home/1.png';
+  }
+
+  if (
+    specialtyText.includes('agropecuaria') ||
+    specialtyText.includes('agricola') ||
+    specialtyText.includes('pecuaria')
+  ) {
+    return '/images/home/LOGO%20TEC%20AGRICOLA.png';
+  }
+
+  if (
+    specialtyText.includes('parvulo') ||
+    specialtyText.includes('parvularia') ||
+    specialtyText.includes('educacion parvularia')
+  ) {
+    return '/images/home/LOGO%20PARVULOS.jpeg';
+  }
+
+  return undefined;
 }
 
 function normalizeResource(raw: unknown, index: number): ResourceItem | null {
@@ -558,7 +598,9 @@ export default function ResourcesBySpecialty() {
   const SpecialtyIcon =
     specialtyIconMap[specialty.icon as keyof typeof specialtyIconMap] || Users;
 
-  const specialtyLogoUrl = getSpecialtyLogoUrl(specialty);
+  const specialtyLogoUrl =
+    getStoredSpecialtyLogoUrl(specialty) ||
+    getFallbackSpecialtyLogoUrl(specialty);
 
   const totalBaseSubjects = Array.isArray(specialty.subjects)
     ? specialty.subjects.length
