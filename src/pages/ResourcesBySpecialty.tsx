@@ -17,7 +17,8 @@ import {
   Baby,
   FolderOpen,
   Link as LinkIcon,
-  AlertCircle
+  AlertCircle,
+  GraduationCap
 } from 'lucide-react';
 
 import { SPECIALTIES } from '../data/content';
@@ -25,6 +26,8 @@ import { cn } from '../lib/utils';
 import { supabase } from '../lib/supabase';
 
 type IconComponent = ComponentType<{ className?: string }>;
+
+type LevelKey = '3' | '4';
 
 type ResourceItem = {
   id: string;
@@ -51,6 +54,26 @@ type SpecialtyForSubjectLookup = {
     name: string;
   }>;
 };
+
+const LEVEL_OPTIONS: Array<{
+  id: LevelKey;
+  label: string;
+  shortLabel: string;
+  description: string;
+}> = [
+  {
+    id: '3',
+    label: '3° Medio TP',
+    shortLabel: '3° Medio',
+    description: 'Recursos, guías y actividades para estudiantes de tercer año medio técnico profesional.'
+  },
+  {
+    id: '4',
+    label: '4° Medio TP',
+    shortLabel: '4° Medio',
+    description: 'Materiales académicos orientados a estudiantes de cuarto año medio técnico profesional.'
+  }
+];
 
 const specialtyIconMap: Record<string, IconComponent> = {
   Users,
@@ -172,6 +195,30 @@ function getSubjectDisplayName(
   });
 
   return matchingSubject?.name || humanizeSlug(rawSubject);
+}
+
+function getResourceLevelKey(level?: string): LevelKey | null {
+  if (!level) return null;
+
+  const normalizedLevel = normalizeText(level);
+
+  if (
+    normalizedLevel.includes('3') ||
+    normalizedLevel.includes('tercero') ||
+    normalizedLevel.includes('tercer')
+  ) {
+    return '3';
+  }
+
+  if (
+    normalizedLevel.includes('4') ||
+    normalizedLevel.includes('cuarto') ||
+    normalizedLevel.includes('cuart')
+  ) {
+    return '4';
+  }
+
+  return null;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -351,6 +398,11 @@ export default function ResourcesBySpecialty() {
   const [resources, setResources] = useState<ResourceItem[]>([]);
   const [loadingResources, setLoadingResources] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
+  const [selectedLevel, setSelectedLevel] = useState<LevelKey | null>(null);
+
+  useEffect(() => {
+    setSelectedLevel(null);
+  }, [id]);
 
   useEffect(() => {
     let isMounted = true;
@@ -406,10 +458,35 @@ export default function ResourcesBySpecialty() {
     );
   }, [resources, specialty]);
 
+  const levelCounts = useMemo<Record<LevelKey, number>>(() => {
+    const counts: Record<LevelKey, number> = {
+      '3': 0,
+      '4': 0
+    };
+
+    filteredResources.forEach((resource) => {
+      const levelKey = getResourceLevelKey(resource.level);
+
+      if (levelKey) {
+        counts[levelKey] += 1;
+      }
+    });
+
+    return counts;
+  }, [filteredResources]);
+
+  const selectedLevelResources = useMemo(() => {
+    if (!selectedLevel) return [];
+
+    return filteredResources.filter(
+      (resource) => getResourceLevelKey(resource.level) === selectedLevel
+    );
+  }, [filteredResources, selectedLevel]);
+
   const groupedResources = useMemo<ResourceGroup[]>(() => {
     const groups = new Map<string, ResourceGroup>();
 
-    filteredResources.forEach((resource) => {
+    selectedLevelResources.forEach((resource) => {
       const subjectName = getSubjectDisplayName(resource, specialty);
       const groupId = slugify(subjectName);
 
@@ -425,7 +502,11 @@ export default function ResourcesBySpecialty() {
     });
 
     return Array.from(groups.values());
-  }, [filteredResources, specialty]);
+  }, [selectedLevelResources, specialty]);
+
+  const selectedLevelOption = LEVEL_OPTIONS.find(
+    (option) => option.id === selectedLevel
+  );
 
   if (!specialty) {
     return (
@@ -525,9 +606,11 @@ export default function ResourcesBySpecialty() {
                 </div>
 
                 <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10">
-                  <div className="text-sm text-indigo-100">Secciones</div>
+                  <div className="text-sm text-indigo-100">
+                    Nivel seleccionado
+                  </div>
                   <div className="text-2xl font-bold">
-                    {groupedResources.length}
+                    {selectedLevelOption?.shortLabel || 'Elegir'}
                   </div>
                 </div>
               </div>
@@ -560,8 +643,154 @@ export default function ResourcesBySpecialty() {
               especialidad.
             </p>
           </div>
+        ) : filteredResources.length === 0 ? (
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-8">
+            <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10">
+              <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6">
+                <FolderOpen className="w-8 h-8" />
+              </div>
+
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                Aún no hay recursos publicados
+              </h2>
+
+              <p className="text-slate-600 leading-relaxed mb-6">
+                Esta especialidad todavía no tiene materiales académicos
+                cargados desde el módulo de Recursos. Cuando se agreguen desde
+                el panel de administración, aparecerán automáticamente en esta
+                sección.
+              </p>
+
+              <Link
+                to="/recursos"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Volver al catálogo de recursos
+              </Link>
+            </section>
+
+            <aside className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-6">
+                <BookOpen className="w-4 h-4" />
+                Asignaturas base
+              </div>
+
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                {specialty.shortName || specialty.name}
+              </h3>
+
+              {Array.isArray(specialty.subjects) &&
+              specialty.subjects.length > 0 ? (
+                <div className="space-y-3">
+                  {specialty.subjects.map((subject) => (
+                    <div
+                      key={`${specialty.id}-${subject.name}`}
+                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 font-medium"
+                    >
+                      {subject.name}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-slate-500">
+                  No hay asignaturas base registradas para esta especialidad.
+                </p>
+              )}
+            </aside>
+          </div>
+        ) : !selectedLevel ? (
+          <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-6">
+                <GraduationCap className="w-4 h-4" />
+                Selección de nivel
+              </div>
+
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                ¿A qué nivel quieres ingresar?
+              </h2>
+
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Elige el curso para ver únicamente los recursos correspondientes
+                a ese nivel. Así los estudiantes ingresan directo al material que
+                necesitan.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {LEVEL_OPTIONS.map((levelOption, index) => {
+                const count = levelCounts[levelOption.id];
+
+                return (
+                  <motion.button
+                    key={levelOption.id}
+                    type="button"
+                    initial={{ opacity: 0, y: 18 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.08 }}
+                    onClick={() => setSelectedLevel(levelOption.id)}
+                    className="group text-left rounded-[2rem] border border-slate-200 bg-slate-50 hover:bg-white hover:border-indigo-200 hover:shadow-xl transition-all p-7"
+                  >
+                    <div className="flex items-start justify-between gap-4 mb-6">
+                      <div className="w-16 h-16 rounded-3xl bg-indigo-600 text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                        <GraduationCap className="w-8 h-8" />
+                      </div>
+
+                      <span className="px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-700 text-sm font-bold">
+                        {count} recurso{count !== 1 ? 's' : ''}
+                      </span>
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-700 transition-colors">
+                      {levelOption.label}
+                    </h3>
+
+                    <p className="text-slate-600 leading-relaxed mb-6">
+                      {levelOption.description}
+                    </p>
+
+                    <div className="inline-flex items-center gap-2 font-bold text-indigo-600">
+                      Ingresar a {levelOption.shortLabel}
+                      <ExternalLink className="w-4 h-4" />
+                    </div>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </section>
         ) : groupedResources.length > 0 ? (
           <div className="space-y-8">
+            <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-6 md:p-8">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-4">
+                    <GraduationCap className="w-4 h-4" />
+                    {selectedLevelOption?.label}
+                  </div>
+
+                  <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
+                    Recursos disponibles para {selectedLevelOption?.shortLabel}
+                  </h2>
+
+                  <p className="text-slate-600 mt-2">
+                    Mostrando {selectedLevelResources.length} recurso
+                    {selectedLevelResources.length !== 1 ? 's' : ''} en este
+                    nivel.
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setSelectedLevel(null)}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Cambiar nivel
+                </button>
+              </div>
+            </section>
+
             {groupedResources.map((group, index) => (
               <motion.section
                 key={group.id}
@@ -665,61 +894,30 @@ export default function ResourcesBySpecialty() {
             ))}
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-8">
-            <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10">
-              <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6">
-                <FolderOpen className="w-8 h-8" />
-              </div>
+          <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10 text-center">
+            <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-6">
+              <FolderOpen className="w-8 h-8" />
+            </div>
 
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Aún no hay recursos publicados
-              </h2>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+              No hay recursos para {selectedLevelOption?.shortLabel}
+            </h2>
 
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Esta especialidad todavía no tiene materiales académicos
-                cargados desde el módulo de Recursos. Cuando se agreguen desde
-                el panel de administración, aparecerán automáticamente en esta
-                sección.
-              </p>
+            <p className="text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
+              Esta especialidad tiene recursos cargados, pero todavía no hay
+              materiales asociados a este nivel. Puedes volver y elegir otro
+              curso.
+            </p>
 
-              <Link
-                to="/recursos"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Volver al catálogo de recursos
-              </Link>
-            </section>
-
-            <aside className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-6">
-                <BookOpen className="w-4 h-4" />
-                Asignaturas base
-              </div>
-
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                {specialty.shortName || specialty.name}
-              </h3>
-
-              {Array.isArray(specialty.subjects) &&
-              specialty.subjects.length > 0 ? (
-                <div className="space-y-3">
-                  {specialty.subjects.map((subject) => (
-                    <div
-                      key={`${specialty.id}-${subject.name}`}
-                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 font-medium"
-                    >
-                      {subject.name}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-slate-500">
-                  No hay asignaturas base registradas para esta especialidad.
-                </p>
-              )}
-            </aside>
-          </div>
+            <button
+              type="button"
+              onClick={() => setSelectedLevel(null)}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Cambiar nivel
+            </button>
+          </section>
         )}
       </main>
     </div>
