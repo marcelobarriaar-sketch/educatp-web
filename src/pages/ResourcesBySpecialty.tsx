@@ -439,17 +439,33 @@ function resourceBelongsToSpecialty(
     specialty.shortName || ''
   ]
     .filter(Boolean)
-    .map(normalizeText);
+    .flatMap((value) => {
+      const normalized = normalizeText(value);
+      const slug = slugify(value);
+
+      return [normalized, slug];
+    });
 
   const resourceCandidates = [
     resource.specialtyId || '',
     resource.specialtyId?.replace('/recursos/', '') || ''
   ]
     .filter(Boolean)
-    .map(normalizeText);
+    .flatMap((value) => {
+      const normalized = normalizeText(value);
+      const slug = slugify(value);
 
-  return resourceCandidates.some((candidate) =>
-    specialtyCandidates.includes(candidate)
+      return [normalized, slug];
+    });
+
+  return resourceCandidates.some((resourceCandidate) =>
+    specialtyCandidates.some((specialtyCandidate) => {
+      return (
+        resourceCandidate === specialtyCandidate ||
+        resourceCandidate.includes(specialtyCandidate) ||
+        specialtyCandidate.includes(resourceCandidate)
+      );
+    })
   );
 }
 
@@ -473,6 +489,12 @@ function getValidUrl(url?: string) {
   if (!cleanUrl || cleanUrl === '#') return undefined;
 
   return cleanUrl;
+}
+
+function getBaseSubjectsBySpecialty(specialty?: SpecialtyForSubjectLookup) {
+  if (!specialty?.subjects || specialty.subjects.length === 0) return [];
+
+  return specialty.subjects.map((subject) => subject.name);
 }
 
 export default function ResourcesBySpecialty() {
@@ -591,6 +613,11 @@ export default function ResourcesBySpecialty() {
 
   const selectedLevelOption = LEVEL_OPTIONS.find(
     (option) => option.id === selectedLevel
+  );
+
+  const baseSubjects = useMemo(
+    () => getBaseSubjectsBySpecialty(specialty),
+    [specialty]
   );
 
   if (!specialty) {
@@ -753,62 +780,6 @@ export default function ResourcesBySpecialty() {
               especialidad.
             </p>
           </div>
-        ) : filteredResources.length === 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-8">
-            <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10">
-              <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6">
-                <FolderOpen className="w-8 h-8" />
-              </div>
-
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">
-                Aún no hay recursos publicados
-              </h2>
-
-              <p className="text-slate-600 leading-relaxed mb-6">
-                Esta especialidad todavía no tiene materiales académicos
-                cargados desde el módulo de Recursos. Cuando se agreguen desde
-                el panel de administración, aparecerán automáticamente en esta
-                sección.
-              </p>
-
-              <Link
-                to="/recursos"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Volver al catálogo de recursos
-              </Link>
-            </section>
-
-            <aside className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-6">
-                <BookOpen className="w-4 h-4" />
-                Asignaturas base
-              </div>
-
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">
-                {specialty.shortName || specialty.name}
-              </h3>
-
-              {Array.isArray(specialty.subjects) &&
-              specialty.subjects.length > 0 ? (
-                <div className="space-y-3">
-                  {specialty.subjects.map((subject) => (
-                    <div
-                      key={`${specialty.id}-${subject.name}`}
-                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 font-medium"
-                    >
-                      {subject.name}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-slate-500">
-                  No hay asignaturas base registradas para esta especialidad.
-                </p>
-              )}
-            </aside>
-          </div>
         ) : !selectedLevel ? (
           <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10">
             <div className="max-w-3xl">
@@ -885,8 +856,8 @@ export default function ResourcesBySpecialty() {
 
                   <p className="text-slate-600 mt-2">
                     Mostrando {selectedLevelResources.length} recurso
-                    {selectedLevelResources.length !== 1 ? 's' : ''} en este
-                    nivel.
+                    {selectedLevelResources.length !== 1 ? 's' : ''} agrupado
+                    por asignatura.
                   </p>
                 </div>
 
@@ -913,7 +884,7 @@ export default function ResourcesBySpecialty() {
                   <div>
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-4">
                       <BookOpen className="w-4 h-4" />
-                      Asignatura o sección
+                      Asignatura
                     </div>
 
                     <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
@@ -1004,30 +975,75 @@ export default function ResourcesBySpecialty() {
             ))}
           </div>
         ) : (
-          <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10 text-center">
-            <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mx-auto mb-6">
-              <FolderOpen className="w-8 h-8" />
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr,0.8fr] gap-8">
+            <section className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8 md:p-10">
+              <div className="w-16 h-16 rounded-3xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6">
+                <FolderOpen className="w-8 h-8" />
+              </div>
 
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
-              No hay recursos para {selectedLevelOption?.shortLabel}
-            </h2>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-6">
+                <GraduationCap className="w-4 h-4" />
+                {selectedLevelOption?.label}
+              </div>
 
-            <p className="text-slate-600 leading-relaxed mb-8 max-w-2xl mx-auto">
-              Esta especialidad tiene recursos cargados, pero todavía no hay
-              materiales asociados a este nivel. Puedes volver y elegir otro
-              curso.
-            </p>
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                No hay recursos para {selectedLevelOption?.shortLabel}
+              </h2>
 
-            <button
-              type="button"
-              onClick={() => setSelectedLevel(null)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Cambiar nivel
-            </button>
-          </section>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                Esta especialidad todavía no tiene materiales asociados a este
+                nivel. Cuando agregues recursos desde el panel de administración,
+                aparecerán automáticamente aquí, ordenados por la asignatura que
+                corresponda.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  type="button"
+                  onClick={() => setSelectedLevel(null)}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Cambiar nivel
+                </button>
+
+                <Link
+                  to="/recursos"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition-colors"
+                >
+                  Volver al catálogo
+                </Link>
+              </div>
+            </section>
+
+            <aside className="bg-white rounded-[2rem] border border-slate-200 shadow-xl p-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 text-indigo-700 font-semibold text-sm mb-6">
+                <BookOpen className="w-4 h-4" />
+                Asignaturas base
+              </div>
+
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                {specialty.shortName || specialty.name}
+              </h3>
+
+              {baseSubjects.length > 0 ? (
+                <div className="space-y-3">
+                  {baseSubjects.map((subject) => (
+                    <div
+                      key={`${specialty.id}-${subject}`}
+                      className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-slate-700 font-medium"
+                    >
+                      {subject}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-slate-500">
+                  No hay asignaturas base registradas para esta especialidad.
+                </p>
+              )}
+            </aside>
+          </div>
         )}
       </main>
     </div>
