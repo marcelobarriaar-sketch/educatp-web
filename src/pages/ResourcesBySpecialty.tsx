@@ -244,6 +244,19 @@ function getStringValue(
   return undefined;
 }
 
+function getSpecialtyLogoUrl(specialty: unknown) {
+  if (!isRecord(specialty)) return undefined;
+
+  return getStringValue(specialty, [
+    'iconUrl',
+    'logoUrl',
+    'logo',
+    'imageUrl',
+    'badgeUrl',
+    'emblemUrl'
+  ]);
+}
+
 function normalizeResource(raw: unknown, index: number): ResourceItem | null {
   if (!isRecord(raw)) return null;
 
@@ -545,73 +558,96 @@ export default function ResourcesBySpecialty() {
   const SpecialtyIcon =
     specialtyIconMap[specialty.icon as keyof typeof specialtyIconMap] || Users;
 
+  const specialtyLogoUrl = getSpecialtyLogoUrl(specialty);
+
   const totalBaseSubjects = Array.isArray(specialty.subjects)
     ? specialty.subjects.length
     : 0;
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <section className="bg-indigo-600 text-white py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4">
+      <section className="relative overflow-hidden bg-[#050816] text-white py-16 md:py-20">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage:
+              'radial-gradient(circle at top right, rgba(79, 70, 229, 0.35), transparent 34%), linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
+            backgroundSize: '100% 100%, 48px 48px, 48px 48px'
+          }}
+        />
+
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/40 to-transparent" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
           <Link
             to="/recursos"
-            className="inline-flex items-center gap-2 text-indigo-100 hover:text-white transition-colors mb-8"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors mb-10"
           >
             <ArrowLeft className="w-4 h-4" />
             Volver a recursos
           </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[auto,1fr] gap-8 items-center">
-            <div
-              className={cn(
-                'w-28 h-28 rounded-3xl flex items-center justify-center shadow-2xl',
-                specialty.color,
-                'text-white'
+          <div className="max-w-5xl">
+            <div className="mb-8">
+              {specialtyLogoUrl ? (
+                <div className="w-28 h-28 md:w-32 md:h-32 rounded-3xl bg-white/95 border border-white/20 shadow-2xl flex items-center justify-center overflow-hidden p-4">
+                  <img
+                    src={specialtyLogoUrl}
+                    alt={`Logo de ${specialty.shortName || specialty.name}`}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    'w-28 h-28 md:w-32 md:h-32 rounded-3xl flex items-center justify-center shadow-2xl',
+                    specialty.color,
+                    'text-white'
+                  )}
+                >
+                  <SpecialtyIcon className="w-14 h-14 md:w-16 md:h-16" />
+                </div>
               )}
-            >
-              <SpecialtyIcon className="w-14 h-14" />
             </div>
 
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-5xl font-bold mb-4"
-              >
-                Recursos de {specialty.shortName || specialty.name}
-              </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-6xl font-black tracking-tight mb-5"
+            >
+              Recursos de {specialty.shortName || specialty.name}
+            </motion.h1>
 
-              <p className="text-indigo-100 text-lg leading-relaxed max-w-3xl">
-                Explora materiales de apoyo, guías, actividades, enlaces y
-                recursos académicos organizados para esta especialidad.
-              </p>
+            <p className="text-white/75 text-lg md:text-xl leading-relaxed max-w-3xl">
+              Explora materiales de apoyo, guías, actividades, enlaces y
+              recursos académicos organizados para esta especialidad.
+            </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10">
-                  <div className="text-sm text-indigo-100">
-                    Asignaturas base
-                  </div>
-                  <div className="text-2xl font-bold">
-                    {totalBaseSubjects}
-                  </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10 shadow-lg">
+                <div className="text-sm text-white/60">
+                  Asignaturas base
                 </div>
-
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10">
-                  <div className="text-sm text-indigo-100">
-                    Recursos publicados
-                  </div>
-                  <div className="text-2xl font-bold">
-                    {filteredResources.length}
-                  </div>
+                <div className="text-2xl font-bold">
+                  {totalBaseSubjects}
                 </div>
+              </div>
 
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10">
-                  <div className="text-sm text-indigo-100">
-                    Nivel seleccionado
-                  </div>
-                  <div className="text-2xl font-bold">
-                    {selectedLevelOption?.shortLabel || 'Elegir'}
-                  </div>
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10 shadow-lg">
+                <div className="text-sm text-white/60">
+                  Recursos publicados
+                </div>
+                <div className="text-2xl font-bold">
+                  {filteredResources.length}
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl px-5 py-4 border border-white/10 shadow-lg">
+                <div className="text-sm text-white/60">
+                  Nivel seleccionado
+                </div>
+                <div className="text-2xl font-bold">
+                  {selectedLevelOption?.shortLabel || 'Elegir'}
                 </div>
               </div>
             </div>
