@@ -334,7 +334,9 @@ export default function Playground() {
                 <Filter className="h-4 w-4" />
                 Biblioteca interactiva
               </div>
+
               <h2 className="text-2xl font-black text-slate-900">Explora actividades disponibles</h2>
+
               <p className="mt-1 text-sm text-slate-600">
                 Filtra por especialidad, nivel o busca directamente por tema.
               </p>
@@ -342,6 +344,7 @@ export default function Playground() {
 
             <div className="relative w-full lg:max-w-sm">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+
               <input
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
@@ -396,7 +399,9 @@ export default function Playground() {
           {filteredGames.length === 0 ? (
             <div className="rounded-3xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center">
               <BookOpen className="mx-auto mb-4 h-10 w-10 text-slate-400" />
+
               <h3 className="text-lg font-black text-slate-900">No encontramos juegos con esos filtros</h3>
+
               <p className="mt-2 text-sm text-slate-600">
                 Prueba cambiando la especialidad, el nivel o el texto de búsqueda.
               </p>
@@ -424,7 +429,9 @@ export default function Playground() {
                           </div>
 
                           <div>
-                            <p className="text-xs font-bold uppercase tracking-wide text-slate-500">{game.typeName}</p>
+                            <p className="text-xs font-bold uppercase tracking-wide text-slate-500">
+                              {game.typeName}
+                            </p>
                             <p className="text-xs text-slate-500">{game.estimatedTime}</p>
                           </div>
                         </div>
