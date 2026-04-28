@@ -7,28 +7,32 @@ export interface Specialty {
   color: string;
   icon: string;
   virtualRoomUrl: string;
+  virtualTourTitle: string;
+  virtualTourDescription: string;
+  virtualTourEmbedUrl: string;
+  academicAccessDescription: string;
   tips: string[];
   subjects: Subject[];
 }
-
+ 
 export interface Subject {
   name: string;
   resources: Resource[];
   activities: Activity[];
 }
-
+ 
 export interface Resource {
   title: string;
   type: 'ppt' | 'video' | 'game' | 'document';
   url: string;
 }
-
+ 
 export interface Activity {
   title: string;
   description: string;
   type: 'quiz' | 'interactive' | 'task';
 }
-
+ 
 export const SPECIALTIES: Specialty[] = [
   {
     id: 'administracion',
@@ -39,36 +43,17 @@ export const SPECIALTIES: Specialty[] = [
     color: 'bg-red-800',
     icon: 'Users',
     virtualRoomUrl: 'https://picsum.photos/seed/office/800/600',
+    virtualTourTitle: 'Recorrido 360° / Entorno de Aprendizaje',
+    virtualTourDescription: 'Conoce el espacio donde se desarrollan actividades propias de la especialidad de Administración, incluyendo ambientes de trabajo administrativo, uso de tecnología y simulación de oficina.',
+    virtualTourEmbedUrl: '',
+    academicAccessDescription: 'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio académico de esta especialidad.',
     tips: [
       'Mantén siempre tu CV actualizado.',
       'La empatía es la base de una buena gestión de personas.',
       'Domina Excel, es tu mejor herramienta.',
       'Aprende sobre legislación laboral vigente.'
     ],
-    subjects: [
-      {
-        name: 'Gestión de Personal',
-        resources: [
-          { title: 'PPT: Introducción a RRHH', type: 'ppt', url: '#' },
-          { title: 'Video: El proceso de Selección', type: 'video', url: '#' },
-          { title: 'Juego: Simulador de Entrevistas', type: 'game', url: '#' }
-        ],
-        activities: [
-          { title: 'Quiz de Contratos', description: 'Evalúa tus conocimientos sobre tipos de contratos en Chile.', type: 'quiz' },
-          { title: 'Taller de Clima Laboral', description: 'Diseña una encuesta de clima para una empresa ficticia.', type: 'task' }
-        ]
-      },
-      {
-        name: 'Legislación Laboral',
-        resources: [
-          { title: 'PPT: Código del Trabajo', type: 'ppt', url: '#' },
-          { title: 'Guía: Derechos del Trabajador', type: 'document', url: '#' }
-        ],
-        activities: [
-          { title: 'Cálculo de Finiquitos', description: 'Ejercicio práctico de cálculo de indemnizaciones.', type: 'task' }
-        ]
-      }
-    ]
+    subjects: []
   },
   {
     id: 'agricola',
@@ -79,25 +64,17 @@ export const SPECIALTIES: Specialty[] = [
     color: 'bg-emerald-900',
     icon: 'Beef',
     virtualRoomUrl: 'https://picsum.photos/seed/farm/800/600',
+    virtualTourTitle: 'Recorrido 360° / Entorno de Aprendizaje',
+    virtualTourDescription: 'Explora el entorno formativo asociado al trabajo agrícola y pecuario, incluyendo espacios de terreno, producción, manejo animal y aprendizaje práctico.',
+    virtualTourEmbedUrl: '',
+    academicAccessDescription: 'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio académico de esta especialidad.',
     tips: [
       'La observación diaria de los animales previene enfermedades.',
       'El bienestar animal mejora la productividad.',
       'Mantén registros precisos de alimentación.',
       'La higiene en los corrales es fundamental.'
     ],
-    subjects: [
-      {
-        name: 'Manejo de Ganado',
-        resources: [
-          { title: 'PPT: Nutrición Bovina', type: 'ppt', url: '#' },
-          { title: 'Video: Técnicas de Ordeño', type: 'video', url: '#' }
-        ],
-        activities: [
-          { title: 'Plan de Vacunación', description: 'Crea un calendario sanitario para un rebaño.', type: 'task' },
-          { title: 'Identificación de Razas', description: 'Juego interactivo para reconocer razas ovinas y bovinas.', type: 'interactive' }
-        ]
-      }
-    ]
+    subjects: []
   },
   {
     id: 'parvularia',
@@ -108,28 +85,20 @@ export const SPECIALTIES: Specialty[] = [
     color: 'bg-yellow-500',
     icon: 'Baby',
     virtualRoomUrl: 'https://picsum.photos/seed/kindergarten/800/600',
+    virtualTourTitle: 'Recorrido 360° / Entorno de Aprendizaje',
+    virtualTourDescription: 'Conoce el ambiente formativo de Educación Parvularia, pensado para representar espacios de juego, cuidado, didáctica y acompañamiento en la primera infancia.',
+    virtualTourEmbedUrl: '',
+    academicAccessDescription: 'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio académico de esta especialidad.',
     tips: [
       'El juego es la principal herramienta de aprendizaje.',
       'Fomenta la autonomía desde los primeros años.',
       'La paciencia y el amor son tus mejores aliados.',
       'Crea ambientes seguros y estimulantes.'
     ],
-    subjects: [
-      {
-        name: 'Material Didáctico',
-        resources: [
-          { title: 'PPT: Teorías del Aprendizaje', type: 'ppt', url: '#' },
-          { title: 'Guía: Creación de Títeres', type: 'document', url: '#' }
-        ],
-        activities: [
-          { title: 'Diseño de Rincón de Juegos', description: 'Propón un espacio educativo temático.', type: 'task' },
-          { title: 'Cuentacuentos Online', description: 'Graba y sube tu narración de un cuento infantil.', type: 'task' }
-        ]
-      }
-    ]
+    subjects: []
   }
 ];
-
+ 
 export const BLOG_POSTS = [
   {
     id: 1,
@@ -156,7 +125,7 @@ export const BLOG_POSTS = [
     image: 'https://picsum.photos/seed/tractor/800/400'
   }
 ];
-
+ 
 export const INTERNSHIP_OFFERS = [
   {
     id: 1,
@@ -186,7 +155,7 @@ export const INTERNSHIP_OFFERS = [
     deadline: '20 de Mayo, 2026'
   }
 ];
-
+ 
 export const PLAYGROUND_GAMES = [
   {
     id: 1,
@@ -217,3 +186,4 @@ export const PLAYGROUND_GAMES = [
     icon: 'BookOpen'
   }
 ];
+
