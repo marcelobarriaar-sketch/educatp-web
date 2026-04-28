@@ -8,6 +8,7 @@ import {
   Instagram,
   Twitter,
   Youtube,
+  ExternalLink,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
@@ -161,11 +162,17 @@ function mergeSettings(content?: Partial<SiteSettings> | null): SiteSettings {
       : defaultSettings.socialLinks,
     theme,
     footerBackgroundColor:
-      theme.footerBackgroundColor || content?.footerBackgroundColor || defaultSettings.footerBackgroundColor,
+      theme.footerBackgroundColor ||
+      content?.footerBackgroundColor ||
+      defaultSettings.footerBackgroundColor,
     footerTextColor:
-      theme.footerTextColor || content?.footerTextColor || defaultSettings.footerTextColor,
+      theme.footerTextColor ||
+      content?.footerTextColor ||
+      defaultSettings.footerTextColor,
     brandTextColor:
-      theme.brandTextColor || content?.brandTextColor || defaultSettings.brandTextColor,
+      theme.brandTextColor ||
+      content?.brandTextColor ||
+      defaultSettings.brandTextColor,
   };
 }
 
@@ -177,7 +184,7 @@ function getSocialIcon(label: string, id: string) {
   if (key.includes('twitter') || key.includes('x')) return Twitter;
   if (key.includes('youtube')) return Youtube;
 
-  return Link;
+  return ExternalLink;
 }
 
 export default function Footer() {
@@ -230,14 +237,15 @@ export default function Footer() {
     theme.footerBackgroundColor?.trim() ||
     settings.footerBackgroundColor?.trim() ||
     '#0f172a';
+
   const footerText =
     theme.footerTextColor?.trim() ||
     settings.footerTextColor?.trim() ||
     '#cbd5e1';
-  const brandText =
-    theme.brandTextColor?.trim() ||
-    settings.brandTextColor?.trim() ||
-    '#ffffff';
+
+  // Color fijo para títulos importantes del footer.
+  // Esto evita que desde Supabase o desde el panel queden negros sobre fondo oscuro.
+  const footerHeadingText = '#ffffff';
 
   const visibleMenuItems = (settings.menuItems || []).filter((item) => item.visible !== false);
   const visibleSocials = (settings.socialLinks || []).filter(
@@ -270,7 +278,7 @@ export default function Footer() {
 
               <span
                 className="text-2xl font-bold"
-                style={{ color: brandText }}
+                style={{ color: footerHeadingText }}
               >
                 {footerTitle}
               </span>
@@ -306,7 +314,7 @@ export default function Footer() {
           <div>
             <h4
               className="font-bold mb-6"
-              style={{ color: brandText }}
+              style={{ color: footerHeadingText }}
             >
               Navegación
             </h4>
@@ -329,7 +337,7 @@ export default function Footer() {
           <div>
             <h4
               className="font-bold mb-6"
-              style={{ color: brandText }}
+              style={{ color: footerHeadingText }}
             >
               Accesos rápidos
             </h4>
@@ -368,7 +376,7 @@ export default function Footer() {
           <div>
             <h4
               className="font-bold mb-6"
-              style={{ color: brandText }}
+              style={{ color: footerHeadingText }}
             >
               Contacto
             </h4>
