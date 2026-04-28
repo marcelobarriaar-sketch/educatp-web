@@ -23,6 +23,31 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Baby,
 };
 
+const textFixes: Array<[string, string]> = [
+  ['‚àö¬∞', '√°'],
+  ['‚àö¬©', '√©'],
+  ['‚àö‚â†', '√≠'],
+  ['‚àö‚â•', '√≥'],
+  ['‚àö‚à´', '√∫'],
+  ['‚àö¬±', '√±'],
+  ['‚àö√Ö', '√Å'],
+  ['‚àö√¢', '√â'],
+  ['‚àö√ß', '√ç'],
+  ['‚àö√¨', '√ì'],
+  ['‚àö√∂', '√ö'],
+  ['‚àö√´', '√ë'],
+  ['¬¨‚àû', '¬∞'],
+];
+
+function fixText(value: string) {
+  return textFixes.reduce((text, [wrong, correct]) => text.split(wrong).join(correct), value);
+}
+
+function cleanText(value?: string, fallback = '') {
+  const raw = value && value.trim() ? value : fallback;
+  return fixText(raw || '');
+}
+
 function extractIframeSrc(value?: string) {
   const raw = (value || '').trim();
   if (!raw) return '';
@@ -36,25 +61,30 @@ function normalizeSpecialty(specialty: Partial<Specialty> | null | undefined, in
 
   return {
     id: specialty?.id || fallback?.id || `especialidad-${index + 1}`,
-    name: specialty?.name || fallback?.name || 'Especialidad',
-    shortName: specialty?.shortName || fallback?.shortName || specialty?.name || 'Especialidad',
-    description: specialty?.description || fallback?.description || '',
-    history: specialty?.history || fallback?.history || '',
+    name: cleanText(specialty?.name, fallback?.name || 'Especialidad'),
+    shortName: cleanText(specialty?.shortName, fallback?.shortName || specialty?.name || 'Especialidad'),
+    description: cleanText(specialty?.description, fallback?.description || ''),
+    history: cleanText(specialty?.history, fallback?.history || ''),
     color: specialty?.color || fallback?.color || 'bg-slate-900',
     icon: specialty?.icon || fallback?.icon || 'Users',
     virtualRoomUrl: specialty?.virtualRoomUrl || fallback?.virtualRoomUrl || '',
-    virtualTourTitle:
-      specialty?.virtualTourTitle || fallback?.virtualTourTitle || 'Recorrido 360¬∞ / Entorno de Aprendizaje',
-    virtualTourDescription:
-      specialty?.virtualTourDescription ||
-      fallback?.virtualTourDescription ||
-      'Este espacio permite conocer visualmente el entorno formativo de la especialidad.',
+    virtualTourTitle: cleanText(
+      specialty?.virtualTourTitle,
+      fallback?.virtualTourTitle || 'Recorrido 360\u00b0 / Entorno de Aprendizaje'
+    ),
+    virtualTourDescription: cleanText(
+      specialty?.virtualTourDescription,
+      fallback?.virtualTourDescription || 'Este espacio permite conocer visualmente el entorno formativo de la especialidad.'
+    ),
     virtualTourEmbedUrl: specialty?.virtualTourEmbedUrl || fallback?.virtualTourEmbedUrl || '',
-    academicAccessDescription:
-      specialty?.academicAccessDescription ||
+    academicAccessDescription: cleanText(
+      specialty?.academicAccessDescription,
       fallback?.academicAccessDescription ||
-      'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
-    tips: Array.isArray(specialty?.tips) ? specialty.tips.map((tip) => String(tip || '')) : fallback?.tips || [],
+        'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad\u00e9mico de esta especialidad.'
+    ),
+    tips: Array.isArray(specialty?.tips)
+      ? specialty.tips.map((tip) => cleanText(String(tip || '')))
+      : (fallback?.tips || []).map((tip) => cleanText(String(tip || ''))),
     subjects: Array.isArray(specialty?.subjects) ? specialty.subjects : fallback?.subjects || [],
   };
 }
@@ -80,12 +110,12 @@ export default function SpecialtyDetail() {
         const content = data?.content as { specialties?: Partial<Specialty>[] } | null;
         const remoteSpecialties = Array.isArray(content?.specialties)
           ? content.specialties.map((item: Partial<Specialty>, index: number) => normalizeSpecialty(item, index))
-          : SPECIALTIES;
+          : SPECIALTIES.map((item, index) => normalizeSpecialty(item, index));
 
         if (mounted) setSpecialties(remoteSpecialties);
       } catch (error) {
         console.error('Error cargando especialidades:', error);
-        if (mounted) setSpecialties(SPECIALTIES);
+        if (mounted) setSpecialties(SPECIALTIES.map((item, index) => normalizeSpecialty(item, index)));
       } finally {
         if (mounted) setLoading(false);
       }
@@ -105,7 +135,7 @@ export default function SpecialtyDetail() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
         <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xl flex items-center gap-3 text-slate-700">
           <Loader2 className="h-5 w-5 animate-spin" />
-          Cargando especialidad...
+          {'Cargando especialidad...'}
         </div>
       </div>
     );
@@ -115,10 +145,10 @@ export default function SpecialtyDetail() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
         <div className="max-w-xl w-full bg-white border border-slate-200 rounded-3xl shadow-xl p-10 text-center">
-          <h1 className="text-3xl font-bold text-slate-900 mb-4">Especialidad no encontrada</h1>
+          <h1 className="text-3xl font-bold text-slate-900 mb-4">{'Especialidad no encontrada'}</h1>
 
           <p className="text-slate-600 mb-8 leading-relaxed">
-            La especialidad que intentas visualizar no existe o ya no est√° disponible.
+            {'La especialidad que intentas visualizar no existe o ya no est\u00e1 disponible.'}
           </p>
 
           <Link
@@ -126,7 +156,7 @@ export default function SpecialtyDetail() {
             className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-indigo-600 text-white font-bold hover:bg-indigo-700 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Volver a especialidades
+            {'Volver a especialidades'}
           </Link>
         </div>
       </div>
@@ -145,7 +175,7 @@ export default function SpecialtyDetail() {
             className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
-            Volver a Especialidades
+            {'Volver a Especialidades'}
           </Link>
 
           <div className="flex flex-col md:flex-row md:items-center gap-8">
@@ -163,7 +193,7 @@ export default function SpecialtyDetail() {
                   to={`/recursos/${specialty.id}`}
                   className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-slate-900 font-bold hover:bg-slate-100 transition-colors"
                 >
-                  Ver recursos de esta especialidad
+                  {'Ver recursos de esta especialidad'}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -182,7 +212,7 @@ export default function SpecialtyDetail() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <History className="w-6 h-6 text-indigo-600" />
-                <h2 className="text-2xl font-bold text-slate-900">Nuestra Historia</h2>
+                <h2 className="text-2xl font-bold text-slate-900">{'Nuestra Historia'}</h2>
               </div>
 
               <p className="text-slate-600 leading-relaxed text-lg">{specialty.history}</p>
@@ -198,12 +228,12 @@ export default function SpecialtyDetail() {
                 <div className="flex items-center gap-3">
                   <Layout className="w-6 h-6 text-indigo-600" />
                   <h2 className="text-2xl font-bold text-slate-900">
-                    {specialty.virtualTourTitle || 'Recorrido 360¬∞ / Entorno de Aprendizaje'}
+                    {specialty.virtualTourTitle || 'Recorrido 360\u00b0 / Entorno de Aprendizaje'}
                   </h2>
                 </div>
 
                 <span className="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-wider">
-                  Institucional
+                  {'Institucional'}
                 </span>
               </div>
 
@@ -227,7 +257,7 @@ export default function SpecialtyDetail() {
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center p-8 text-center text-slate-500">
-                    Agrega una imagen o un enlace 360¬∞ desde el panel de administraci√≥n.
+                    {'Agrega una imagen o un enlace 360\u00b0 desde el panel de administraci\u00f3n.'}
                   </div>
                 )}
               </div>
@@ -248,7 +278,7 @@ export default function SpecialtyDetail() {
             >
               <div className="flex items-center gap-3 mb-6">
                 <Lightbulb className="w-6 h-6 text-yellow-300" />
-                <h2 className="text-2xl font-bold">Tips R√°pidos</h2>
+                <h2 className="text-2xl font-bold">{'Tips R\u00e1pidos'}</h2>
               </div>
 
               <div className="space-y-4">
@@ -262,7 +292,9 @@ export default function SpecialtyDetail() {
                     </div>
                   ))
                 ) : (
-                  <p className="text-sm text-white/80">Agrega tips r√°pidos desde el panel de administraci√≥n.</p>
+                  <p className="text-sm text-white/80">
+                    {'Agrega tips r\u00e1pidos desde el panel de administraci\u00f3n.'}
+                  </p>
                 )}
               </div>
             </motion.section>
@@ -273,18 +305,18 @@ export default function SpecialtyDetail() {
               transition={{ delay: 0.12 }}
               className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200"
             >
-              <h2 className="text-xl font-bold text-slate-900 mb-4">Acceso acad√©mico</h2>
+              <h2 className="text-xl font-bold text-slate-900 mb-4">{'Acceso acad\u00e9mico'}</h2>
 
               <p className="text-slate-600 leading-relaxed mb-6">
                 {specialty.academicAccessDescription ||
-                  'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.'}
+                  'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad\u00e9mico de esta especialidad.'}
               </p>
 
               <Link
                 to={`/recursos/${specialty.id}`}
                 className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl bg-slate-900 text-white font-bold hover:bg-indigo-600 transition-colors"
               >
-                Ir a recursos
+                {'Ir a recursos'}
                 <ExternalLink className="w-4 h-4" />
               </Link>
             </motion.section>
@@ -294,5 +326,6 @@ export default function SpecialtyDetail() {
     </div>
   );
 }
+
 
 
