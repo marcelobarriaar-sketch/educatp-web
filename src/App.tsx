@@ -35,10 +35,17 @@ function AppContent() {
           <Route path="/recursos" element={<Resources />} />
           <Route path="/recursos/:id" element={<ResourcesBySpecialty />} />
 
+          {/* Otras secciones públicas */}
           <Route path="/blog" element={<Blog />} />
           <Route path="/practicas" element={<Internships />} />
-          <Route path="/juegos" element={<Playground />} />
 
+          {/* Patio de Juegos */}
+          <Route path="/playground" element={<Playground />} />
+
+          {/* Compatibilidad con ruta antigua /juegos */}
+          <Route path="/juegos" element={<Navigate to="/playground" replace />} />
+
+          {/* Panel administrador */}
           <Route
             path="/admin"
             element={
