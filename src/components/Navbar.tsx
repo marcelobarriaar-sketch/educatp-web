@@ -15,7 +15,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { supabase } from '../lib/supabase';
 
 type MenuItem = {
-  name: string;
+  id?: string;
+  name?: string;
+  label?: string;
   path: string;
   visible?: boolean;
 };
@@ -49,7 +51,7 @@ const defaultNavItems: MenuItem[] = [
   { name: 'Recursos', path: '/recursos', visible: true },
   { name: 'Blog TP', path: '/blog', visible: true },
   { name: 'Prácticas', path: '/practicas', visible: true },
-  { name: 'Patio de Juegos', path: '/juegos', visible: true },
+  { name: 'Patio de Juegos', path: '/playground', visible: true },
 ];
 
 const iconMap: Record<string, React.ComponentType<any>> = {
@@ -58,8 +60,59 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   '/recursos': BookOpen,
   '/blog': Newspaper,
   '/practicas': Briefcase,
+  '/playground': Gamepad2,
   '/juegos': Gamepad2,
 };
+
+function repairText(value: string): string {
+  return value
+    .replace(/‚àö¬∞/g, 'á')
+    .replace(/‚àö¬©/g, 'é')
+    .replace(/‚àö‚â†/g, 'í')
+    .replace(/‚àö‚â•/g, 'ó')
+    .replace(/‚àö‚à´/g, 'ú')
+    .replace(/‚àö¬±/g, 'ñ')
+    .replace(/√°/g, 'á')
+    .replace(/√©/g, 'é')
+    .replace(/√≠/g, 'í')
+    .replace(/√≥/g, 'ó')
+    .replace(/√∫/g, 'ú')
+    .replace(/√±/g, 'ñ')
+    .replace(/¬∞/g, '°')
+    .replace(/Ã¡/g, 'á')
+    .replace(/Ã©/g, 'é')
+    .replace(/Ã­/g, 'í')
+    .replace(/Ã³/g, 'ó')
+    .replace(/Ãº/g, 'ú')
+    .replace(/Ã±/g, 'ñ');
+}
+
+function normalizeMenuPath(item: MenuItem): string {
+  const rawName = item.name || item.label || '';
+  const cleanName = repairText(rawName).toLowerCase();
+  const rawPath = (item.path || '').trim();
+
+  if (cleanName.includes('patio') || cleanName.includes('juego') || rawPath === '/juegos') {
+    return '/playground';
+  }
+
+  if (!rawPath || rawPath === '#') {
+    return '/';
+  }
+
+  return rawPath.startsWith('/') ? rawPath : `/${rawPath}`;
+}
+
+function normalizeMenuItem(item: MenuItem, index: number): MenuItem {
+  const cleanName = repairText(item.name || item.label || `Menú ${index + 1}`);
+
+  return {
+    ...item,
+    name: cleanName,
+    path: normalizeMenuPath(item),
+    visible: item.visible !== false,
+  };
+}
 
 function BrandMark() {
   return (
@@ -117,6 +170,7 @@ function ByBadge({
       >
         b
       </motion.span>
+
       <motion.span
         variants={{ hover: { rotate: 20, scale: 1.4, y: -2 } }}
         transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -124,6 +178,7 @@ function ByBadge({
       >
         y
       </motion.span>
+
       <motion.span
         variants={{ hover: { scale: 2, y: -2 } }}
         transition={{ type: 'spring', stiffness: 400, damping: 10 }}
@@ -149,7 +204,7 @@ export default function Navbar() {
           .from('pages')
           .select('content')
           .eq('slug', 'site_settings')
-          .single();
+          .maybeSingle();
 
         if (error) {
           console.error('Error cargando site_settings en Navbar:', error);
@@ -176,14 +231,18 @@ export default function Navbar() {
   const navItems = React.useMemo(() => {
     const fromDb = Array.isArray(settings.menuItems) ? settings.menuItems : [];
     const usable = fromDb.length > 0 ? fromDb : defaultNavItems;
-    return usable.filter((item) => item.visible !== false);
+
+    return usable
+      .map((item, index) => normalizeMenuItem(item, index))
+      .filter((item) => item.visible !== false);
   }, [settings.menuItems]);
 
-  const siteName = settings.siteName?.trim() || 'EducaTP';
+  const siteName = repairText(settings.siteName?.trim() || 'EducaTP');
   const logoUrl = settings.logoUrl?.trim() || '';
-  const logoAlt = settings.logoAlt?.trim() || 'Logo EducaTP';
-  const schoolSubtitle =
-    settings.schoolSubtitle?.trim() || 'Liceo Carlos Ibáñez del Campo';
+  const logoAlt = repairText(settings.logoAlt?.trim() || 'Logo EducaTP');
+  const schoolSubtitle = repairText(
+    settings.schoolSubtitle?.trim() || 'Liceo Carlos Ibáñez del Campo'
+  );
 
   const theme = settings.theme || {};
 
@@ -270,12 +329,15 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => {
+              const itemName = item.name || item.label || '';
               const Icon = iconMap[item.path] || LayoutDashboard;
-              const isActive = location.pathname === item.path;
+              const isActive =
+                location.pathname === item.path ||
+                (item.path === '/playground' && location.pathname === '/juegos');
 
               return (
                 <Link
-                  key={item.path}
+                  key={`${item.path}-${itemName}`}
                   to={item.path}
                   className={cn(
                     'flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-[11px] font-bold transition-all uppercase tracking-wider'
@@ -283,7 +345,9 @@ export default function Navbar() {
                   style={{
                     backgroundColor: isActive ? primaryColor : 'transparent',
                     color: isActive ? '#ffffff' : secondaryColor,
-                    boxShadow: isActive ? `0 10px 20px -10px ${primaryColor}` : 'none',
+                    boxShadow: isActive
+                      ? `0 10px 20px -10px ${primaryColor}`
+                      : 'none',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
@@ -299,7 +363,7 @@ export default function Navbar() {
                   }}
                 >
                   <Icon className="w-3.5 h-3.5" />
-                  {item.name}
+                  {itemName}
                 </Link>
               );
             })}
@@ -335,12 +399,15 @@ export default function Navbar() {
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {navItems.map((item) => {
+                const itemName = item.name || item.label || '';
                 const Icon = iconMap[item.path] || LayoutDashboard;
-                const isActive = location.pathname === item.path;
+                const isActive =
+                  location.pathname === item.path ||
+                  (item.path === '/playground' && location.pathname === '/juegos');
 
                 return (
                   <Link
-                    key={item.path}
+                    key={`${item.path}-${itemName}`}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
                     className="flex items-center gap-3 px-4 py-3 rounded-xl text-base font-medium transition-all"
@@ -360,7 +427,7 @@ export default function Navbar() {
                     }}
                   >
                     <Icon className="w-5 h-5" />
-                    {item.name}
+                    {itemName}
                   </Link>
                 );
               })}
