@@ -180,6 +180,10 @@ type SpecialtyDetailItem = {
   color: string;
   icon: string;
   virtualRoomUrl: string;
+  virtualTourTitle: string;
+  virtualTourDescription: string;
+  virtualTourEmbedUrl: string;
+  academicAccessDescription: string;
   tips: string[];
   subjects: SpecialtySubject[];
 };
@@ -203,38 +207,38 @@ type AdminSection =
 const STORAGE_KEY = 'educatp_admin_auth';
 
 const defaultHomeContent: HomeContent = {
-  heroBadge: 'Liceo T√©cnico Profesional',
+  heroBadge: 'Liceo T‚àö¬©cnico Profesional',
   heroTitleLine1: 'Formando talentos para el futuro',
   heroTitleLine1Color: '#0f172a',
-  heroTitleGreen: 'Administraci√≥n',
+  heroTitleGreen: 'Administraci‚àö‚â•n',
   heroTitleGreenColor: '#064e3b',
   heroTitleYellow: 'Agropecuaria',
   heroTitleYellowColor: '#eab308',
-  heroTitleRed: 'Atenci√≥n de P√°rvulos',
+  heroTitleRed: 'Atenci‚àö‚â•n de P‚àö¬∞rvulos',
   heroTitleRedColor: '#991b1b',
   heroDescription:
-    'Impulsamos una educaci√≥n t√©cnico profesional conectada con el territorio, la innovaci√≥n y el desarrollo de competencias para la vida y el trabajo.',
+    'Impulsamos una educaci‚àö‚â•n t‚àö¬©cnico profesional conectada con el territorio, la innovaci‚àö‚â•n y el desarrollo de competencias para la vida y el trabajo.',
   heroPrimaryButtonText: 'Conoce nuestras especialidades',
   heroPrimaryButtonLink: '/especialidades',
-  heroSecondaryButtonText: 'Ver pr√°cticas',
+  heroSecondaryButtonText: 'Ver pr‚àö¬∞cticas',
   heroSecondaryButtonLink: '/practicas',
   heroImageUrl: '',
   heroImageAlt: 'Estudiantes del liceo',
-  heroFeatureTitle: 'Educaci√≥n TP conectada con el mundo real',
-  heroFeatureSubtitle: 'Aprendizaje pr√°ctico, vinculaci√≥n con empresas y desarrollo integral.',
+  heroFeatureTitle: 'Educaci‚àö‚â•n TP conectada con el mundo real',
+  heroFeatureSubtitle: 'Aprendizaje pr‚àö¬∞ctico, vinculaci‚àö‚â•n con empresas y desarrollo integral.',
   stats: [
     { value: '3', label: 'Especialidades' },
-    { value: '100%', label: 'Compromiso con la formaci√≥n' },
-    { value: 'TP', label: 'Educaci√≥n t√©cnico profesional' },
+    { value: '100%', label: 'Compromiso con la formaci‚àö‚â•n' },
+    { value: 'TP', label: 'Educaci‚àö‚â•n t‚àö¬©cnico profesional' },
   ],
   specialtiesBadge: 'Especialidades',
-  specialtiesTitle: '√Åreas de formaci√≥n',
+  specialtiesTitle: '‚àö√Öreas de formaci‚àö‚â•n',
   specialtiesSubtitle:
-    'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo acad√©mico y laboral.',
+    'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo acad‚àö¬©mico y laboral.',
   specialties: [
     {
-      title: 'Administraci√≥n',
-      description: 'Formaci√≥n en gesti√≥n, organizaci√≥n, procesos administrativos y herramientas digitales.',
+      title: 'Administraci‚àö‚â•n',
+      description: 'Formaci‚àö‚â•n en gesti‚àö‚â•n, organizaci‚àö‚â•n, procesos administrativos y herramientas digitales.',
       icon: 'Users',
       iconUrl: '',
       imageUrl: '',
@@ -242,15 +246,15 @@ const defaultHomeContent: HomeContent = {
     },
     {
       title: 'Agropecuaria',
-      description: 'Desarrollo de competencias vinculadas al trabajo agr√≠cola, producci√≥n y sostenibilidad.',
+      description: 'Desarrollo de competencias vinculadas al trabajo agr‚àö‚â†cola, producci‚àö‚â•n y sostenibilidad.',
       icon: 'Beef',
       iconUrl: '',
       imageUrl: '',
       link: '/especialidades/agropecuaria',
     },
     {
-      title: 'Atenci√≥n de P√°rvulos',
-      description: 'Preparaci√≥n para apoyar procesos educativos y de cuidado en primera infancia.',
+      title: 'Atenci‚àö‚â•n de P‚àö¬∞rvulos',
+      description: 'Preparaci‚àö‚â•n para apoyar procesos educativos y de cuidado en primera infancia.',
       icon: 'Baby',
       iconUrl: '',
       imageUrl: '',
@@ -269,22 +273,22 @@ const defaultSiteSettings: SiteSettings = {
   siteName: 'Educa TP',
   logoUrl: '',
   logoAlt: 'Logo del establecimiento',
-  schoolSubtitle: 'Liceo Carlos Ib√°√±ez del Campo',
+  schoolSubtitle: 'Liceo Carlos Ib‚àö¬∞‚àö¬±ez del Campo',
   menuItems: [
     { id: 'inicio', name: 'Inicio', path: '/', visible: true },
     { id: 'especialidades', name: 'Especialidades', path: '/especialidades', visible: true },
     { id: 'recursos', name: 'Recursos', path: '/recursos', visible: true },
     { id: 'blog', name: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', name: 'Pr√°cticas', path: '/practicas', visible: true },
+    { id: 'practicas', name: 'Pr‚àö¬∞cticas', path: '/practicas', visible: true },
     { id: 'patio', name: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   footerTitle: 'Educa TP',
-  footerDescription: 'Formaci√≥n t√©cnico profesional conectada con el territorio, la innovaci√≥n y el futuro.',
-  address: 'Fresia, Regi√≥n de Los Lagos, Chile',
+  footerDescription: 'Formaci‚àö‚â•n t‚àö¬©cnico profesional conectada con el territorio, la innovaci‚àö‚â•n y el futuro.',
+  address: 'Fresia, Regi‚àö‚â•n de Los Lagos, Chile',
   email: 'contacto@educatp.cl',
   phone: '+56 9 0000 0000',
   copyrightText: 'Todos los derechos reservados.',
-  creditsText: 'Espacio creado por el docente Marcelo Barr√≠a Arismendi.',
+  creditsText: 'Espacio creado por el docente Marcelo Barr‚àö‚â†a Arismendi.',
   socialLinks: [
     { id: 'facebook', label: 'Facebook', url: '', visible: false },
     { id: 'instagram', label: 'Instagram', url: '', visible: false },
@@ -306,7 +310,7 @@ const defaultSiteSettings: SiteSettings = {
     { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
     { id: 'recursos', label: 'Recursos', path: '/recursos', visible: true },
     { id: 'blog', label: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', label: 'Pr√°cticas', path: '/practicas', visible: true },
+    { id: 'practicas', label: 'Pr‚àö¬∞cticas', path: '/practicas', visible: true },
     { id: 'patio', label: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   brandTextColor: '#0f172a',
@@ -317,52 +321,58 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
   specialties: [
     {
       id: 'administracion',
-      name: 'Administraci√≥n Menci√≥n Recursos Humanos',
-      shortName: 'Administraci√≥n RRHH',
+      name: 'Administraci‚àö‚â•n Menci‚àö‚â•n Recursos Humanos',
+      shortName: 'Administraci‚àö‚â•n RRHH',
       description:
-        'Formamos profesionales capaces de gestionar el capital m√°s valioso de cualquier organizaci√≥n: las personas.',
+        'Formamos profesionales capaces de gestionar el capital m‚àö¬∞s valioso de cualquier organizaci‚àö‚â•n: las personas.',
       history:
-        'La especialidad de Administraci√≥n naci√≥ en el a√±o 2010 como respuesta a la creciente demanda de gestores administrativos en la regi√≥n. Desde entonces, ha evolucionado integrando tecnolog√≠as digitales y enfoques modernos de bienestar laboral.',
+        'La especialidad de Administraci‚àö‚â•n naci‚àö‚â• en el a‚àö¬±o 2010 como respuesta a la creciente demanda de gestores administrativos en la regi‚àö‚â•n. Desde entonces, ha evolucionado integrando tecnolog‚àö‚â†as digitales y enfoques modernos de bienestar laboral.',
       color: 'bg-red-800',
       icon: 'Users',
       virtualRoomUrl: 'https://picsum.photos/seed/office/800/600',
+      virtualTourTitle: 'Recorrido 360¬∞ / Entorno de Aprendizaje',
+      virtualTourDescription:
+        'Conoce el espacio donde se desarrollan actividades propias de la especialidad de Administraci√≥n, incluyendo ambientes de trabajo administrativo, uso de tecnolog√≠a y simulaci√≥n de oficina.',
+      virtualTourEmbedUrl: '',
+      academicAccessDescription:
+        'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
       tips: [
-        'Mant√©n siempre tu CV actualizado.',
-        'La empat√≠a es la base de una buena gesti√≥n de personas.',
+        'Mant‚àö¬©n siempre tu CV actualizado.',
+        'La empat‚àö‚â†a es la base de una buena gesti‚àö‚â•n de personas.',
         'Domina Excel, es tu mejor herramienta.',
-        'Aprende sobre legislaci√≥n laboral vigente.',
+        'Aprende sobre legislaci‚àö‚â•n laboral vigente.',
       ],
       subjects: [
         {
-          name: 'Gesti√≥n de Personal',
+          name: 'Gesti‚àö‚â•n de Personal',
           resources: [
-            { title: 'PPT: Introducci√≥n a RRHH', type: 'ppt', url: '#' },
-            { title: 'Video: El proceso de Selecci√≥n', type: 'video', url: '#' },
+            { title: 'PPT: Introducci‚àö‚â•n a RRHH', type: 'ppt', url: '#' },
+            { title: 'Video: El proceso de Selecci‚àö‚â•n', type: 'video', url: '#' },
             { title: 'Juego: Simulador de Entrevistas', type: 'game', url: '#' },
           ],
           activities: [
             {
               title: 'Quiz de Contratos',
-              description: 'Eval√∫a tus conocimientos sobre tipos de contratos en Chile.',
+              description: 'Eval‚àö‚à´a tus conocimientos sobre tipos de contratos en Chile.',
               type: 'quiz',
             },
             {
               title: 'Taller de Clima Laboral',
-              description: 'Dise√±a una encuesta de clima para una empresa ficticia.',
+              description: 'Dise‚àö¬±a una encuesta de clima para una empresa ficticia.',
               type: 'task',
             },
           ],
         },
         {
-          name: 'Legislaci√≥n Laboral',
+          name: 'Legislaci‚àö‚â•n Laboral',
           resources: [
-            { title: 'PPT: C√≥digo del Trabajo', type: 'ppt', url: '#' },
-            { title: 'Gu√≠a: Derechos del Trabajador', type: 'document', url: '#' },
+            { title: 'PPT: C‚àö‚â•digo del Trabajo', type: 'ppt', url: '#' },
+            { title: 'Gu‚àö‚â†a: Derechos del Trabajador', type: 'document', url: '#' },
           ],
           activities: [
             {
-              title: 'C√°lculo de Finiquitos',
-              description: 'Ejercicio pr√°ctico de c√°lculo de indemnizaciones.',
+              title: 'C‚àö¬∞lculo de Finiquitos',
+              description: 'Ejercicio pr‚àö¬∞ctico de c‚àö¬∞lculo de indemnizaciones.',
               type: 'task',
             },
           ],
@@ -371,35 +381,41 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
     {
       id: 'agricola',
-      name: 'T√©cnico Agr√≠cola Menci√≥n Pecuaria',
-      shortName: 'Agr√≠cola Pecuaria',
-      description: 'Conexi√≥n directa con la tierra y la producci√≥n animal sustentable.',
+      name: 'T‚àö¬©cnico Agr‚àö‚â†cola Menci‚àö‚â•n Pecuaria',
+      shortName: 'Agr‚àö‚â†cola Pecuaria',
+      description: 'Conexi‚àö‚â•n directa con la tierra y la producci‚àö‚â•n animal sustentable.',
       history:
-        'Nuestra especialidad m√°s antigua, arraigada en la tradici√≥n agr√≠cola de la zona. Se fund√≥ con el colegio, enfoc√°ndose inicialmente en cultivos y expandi√©ndose luego a la menci√≥n pecuaria con tecnolog√≠a de punta.',
+        'Nuestra especialidad m‚àö¬∞s antigua, arraigada en la tradici‚àö‚â•n agr‚àö‚â†cola de la zona. Se fund‚àö‚â• con el colegio, enfoc‚àö¬∞ndose inicialmente en cultivos y expandi‚àö¬©ndose luego a la menci‚àö‚â•n pecuaria con tecnolog‚àö‚â†a de punta.',
       color: 'bg-emerald-900',
       icon: 'Beef',
       virtualRoomUrl: 'https://picsum.photos/seed/farm/800/600',
+      virtualTourTitle: 'Recorrido 360¬∞ / Entorno de Aprendizaje',
+      virtualTourDescription:
+        'Explora el entorno formativo asociado al trabajo agr√≠cola y pecuario, incluyendo espacios de terreno, producci√≥n, manejo animal y aprendizaje pr√°ctico.',
+      virtualTourEmbedUrl: '',
+      academicAccessDescription:
+        'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
       tips: [
-        'La observaci√≥n diaria de los animales previene enfermedades.',
+        'La observaci‚àö‚â•n diaria de los animales previene enfermedades.',
         'El bienestar animal mejora la productividad.',
-        'Mant√©n registros precisos de alimentaci√≥n.',
+        'Mant‚àö¬©n registros precisos de alimentaci‚àö‚â•n.',
         'La higiene en los corrales es fundamental.',
       ],
       subjects: [
         {
           name: 'Manejo de Ganado',
           resources: [
-            { title: 'PPT: Nutrici√≥n Bovina', type: 'ppt', url: '#' },
-            { title: 'Video: T√©cnicas de Orde√±o', type: 'video', url: '#' },
+            { title: 'PPT: Nutrici‚àö‚â•n Bovina', type: 'ppt', url: '#' },
+            { title: 'Video: T‚àö¬©cnicas de Orde‚àö¬±o', type: 'video', url: '#' },
           ],
           activities: [
             {
-              title: 'Plan de Vacunaci√≥n',
-              description: 'Crea un calendario sanitario para un reba√±o.',
+              title: 'Plan de Vacunaci‚àö‚â•n',
+              description: 'Crea un calendario sanitario para un reba‚àö¬±o.',
               type: 'task',
             },
             {
-              title: 'Identificaci√≥n de Razas',
+              title: 'Identificaci‚àö‚â•n de Razas',
               description: 'Juego interactivo para reconocer razas ovinas y bovinas.',
               type: 'interactive',
             },
@@ -409,36 +425,42 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
     {
       id: 'parvularia',
-      name: 'T√©cnico en Educaci√≥n Parvularia',
+      name: 'T‚àö¬©cnico en Educaci‚àö‚â•n Parvularia',
       shortName: 'Ed. Parvularia',
-      description: 'Dedicaci√≥n y pedagog√≠a para los primeros pasos de las futuras generaciones.',
+      description: 'Dedicaci‚àö‚â•n y pedagog‚àö‚â†a para los primeros pasos de las futuras generaciones.',
       history:
-        'Creada para profesionalizar el cuidado y educaci√≥n inicial. Se destaca por su laboratorio de simulaci√≥n que recrea un ambiente real de jard√≠n infantil.',
+        'Creada para profesionalizar el cuidado y educaci‚àö‚â•n inicial. Se destaca por su laboratorio de simulaci‚àö‚â•n que recrea un ambiente real de jard‚àö‚â†n infantil.',
       color: 'bg-yellow-500',
       icon: 'Baby',
       virtualRoomUrl: 'https://picsum.photos/seed/kindergarten/800/600',
+      virtualTourTitle: 'Recorrido 360¬∞ / Entorno de Aprendizaje',
+      virtualTourDescription:
+        'Conoce el ambiente formativo de Educaci√≥n Parvularia, pensado para representar espacios de juego, cuidado, did√°ctica y acompa√±amiento en la primera infancia.',
+      virtualTourEmbedUrl: '',
+      academicAccessDescription:
+        'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
       tips: [
         'El juego es la principal herramienta de aprendizaje.',
-        'Fomenta la autonom√≠a desde los primeros a√±os.',
+        'Fomenta la autonom‚àö‚â†a desde los primeros a‚àö¬±os.',
         'La paciencia y el amor son tus mejores aliados.',
         'Crea ambientes seguros y estimulantes.',
       ],
       subjects: [
         {
-          name: 'Material Did√°ctico',
+          name: 'Material Did‚àö¬∞ctico',
           resources: [
-            { title: 'PPT: Teor√≠as del Aprendizaje', type: 'ppt', url: '#' },
-            { title: 'Gu√≠a: Creaci√≥n de T√≠teres', type: 'document', url: '#' },
+            { title: 'PPT: Teor‚àö‚â†as del Aprendizaje', type: 'ppt', url: '#' },
+            { title: 'Gu‚àö‚â†a: Creaci‚àö‚â•n de T‚àö‚â†teres', type: 'document', url: '#' },
           ],
           activities: [
             {
-              title: 'Dise√±o de Rinc√≥n de Juegos',
-              description: 'Prop√≥n un espacio educativo tem√°tico.',
+              title: 'Dise‚àö¬±o de Rinc‚àö‚â•n de Juegos',
+              description: 'Prop‚àö‚â•n un espacio educativo tem‚àö¬∞tico.',
               type: 'task',
             },
             {
               title: 'Cuentacuentos Online',
-              description: 'Graba y sube tu narraci√≥n de un cuento infantil.',
+              description: 'Graba y sube tu narraci‚àö‚â•n de un cuento infantil.',
               type: 'task',
             },
           ],
@@ -563,6 +585,14 @@ function normalizeSpecialtyDetailItem(
     color: specialty?.color || 'bg-slate-800',
     icon: specialty?.icon || 'Users',
     virtualRoomUrl: specialty?.virtualRoomUrl || '',
+    virtualTourTitle: specialty?.virtualTourTitle || 'Recorrido 360¬∞ / Entorno de Aprendizaje',
+    virtualTourDescription:
+      specialty?.virtualTourDescription ||
+      'Este espacio permite conocer visualmente el entorno formativo de la especialidad.',
+    virtualTourEmbedUrl: specialty?.virtualTourEmbedUrl || '',
+    academicAccessDescription:
+      specialty?.academicAccessDescription ||
+      'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
     tips: Array.isArray(specialty?.tips) ? specialty.tips.map((tip) => String(tip || '')) : [],
     subjects: Array.isArray(specialty?.subjects)
       ? specialty.subjects.map((subject) => normalizeSpecialtySubject(subject))
@@ -652,7 +682,7 @@ const adminSections: Array<{
   {
     key: 'central',
     title: 'Panel central',
-    description: 'Edita logo, nombre del sitio, men√∫, footer, redes y datos generales.',
+    description: 'Edita logo, nombre del sitio, men‚àö‚à´, footer, redes y datos generales.',
     icon: Settings,
   },
   {
@@ -681,14 +711,14 @@ const adminSections: Array<{
   },
   {
     key: 'internships',
-    title: 'Pr√°cticas',
-    description: 'Gestiona informaci√≥n de pr√°cticas, empresas y oportunidades.',
+    title: 'Pr‚àö¬∞cticas',
+    description: 'Gestiona informaci‚àö‚â•n de pr‚àö¬∞cticas, empresas y oportunidades.',
     icon: Briefcase,
   },
   {
     key: 'playground',
     title: 'Patio de Juegos',
-    description: 'Prepara actividades interactivas y contenido din√°mico.',
+    description: 'Prepara actividades interactivas y contenido din‚àö¬∞mico.',
     icon: Gamepad2,
   },
 ];
@@ -719,9 +749,9 @@ function SectionPlaceholder({
         </div>
 
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-          <p className="text-lg font-semibold text-slate-800">Esta secci√≥n quedar√° lista en el siguiente paso.</p>
+          <p className="text-lg font-semibold text-slate-800">Esta secci‚àö‚â•n quedar‚àö¬∞ lista en el siguiente paso.</p>
           <p className="mt-2 text-sm text-slate-600">
-            La estructura del panel ya est√° preparada para que despu√©s conectemos este m√≥dulo a Supabase.
+            La estructura del panel ya est‚àö¬∞ preparada para que despu‚àö¬©s conectemos este m‚àö‚â•dulo a Supabase.
           </p>
         </div>
       </section>
@@ -876,7 +906,7 @@ export default function Admin() {
       setCentralLoaded(true);
     } catch (error: any) {
       console.error('Error cargando site_settings:', error);
-      setErrorMsg(error?.message || 'No se pudo cargar la configuraci√≥n general.');
+      setErrorMsg(error?.message || 'No se pudo cargar la configuraci‚àö‚â•n general.');
     } finally {
       setLoading(false);
     }
@@ -1159,14 +1189,13 @@ export default function Admin() {
           color: 'bg-slate-800',
           icon: 'Users',
           virtualRoomUrl: '',
+          virtualTourTitle: 'Recorrido 360¬∞ / Entorno de Aprendizaje',
+          virtualTourDescription: '',
+          virtualTourEmbedUrl: '',
+          academicAccessDescription:
+            'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
           tips: [''],
-          subjects: [
-            {
-              name: '',
-              resources: [{ title: '', type: 'document', url: '' }],
-              activities: [{ title: '', description: '', type: 'task' }],
-            },
-          ],
+          subjects: [],
         },
       ],
     }));
@@ -1290,13 +1319,13 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 Bienvenido a tu panel de administrador
               </h1>
               <p className="mt-3 max-w-2xl text-sm text-slate-600">
-                Desde aqu√≠ puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
+                Desde aqu‚àö‚â† puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
               </p>
             </div>
 
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi√≥n
+              Cerrar sesi‚àö‚â•n
             </button>
           </div>
         </section>
@@ -1307,7 +1336,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <LayoutDashboard className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">P√°ginas y subp√°ginas</h2>
+              <h2 className="text-xl font-semibold text-slate-900">P‚àö¬∞ginas y subp‚àö¬∞ginas</h2>
               <p className="text-sm text-slate-500">
                 Selecciona el sector que deseas editar dentro del sitio educatp.cl.
               </p>
@@ -1376,7 +1405,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Panel central</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aqu√≠ puedes editar la estructura superior e inferior del sitio, la visibilidad del men√∫ y la informaci√≥n
+              Aqu‚àö‚â† puedes editar la estructura superior e inferior del sitio, la visibilidad del men‚àö‚à´ y la informaci‚àö‚â•n
               institucional global.
             </p>
           </div>
@@ -1384,7 +1413,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi√≥n
+              Cerrar sesi‚àö‚â•n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -1407,7 +1436,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Encabezado del sitio</h2>
-              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuraci√≥n base.</p>
+              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuraci‚àö‚â•n base.</p>
             </div>
           </div>
 
@@ -1422,12 +1451,12 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div>
-              <label className={labelClass}>Subt√≠tulo del establecimiento</label>
+              <label className={labelClass}>Subt‚àö‚â†tulo del establecimiento</label>
               <input
                 className={inputClass}
                 value={siteSettings.schoolSubtitle}
                 onChange={(e) => updateSiteField('schoolSubtitle', e.target.value)}
-                placeholder="Liceo Carlos Ib√°√±ez del Campo"
+                placeholder="Liceo Carlos Ib‚àö¬∞‚àö¬±ez del Campo"
               />
             </div>
 
@@ -1460,7 +1489,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <div>
               <h2 className={sectionTitleClass}>Colores globales del sitio</h2>
               <p className="text-sm text-slate-500">
-                Desde aqu√≠ controlas la identidad visual general del proyecto.
+                Desde aqu‚àö‚â† controlas la identidad visual general del proyecto.
               </p>
             </div>
           </div>
@@ -1468,7 +1497,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
           <div className="grid gap-4 md:grid-cols-2">
             <TitleColorField
               label="Color principal"
-              textValue="Botones principales / men√∫ activo"
+              textValue="Botones principales / men‚àö‚à´ activo"
               colorValue={siteSettings.theme.primaryColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('primaryColor', value)}
@@ -1492,7 +1521,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             />
             <TitleColorField
               label="Color acento"
-              textValue="Elementos de √©nfasis"
+              textValue="Elementos de ‚àö¬©nfasis"
               colorValue={siteSettings.theme.accentColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('accentColor', value)}
@@ -1524,7 +1553,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             />
             <TitleColorField
               label="Fondo footer"
-              textValue="Pie de p√°gina"
+              textValue="Pie de p‚àö¬∞gina"
               colorValue={siteSettings.theme.footerBackgroundColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('footerBackgroundColor', value)}
@@ -1532,7 +1561,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             />
             <TitleColorField
               label="Texto footer"
-              textValue="Contenido pie de p√°gina"
+              textValue="Contenido pie de p‚àö¬∞gina"
               colorValue={siteSettings.theme.footerTextColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('footerTextColor', value)}
@@ -1547,9 +1576,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <Settings className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Subp√°ginas y men√∫ principal</h2>
+              <h2 className={sectionTitleClass}>Subp‚àö¬∞ginas y men‚àö‚à´ principal</h2>
               <p className="text-sm text-slate-500">
-                Puedes agregar, ocultar o mostrar p√°ginas sin borrarlas definitivamente.
+                Puedes agregar, ocultar o mostrar p‚àö¬∞ginas sin borrarlas definitivamente.
               </p>
             </div>
           </div>
@@ -1601,7 +1630,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
             <button type="button" className={mutedButtonClass} onClick={addMenuItem}>
               <Plus className="h-4 w-4" />
-              Agregar subp√°gina al men√∫
+              Agregar subp‚àö¬∞gina al men‚àö‚à´
             </button>
           </div>
         </section>
@@ -1612,14 +1641,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <Palette className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Pie de p√°gina</h2>
+              <h2 className={sectionTitleClass}>Pie de p‚àö¬∞gina</h2>
               <p className="text-sm text-slate-500">Controla la parte inferior del sitio y su contenido general.</p>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className={labelClass}>T√≠tulo del footer</label>
+              <label className={labelClass}>T‚àö‚â†tulo del footer</label>
               <input
                 className={inputClass}
                 value={siteSettings.footerTitle}
@@ -1637,7 +1666,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div className="md:col-span-2">
-              <label className={labelClass}>Descripci√≥n del footer</label>
+              <label className={labelClass}>Descripci‚àö‚â•n del footer</label>
               <textarea
                 className={`${inputClass} min-h-[110px]`}
                 value={siteSettings.footerDescription}
@@ -1646,7 +1675,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div className="md:col-span-2">
-              <label className={labelClass}>Cr√©ditos / reconocimiento</label>
+              <label className={labelClass}>Cr‚àö¬©ditos / reconocimiento</label>
               <input
                 className={inputClass}
                 value={siteSettings.creditsText}
@@ -1664,13 +1693,13 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Datos de contacto</h2>
-              <p className="text-sm text-slate-500">Direcci√≥n, correo y tel√©fono visibles en el sitio.</p>
+              <p className="text-sm text-slate-500">Direcci‚àö‚â•n, correo y tel‚àö¬©fono visibles en el sitio.</p>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label className={labelClass}>Direcci√≥n</label>
+              <label className={labelClass}>Direcci‚àö‚â•n</label>
               <input
                 className={inputClass}
                 value={siteSettings.address}
@@ -1688,7 +1717,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div>
-              <label className={labelClass}>Tel√©fono</label>
+              <label className={labelClass}>Tel‚àö¬©fono</label>
               <input
                 className={inputClass}
                 value={siteSettings.phone}
@@ -1705,7 +1734,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Redes sociales</h2>
-              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales seg√∫n te convenga.</p>
+              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales seg‚àö‚à´n te convenga.</p>
             </div>
           </div>
 
@@ -1763,9 +1792,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         </section>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON general</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista r‚àö¬∞pida del JSON general</h2>
           <p className="mb-4 text-sm text-slate-500">
-            Este bloque te muestra exactamente lo que se guardar√° como configuraci√≥n global del sitio.
+            Este bloque te muestra exactamente lo que se guardar‚àö¬∞ como configuraci‚àö‚â•n global del sitio.
           </p>
 
           <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -1806,14 +1835,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de contenido Home</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Desde aqu√≠ puedes editar el contenido principal de la portada del sitio.
+              Desde aqu‚àö‚â† puedes editar el contenido principal de la portada del sitio.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi√≥n
+              Cerrar sesi‚àö‚â•n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -1836,8 +1865,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <Home className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Secci√≥n Hero</h2>
-                <p className="text-sm text-slate-500">T√≠tulo principal, textos, botones e imagen.</p>
+                <h2 className={sectionTitleClass}>Secci‚àö‚â•n Hero</h2>
+                <p className="text-sm text-slate-500">T‚àö‚â†tulo principal, textos, botones e imagen.</p>
               </div>
             </div>
 
@@ -1866,16 +1895,16 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     <Palette className="h-5 w-5 text-slate-700" />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-slate-900">T√≠tulo principal con colores editables</h3>
+                    <h3 className="text-base font-semibold text-slate-900">T‚àö‚â†tulo principal con colores editables</h3>
                     <p className="text-sm text-slate-500">
-                      Aqu√≠ puedes cambiar cada palabra y su color sin tocar el c√≥digo.
+                      Aqu‚àö‚â† puedes cambiar cada palabra y su color sin tocar el c‚àö‚â•digo.
                     </p>
                   </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <TitleColorField
-                    label="Palabra 1 / l√≠nea inicial"
+                    label="Palabra 1 / l‚àö‚â†nea inicial"
                     textValue={form.heroTitleLine1}
                     colorValue={form.heroTitleLine1Color}
                     onTextChange={(value) => updateField('heroTitleLine1', value)}
@@ -1909,11 +1938,11 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
                 <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-6">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Vista previa del t√≠tulo completo
+                    Vista previa del t‚àö‚â†tulo completo
                   </p>
                   <h3 className="text-2xl font-black leading-tight tracking-tight md:text-4xl">
                     <span style={{ color: form.heroTitleLine1Color || '#0f172a' }}>
-                      {form.heroTitleLine1 || 'T√≠tulo'}
+                      {form.heroTitleLine1 || 'T‚àö‚â†tulo'}
                     </span>{' '}
                     <span style={{ color: form.heroTitleGreenColor || '#064e3b' }}>
                       {form.heroTitleGreen || 'Palabra'}
@@ -1922,14 +1951,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                       {form.heroTitleYellow || 'Editable'}
                     </span>{' '}
                     <span style={{ color: form.heroTitleRedColor || '#991b1b' }}>
-                      {form.heroTitleRed || 'Aqu√≠'}
+                      {form.heroTitleRed || 'Aqu‚àö‚â†'}
                     </span>
                   </h3>
                 </div>
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Descripci√≥n</label>
+                <label className={labelClass}>Descripci‚àö‚â•n</label>
                 <textarea
                   className={`${inputClass} min-h-[110px]`}
                   value={form.heroDescription}
@@ -1948,7 +1977,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Texto bot√≥n principal</label>
+                <label className={labelClass}>Texto bot‚àö‚â•n principal</label>
                 <input
                   className={inputClass}
                   value={form.heroPrimaryButtonText}
@@ -1957,7 +1986,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Link bot√≥n principal</label>
+                <label className={labelClass}>Link bot‚àö‚â•n principal</label>
                 <input
                   className={inputClass}
                   value={form.heroPrimaryButtonLink}
@@ -1966,7 +1995,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Texto bot√≥n secundario</label>
+                <label className={labelClass}>Texto bot‚àö‚â•n secundario</label>
                 <input
                   className={inputClass}
                   value={form.heroSecondaryButtonText}
@@ -1975,7 +2004,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Link bot√≥n secundario</label>
+                <label className={labelClass}>Link bot‚àö‚â•n secundario</label>
                 <input
                   className={inputClass}
                   value={form.heroSecondaryButtonLink}
@@ -1984,7 +2013,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>T√≠tulo destacado lateral</label>
+                <label className={labelClass}>T‚àö‚â†tulo destacado lateral</label>
                 <input
                   className={inputClass}
                   value={form.heroFeatureTitle}
@@ -1993,7 +2022,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Subt√≠tulo destacado lateral</label>
+                <label className={labelClass}>Subt‚àö‚â†tulo destacado lateral</label>
                 <input
                   className={inputClass}
                   value={form.heroFeatureSubtitle}
@@ -2009,8 +2038,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <BarChart3 className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Estad√≠sticas</h2>
-                <p className="text-sm text-slate-500">Bloques tipo n√∫mero + etiqueta.</p>
+                <h2 className={sectionTitleClass}>Estad‚àö‚â†sticas</h2>
+                <p className="text-sm text-slate-500">Bloques tipo n‚àö‚à´mero + etiqueta.</p>
               </div>
             </div>
 
@@ -2049,7 +2078,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
               <button type="button" className={mutedButtonClass} onClick={addStat}>
                 <Plus className="h-4 w-4" />
-                Agregar estad√≠stica
+                Agregar estad‚àö‚â†stica
               </button>
             </div>
           </section>
@@ -2060,7 +2089,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <GraduationCap className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Secci√≥n especialidades</h2>
+                <h2 className={sectionTitleClass}>Secci‚àö‚â•n especialidades</h2>
                 <p className="text-sm text-slate-500">Encabezado y tarjetas de especialidades.</p>
               </div>
             </div>
@@ -2076,7 +2105,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>T√≠tulo</label>
+                <label className={labelClass}>T‚àö‚â†tulo</label>
                 <input
                   className={inputClass}
                   value={form.specialtiesTitle}
@@ -2085,7 +2114,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Subt√≠tulo</label>
+                <label className={labelClass}>Subt‚àö‚â†tulo</label>
                 <textarea
                   className={`${inputClass} min-h-[100px]`}
                   value={form.specialtiesSubtitle}
@@ -2107,7 +2136,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                      <label className={labelClass}>T√≠tulo</label>
+                      <label className={labelClass}>T‚àö‚â†tulo</label>
                       <input
                         className={inputClass}
                         value={item.title}
@@ -2116,7 +2145,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     </div>
 
                     <div>
-                      <label className={labelClass}>√çcono</label>
+                      <label className={labelClass}>‚àö√ßcono</label>
                       <input
                         className={inputClass}
                         value={item.icon}
@@ -2146,7 +2175,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     </div>
 
                     <div className="md:col-span-2">
-                      <label className={labelClass}>Descripci√≥n</label>
+                      <label className={labelClass}>Descripci‚àö‚â•n</label>
                       <textarea
                         className={`${inputClass} min-h-[100px]`}
                         value={item.description}
@@ -2166,7 +2195,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
                     <div className="md:col-span-2">
                       <p className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-xs text-slate-500">
-                        La imagen de fondo se usar√° en la tarjeta de especialidad.
+                        La imagen de fondo se usar‚àö¬∞ en la tarjeta de especialidad.
                       </p>
                     </div>
                   </div>
@@ -2186,8 +2215,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <Megaphone className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Llamado a la acci√≥n final</h2>
-                <p className="text-sm text-slate-500">Bloque de cierre o invitaci√≥n principal.</p>
+                <h2 className={sectionTitleClass}>Llamado a la acci‚àö‚â•n final</h2>
+                <p className="text-sm text-slate-500">Bloque de cierre o invitaci‚àö‚â•n principal.</p>
               </div>
             </div>
 
@@ -2202,7 +2231,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>T√≠tulo</label>
+                <label className={labelClass}>T‚àö‚â†tulo</label>
                 <input
                   className={inputClass}
                   value={form.ctaTitle}
@@ -2211,7 +2240,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Descripci√≥n</label>
+                <label className={labelClass}>Descripci‚àö‚â•n</label>
                 <textarea
                   className={`${inputClass} min-h-[110px]`}
                   value={form.ctaDescription}
@@ -2220,7 +2249,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Texto bot√≥n</label>
+                <label className={labelClass}>Texto bot‚àö‚â•n</label>
                 <input
                   className={inputClass}
                   value={form.ctaButtonText}
@@ -2229,7 +2258,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Link bot√≥n</label>
+                <label className={labelClass}>Link bot‚àö‚â•n</label>
                 <input
                   className={inputClass}
                   value={form.ctaButtonLink}
@@ -2240,9 +2269,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
           </section>
 
           <section className={cardClass}>
-            <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON</h2>
+            <h2 className={`${sectionTitleClass} mb-4`}>Vista r‚àö¬∞pida del JSON</h2>
             <p className="mb-4 text-sm text-slate-500">
-              Esto te sirve para revisar exactamente lo que se est√° guardando en Supabase.
+              Esto te sirve para revisar exactamente lo que se est‚àö¬∞ guardando en Supabase.
             </p>
 
             <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -2255,288 +2284,323 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
   }
 
   function renderSpecialtiesEditor() {
-  if (loading) {
-    return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
-        <div className="flex items-center justify-center text-slate-700">
-          <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
-          Cargando editor de Especialidades...
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="grid gap-6">
-      <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
-        <div>
-          <div className="mb-3 flex items-center gap-2">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
-              onClick={() => setCurrentSection('dashboard')}
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Volver al panel
-            </button>
+    if (loading) {
+      return (
+        <div className="rounded-2xl border border-slate-200 bg-white p-10 shadow-sm">
+          <div className="flex items-center justify-center text-slate-700">
+            <Loader2 className="mr-3 h-5 w-5 animate-spin text-slate-600" />
+            Cargando editor de Especialidades...
           </div>
-
-          <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Especialidades</h1>
-          <p className="mt-2 text-sm text-slate-600">
-            Aquí puedes editar el contenido institucional de cada especialidad: historia, entorno formativo,
-            tips y asignaturas base.
-          </p>
         </div>
+      );
+    }
 
-        <div className="flex flex-wrap items-center gap-3">
-          <button onClick={handleLogout} className={mutedButtonClass} type="button">
-            <LogOut className="h-4 w-4" />
-            Cerrar sesión
-          </button>
-
-          <button onClick={handleSave} className={primaryButtonClass} type="button">
-            {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-            {saveLabel}
-          </button>
-        </div>
-      </div>
-
-      {errorMsg && (
-        <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-          {errorMsg}
-        </div>
-      )}
-
-      <section className={cardClass}>
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
-          En este módulo se gestiona solo la parte institucional de las especialidades.
-          Los recursos y actividades académicas deben administrarse desde la sección <strong>Recursos</strong>.
-        </div>
-      </section>
-
+    return (
       <div className="grid gap-6">
-        {specialtiesContent.specialties.map((specialty, specialtyIndex) => (
-          <section key={specialty.id} className={cardClass}>
-            <div className="mb-6 flex items-center justify-between gap-4">
-              <div>
-                <h2 className={sectionTitleClass}>{specialty.name || `Especialidad ${specialtyIndex + 1}`}</h2>
-                <p className="mt-1 text-sm text-slate-500">
-                  Configuración institucional de la especialidad.
-                </p>
-              </div>
-
+        <div className="flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
+          <div>
+            <div className="mb-3 flex items-center gap-2">
               <button
                 type="button"
-                className={dangerButtonClass}
-                onClick={() => removeSpecialtyDetail(specialtyIndex)}
+                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100"
+                onClick={() => setCurrentSection('dashboard')}
               >
-                <Trash2 className="h-4 w-4" />
-                Eliminar especialidad
+                <ArrowLeft className="h-4 w-4" />
+                Volver al panel
               </button>
             </div>
 
-            <div className="grid gap-6">
-              <div className="grid gap-4 md:grid-cols-2">
+            <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Especialidades</h1>
+            <p className="mt-2 text-sm text-slate-600">
+              Aqu√≠ puedes editar el contenido institucional de cada especialidad: portada, historia, recorrido 360¬∞, tips r√°pidos y acceso acad√©mico.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-3">
+            <button onClick={handleLogout} className={mutedButtonClass} type="button">
+              <LogOut className="h-4 w-4" />
+              Cerrar sesi√≥n
+            </button>
+
+            <button onClick={handleSave} className={primaryButtonClass} type="button">
+              {saveState === 'saving' ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+              {saveLabel}
+            </button>
+          </div>
+        </div>
+
+        {errorMsg && (
+          <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            {errorMsg}
+          </div>
+        )}
+
+        <section className={cardClass}>
+          <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
+            En este m√≥dulo se gestiona solo la parte institucional de las especialidades.
+            Los recursos y actividades acad√©micas deben administrarse desde la secci√≥n <strong>Recursos</strong>.
+            Para el recorrido 360¬∞, pega una URL p√∫blica o el c√≥digo iframe de una plataforma externa.
+          </div>
+        </section>
+
+        <div className="grid gap-6">
+          {specialtiesContent.specialties.map((specialty, specialtyIndex) => (
+            <section key={specialty.id} className={cardClass}>
+              <div className="mb-6 flex items-center justify-between gap-4">
                 <div>
-                  <label className={labelClass}>ID / slug</label>
-                  <input
-                    className={inputClass}
-                    value={specialty.id}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'id', e.target.value)}
-                    placeholder="administracion"
-                  />
+                  <h2 className={sectionTitleClass}>{specialty.name || `Especialidad ${specialtyIndex + 1}`}</h2>
+                  <p className="mt-1 text-sm text-slate-500">
+                    Configuraci√≥n institucional visible en la ficha p√∫blica de la especialidad.
+                  </p>
                 </div>
 
-                <div>
-                  <label className={labelClass}>Nombre corto</label>
-                  <input
-                    className={inputClass}
-                    value={specialty.shortName}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'shortName', e.target.value)}
-                    placeholder="Administración RRHH"
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className={labelClass}>Nombre completo</label>
-                  <input
-                    className={inputClass}
-                    value={specialty.name}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'name', e.target.value)}
-                    placeholder="Administración Mención Recursos Humanos"
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>Color Tailwind</label>
-                  <input
-                    className={inputClass}
-                    value={specialty.color}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'color', e.target.value)}
-                    placeholder="bg-red-800"
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>Ícono</label>
-                  <select
-                    className={inputClass}
-                    value={specialty.icon}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'icon', e.target.value)}
-                  >
-                    <option value="Users">Users</option>
-                    <option value="Beef">Beef</option>
-                    <option value="Baby">Baby</option>
-                  </select>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className={labelClass}>Descripción</label>
-                  <textarea
-                    className={`${inputClass} min-h-[110px]`}
-                    value={specialty.description}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'description', e.target.value)}
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className={labelClass}>Historia</label>
-                  <textarea
-                    className={`${inputClass} min-h-[140px]`}
-                    value={specialty.history}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'history', e.target.value)}
-                  />
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className={labelClass}>URL imagen entorno formativo / sala virtual</label>
-                  <input
-                    className={inputClass}
-                    value={specialty.virtualRoomUrl}
-                    onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'virtualRoomUrl', e.target.value)}
-                    placeholder="https://..."
-                  />
-                </div>
+                <button
+                  type="button"
+                  className={dangerButtonClass}
+                  onClick={() => removeSpecialtyDetail(specialtyIndex)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Eliminar especialidad
+                </button>
               </div>
 
-              <div className="grid gap-6 lg:grid-cols-2">
+              <div className="grid gap-6">
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                   <div className="mb-4 flex items-center gap-3">
-                    <Lightbulb className="h-5 w-5 text-slate-700" />
+                    <GraduationCap className="h-5 w-5 text-slate-700" />
                     <div>
-                      <h3 className="font-semibold text-slate-900">Tips rápidos</h3>
-                      <p className="text-sm text-slate-500">Consejos visibles en la ficha institucional.</p>
+                      <h3 className="font-semibold text-slate-900">Datos principales</h3>
+                      <p className="text-sm text-slate-500">Nombre, descripci√≥n, color e √≠cono de la especialidad.</p>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    {specialty.tips.map((tip, tipIndex) => (
-                      <div
-                        key={`${specialty.id}-tip-${tipIndex}`}
-                        className="rounded-2xl border border-slate-200 bg-white p-4"
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <label className={labelClass}>ID / slug</label>
+                      <input
+                        className={inputClass}
+                        value={specialty.id}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'id', e.target.value)}
+                        placeholder="administracion"
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Nombre corto</label>
+                      <input
+                        className={inputClass}
+                        value={specialty.shortName}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'shortName', e.target.value)}
+                        placeholder="Administraci√≥n RRHH"
+                      />
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className={labelClass}>Nombre completo</label>
+                      <input
+                        className={inputClass}
+                        value={specialty.name}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'name', e.target.value)}
+                        placeholder="Administraci√≥n Menci√≥n Recursos Humanos"
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Color Tailwind del encabezado</label>
+                      <input
+                        className={inputClass}
+                        value={specialty.color}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'color', e.target.value)}
+                        placeholder="bg-red-800"
+                      />
+                      <p className="mt-2 text-xs text-slate-500">
+                        Ejemplos: bg-red-800, bg-emerald-900, bg-yellow-500, bg-slate-900.
+                      </p>
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>√çcono</label>
+                      <select
+                        className={inputClass}
+                        value={specialty.icon}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'icon', e.target.value)}
                       >
-                        <div className="grid gap-3">
-                          <div>
-                            <label className={labelClass}>Tip #{tipIndex + 1}</label>
-                            <input
-                              className={inputClass}
-                              value={tip}
-                              onChange={(e) => updateTip(specialtyIndex, tipIndex, e.target.value)}
-                            />
-                          </div>
+                        <option value="Users">Users</option>
+                        <option value="Beef">Beef</option>
+                        <option value="Baby">Baby</option>
+                      </select>
+                    </div>
 
-                          <button
-                            type="button"
-                            className={dangerButtonClass}
-                            onClick={() => removeTip(specialtyIndex, tipIndex)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            Quitar tip
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+                    <div className="md:col-span-2">
+                      <label className={labelClass}>Descripci√≥n del encabezado</label>
+                      <textarea
+                        className={`${inputClass} min-h-[110px]`}
+                        value={specialty.description}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'description', e.target.value)}
+                      />
+                    </div>
 
-                    <button type="button" className={mutedButtonClass} onClick={() => addTip(specialtyIndex)}>
-                      <Plus className="h-4 w-4" />
-                      Agregar tip
-                    </button>
+                    <div className="md:col-span-2">
+                      <label className={labelClass}>Nuestra historia</label>
+                      <textarea
+                        className={`${inputClass} min-h-[140px]`}
+                        value={specialty.history}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'history', e.target.value)}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                   <div className="mb-4 flex items-center gap-3">
-                    <BookOpen className="h-5 w-5 text-slate-700" />
+                    <Layout className="h-5 w-5 text-slate-700" />
                     <div>
-                      <h3 className="font-semibold text-slate-900">Asignaturas base</h3>
+                      <h3 className="font-semibold text-slate-900">Recorrido 360¬∞ / Entorno de aprendizaje</h3>
                       <p className="text-sm text-slate-500">
-                        Aquí solo se define el nombre de la asignatura. Recursos y actividades van en el módulo Recursos.
+                        Usa una imagen de portada como respaldo y pega una URL/iframe 360¬∞ cuando est√© disponible.
                       </p>
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    {specialty.subjects.map((subject, subjectIndex) => (
-                      <div
-                        key={`${specialty.id}-subject-${subjectIndex}`}
-                        className="rounded-2xl border border-slate-200 bg-white p-4"
-                      >
-                        <div className="grid gap-3">
-                          <div>
-                            <label className={labelClass}>Nombre de la asignatura</label>
-                            <input
-                              className={inputClass}
-                              value={subject.name}
-                              onChange={(e) =>
-                                updateSubjectName(specialtyIndex, subjectIndex, e.target.value)
-                              }
-                              placeholder="Legislación Laboral"
-                            />
-                          </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div>
+                      <label className={labelClass}>T√≠tulo del bloque</label>
+                      <input
+                        className={inputClass}
+                        value={specialty.virtualTourTitle}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'virtualTourTitle', e.target.value)}
+                        placeholder="Recorrido 360¬∞ / Entorno de Aprendizaje"
+                      />
+                    </div>
 
-                          <button
-                            type="button"
-                            className={dangerButtonClass}
-                            onClick={() => removeSubject(specialtyIndex, subjectIndex)}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            Quitar asignatura
-                          </button>
-                        </div>
+                    <div>
+                      <label className={labelClass}>Imagen de portada / respaldo</label>
+                      <input
+                        className={inputClass}
+                        value={specialty.virtualRoomUrl}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'virtualRoomUrl', e.target.value)}
+                        placeholder="/images/especialidades/administracion-360.jpg"
+                      />
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className={labelClass}>URL o iframe del recorrido 360¬∞</label>
+                      <textarea
+                        className={`${inputClass} min-h-[100px] font-mono text-xs`}
+                        value={specialty.virtualTourEmbedUrl}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'virtualTourEmbedUrl', e.target.value)}
+                        placeholder={'https://... o <iframe src="https://..." ...></iframe>'}
+                      />
+                      <p className="mt-2 text-xs text-slate-500">
+                        Recomendaci√≥n: aloja el recorrido en una plataforma externa y pega aqu√≠ el enlace p√∫blico o el iframe.
+                      </p>
+                    </div>
+
+                    <div className="md:col-span-2">
+                      <label className={labelClass}>Descripci√≥n del recorrido</label>
+                      <textarea
+                        className={`${inputClass} min-h-[110px]`}
+                        value={specialty.virtualTourDescription}
+                        onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'virtualTourDescription', e.target.value)}
+                        placeholder="Describe qu√© podr√° ver el estudiante o apoderado en este recorrido."
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <div className="mb-4 flex items-center gap-3">
+                      <Lightbulb className="h-5 w-5 text-slate-700" />
+                      <div>
+                        <h3 className="font-semibold text-slate-900">Tips r√°pidos</h3>
+                        <p className="text-sm text-slate-500">Consejos visibles en la ficha institucional.</p>
                       </div>
-                    ))}
+                    </div>
 
-                    <button type="button" className={mutedButtonClass} onClick={() => addSubject(specialtyIndex)}>
-                      <Plus className="h-4 w-4" />
-                      Agregar asignatura
-                    </button>
+                    <div className="space-y-4">
+                      {specialty.tips.map((tip, tipIndex) => (
+                        <div
+                          key={`${specialty.id}-tip-${tipIndex}`}
+                          className="rounded-2xl border border-slate-200 bg-white p-4"
+                        >
+                          <div className="grid gap-3">
+                            <div>
+                              <label className={labelClass}>Tip #{tipIndex + 1}</label>
+                              <input
+                                className={inputClass}
+                                value={tip}
+                                onChange={(e) => updateTip(specialtyIndex, tipIndex, e.target.value)}
+                              />
+                            </div>
+
+                            <button
+                              type="button"
+                              className={dangerButtonClass}
+                              onClick={() => removeTip(specialtyIndex, tipIndex)}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                              Quitar tip
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+
+                      <button type="button" className={mutedButtonClass} onClick={() => addTip(specialtyIndex)}>
+                        <Plus className="h-4 w-4" />
+                        Agregar tip
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                    <div className="mb-4 flex items-center gap-3">
+                      <BookOpen className="h-5 w-5 text-slate-700" />
+                      <div>
+                        <h3 className="font-semibold text-slate-900">Acceso acad√©mico</h3>
+                        <p className="text-sm text-slate-500">
+                          Texto que acompa√±a el bot√≥n hacia los recursos de esta especialidad.
+                        </p>
+                      </div>
+                    </div>
+
+                    <label className={labelClass}>Descripci√≥n del acceso acad√©mico</label>
+                    <textarea
+                      className={`${inputClass} min-h-[160px]`}
+                      value={specialty.academicAccessDescription}
+                      onChange={(e) => updateSpecialtyDetail(specialtyIndex, 'academicAccessDescription', e.target.value)}
+                      placeholder="Si buscas materiales, enlaces, actividades o recursos de aprendizaje..."
+                    />
+
+                    <div className="mt-4 rounded-2xl border border-dashed border-slate-300 bg-white p-4 text-sm text-slate-600">
+                      El bot√≥n p√∫blico seguir√° llevando autom√°ticamente a <strong>/recursos/{specialty.id}</strong>.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          ))}
 
-        <button type="button" className={mutedButtonClass} onClick={addSpecialtyDetail}>
-          <Plus className="h-4 w-4" />
-          Agregar especialidad completa
-        </button>
+          <button type="button" className={mutedButtonClass} onClick={addSpecialtyDetail}>
+            <Plus className="h-4 w-4" />
+            Agregar especialidad completa
+          </button>
+        </div>
+
+        <section className={cardClass}>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON de especialidades</h2>
+          <p className="mb-4 text-sm text-slate-500">
+            Este bloque muestra exactamente lo que se guardar√° en Supabase bajo el slug <code>specialties</code>.
+          </p>
+
+          <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
+            {JSON.stringify(specialtiesContent, null, 2)}
+          </pre>
+        </section>
       </div>
-
-      <section className={cardClass}>
-        <h2 className={`${sectionTitleClass} mb-4`}>Vista rápida del JSON de especialidades</h2>
-        <p className="mb-4 text-sm text-slate-500">
-          Este bloque muestra exactamente lo que se guardará en Supabase bajo el slug <code>specialties</code>.
-        </p>
-
-        <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
-          {JSON.stringify(specialtiesContent, null, 2)}
-        </pre>
-      </section>
-    </div>
-  );
-}
+    );
+  }
 
   function renderResourcesEditor() {
     if (loading && !resourcesLoaded) {
@@ -2615,14 +2679,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Recursos</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aqu√≠ podr√°s crear recursos educativos livianos mediante enlaces externos, sin sobrecargar el sistema.
+              Aqu‚àö‚â† podr‚àö¬∞s crear recursos educativos livianos mediante enlaces externos, sin sobrecargar el sistema.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi√≥n
+              Cerrar sesi‚àö‚â•n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -2665,16 +2729,16 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <GraduationCap className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Recursos organizados por estructura acad√©mica</h2>
+              <h2 className={sectionTitleClass}>Recursos organizados por estructura acad‚àö¬©mica</h2>
               <p className="text-sm text-slate-500">
-                Vista jer√°rquica por especialidad, nivel, asignatura y recurso.
+                Vista jer‚àö¬∞rquica por especialidad, nivel, asignatura y recurso.
               </p>
             </div>
           </div>
 
           {resources.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
-              A√∫n no has agregado recursos. Cuando presiones ‚ÄúGuardar cambios‚Äù, quedar√°n persistentes en Supabase.
+              A‚àö‚à´n no has agregado recursos. Cuando presiones ‚Äö√Ñ√∫Guardar cambios‚Äö√Ñ√π, quedar‚àö¬∞n persistentes en Supabase.
             </div>
           ) : (
             <div className="space-y-6">
@@ -2721,7 +2785,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                                           </div>
 
                                           <p className="text-sm text-slate-600">
-                                            {resource.description || 'Sin descripci√≥n.'}
+                                            {resource.description || 'Sin descripci‚àö‚â•n.'}
                                           </p>
 
                                           <div className="flex flex-wrap gap-2 text-xs text-slate-500">
@@ -2791,9 +2855,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         </section>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Recomendaci√≥n t√©cnica</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Recomendaci‚àö‚â•n t‚àö¬©cnica</h2>
           <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
-            Para mantener el sitio r√°pido y estable, sube preferentemente recursos mediante enlaces p√∫blicos externos
+            Para mantener el sitio r‚àö¬∞pido y estable, sube preferentemente recursos mediante enlaces p‚àö‚à´blicos externos
             en vez de almacenar archivos pesados directamente dentro del proyecto.
           </div>
         </section>
@@ -2822,7 +2886,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         return (
           <SectionPlaceholder
             title="Blog TP"
-            description="Aqu√≠ luego conectaremos el editor del blog y noticias."
+            description="Aqu‚àö‚â† luego conectaremos el editor del blog y noticias."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2830,8 +2894,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
       case 'internships':
         return (
           <SectionPlaceholder
-            title="Pr√°cticas"
-            description="Aqu√≠ luego conectaremos el editor de pr√°cticas."
+            title="Pr‚àö¬∞cticas"
+            description="Aqu‚àö‚â† luego conectaremos el editor de pr‚àö¬∞cticas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2840,7 +2904,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         return (
           <SectionPlaceholder
             title="Patio de Juegos"
-            description="Aqu√≠ luego conectaremos el editor de juegos y actividades interactivas."
+            description="Aqu‚àö‚â† luego conectaremos el editor de juegos y actividades interactivas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2852,4 +2916,3 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
   return <div className="min-h-screen bg-slate-100 p-4 md:p-6">{renderContent()}</div>;
 }
-
