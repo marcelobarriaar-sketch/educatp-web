@@ -207,38 +207,38 @@ type AdminSection =
 const STORAGE_KEY = 'educatp_admin_auth';
 
 const defaultHomeContent: HomeContent = {
-  heroBadge: 'Liceo T‚àö¬©cnico Profesional',
+  heroBadge: 'Liceo T√©cnico Profesional',
   heroTitleLine1: 'Formando talentos para el futuro',
   heroTitleLine1Color: '#0f172a',
-  heroTitleGreen: 'Administraci‚àö‚â•n',
+  heroTitleGreen: 'Administraci√≥n',
   heroTitleGreenColor: '#064e3b',
   heroTitleYellow: 'Agropecuaria',
   heroTitleYellowColor: '#eab308',
-  heroTitleRed: 'Atenci‚àö‚â•n de P‚àö¬∞rvulos',
+  heroTitleRed: 'Atenci√≥n de P√°rvulos',
   heroTitleRedColor: '#991b1b',
   heroDescription:
-    'Impulsamos una educaci‚àö‚â•n t‚àö¬©cnico profesional conectada con el territorio, la innovaci‚àö‚â•n y el desarrollo de competencias para la vida y el trabajo.',
+    'Impulsamos una educaci√≥n t√©cnico profesional conectada con el territorio, la innovaci√≥n y el desarrollo de competencias para la vida y el trabajo.',
   heroPrimaryButtonText: 'Conoce nuestras especialidades',
   heroPrimaryButtonLink: '/especialidades',
-  heroSecondaryButtonText: 'Ver pr‚àö¬∞cticas',
+  heroSecondaryButtonText: 'Ver pr√°cticas',
   heroSecondaryButtonLink: '/practicas',
   heroImageUrl: '',
   heroImageAlt: 'Estudiantes del liceo',
-  heroFeatureTitle: 'Educaci‚àö‚â•n TP conectada con el mundo real',
-  heroFeatureSubtitle: 'Aprendizaje pr‚àö¬∞ctico, vinculaci‚àö‚â•n con empresas y desarrollo integral.',
+  heroFeatureTitle: 'Educaci√≥n TP conectada con el mundo real',
+  heroFeatureSubtitle: 'Aprendizaje pr√°ctico, vinculaci√≥n con empresas y desarrollo integral.',
   stats: [
     { value: '3', label: 'Especialidades' },
-    { value: '100%', label: 'Compromiso con la formaci‚àö‚â•n' },
-    { value: 'TP', label: 'Educaci‚àö‚â•n t‚àö¬©cnico profesional' },
+    { value: '100%', label: 'Compromiso con la formaci√≥n' },
+    { value: 'TP', label: 'Educaci√≥n t√©cnico profesional' },
   ],
   specialtiesBadge: 'Especialidades',
-  specialtiesTitle: '‚àö√Öreas de formaci‚àö‚â•n',
+  specialtiesTitle: '√Åreas de formaci√≥n',
   specialtiesSubtitle:
-    'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo acad‚àö¬©mico y laboral.',
+    'Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo acad√©mico y laboral.',
   specialties: [
     {
-      title: 'Administraci‚àö‚â•n',
-      description: 'Formaci‚àö‚â•n en gesti‚àö‚â•n, organizaci‚àö‚â•n, procesos administrativos y herramientas digitales.',
+      title: 'Administraci√≥n',
+      description: 'Formaci√≥n en gesti√≥n, organizaci√≥n, procesos administrativos y herramientas digitales.',
       icon: 'Users',
       iconUrl: '',
       imageUrl: '',
@@ -246,15 +246,15 @@ const defaultHomeContent: HomeContent = {
     },
     {
       title: 'Agropecuaria',
-      description: 'Desarrollo de competencias vinculadas al trabajo agr‚àö‚â†cola, producci‚àö‚â•n y sostenibilidad.',
+      description: 'Desarrollo de competencias vinculadas al trabajo agr√≠cola, producci√≥n y sostenibilidad.',
       icon: 'Beef',
       iconUrl: '',
       imageUrl: '',
       link: '/especialidades/agropecuaria',
     },
     {
-      title: 'Atenci‚àö‚â•n de P‚àö¬∞rvulos',
-      description: 'Preparaci‚àö‚â•n para apoyar procesos educativos y de cuidado en primera infancia.',
+      title: 'Atenci√≥n de P√°rvulos',
+      description: 'Preparaci√≥n para apoyar procesos educativos y de cuidado en primera infancia.',
       icon: 'Baby',
       iconUrl: '',
       imageUrl: '',
@@ -273,22 +273,22 @@ const defaultSiteSettings: SiteSettings = {
   siteName: 'Educa TP',
   logoUrl: '',
   logoAlt: 'Logo del establecimiento',
-  schoolSubtitle: 'Liceo Carlos Ib‚àö¬∞‚àö¬±ez del Campo',
+  schoolSubtitle: 'Liceo Carlos Ib√°√±ez del Campo',
   menuItems: [
     { id: 'inicio', name: 'Inicio', path: '/', visible: true },
     { id: 'especialidades', name: 'Especialidades', path: '/especialidades', visible: true },
     { id: 'recursos', name: 'Recursos', path: '/recursos', visible: true },
     { id: 'blog', name: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', name: 'Pr‚àö¬∞cticas', path: '/practicas', visible: true },
+    { id: 'practicas', name: 'Pr√°cticas', path: '/practicas', visible: true },
     { id: 'patio', name: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   footerTitle: 'Educa TP',
-  footerDescription: 'Formaci‚àö‚â•n t‚àö¬©cnico profesional conectada con el territorio, la innovaci‚àö‚â•n y el futuro.',
-  address: 'Fresia, Regi‚àö‚â•n de Los Lagos, Chile',
+  footerDescription: 'Formaci√≥n t√©cnico profesional conectada con el territorio, la innovaci√≥n y el futuro.',
+  address: 'Fresia, Regi√≥n de Los Lagos, Chile',
   email: 'contacto@educatp.cl',
   phone: '+56 9 0000 0000',
   copyrightText: 'Todos los derechos reservados.',
-  creditsText: 'Espacio creado por el docente Marcelo Barr‚àö‚â†a Arismendi.',
+  creditsText: 'Espacio creado por el docente Marcelo Barr√≠a Arismendi.',
   socialLinks: [
     { id: 'facebook', label: 'Facebook', url: '', visible: false },
     { id: 'instagram', label: 'Instagram', url: '', visible: false },
@@ -310,7 +310,7 @@ const defaultSiteSettings: SiteSettings = {
     { id: 'especialidades', label: 'Especialidades', path: '/especialidades', visible: true },
     { id: 'recursos', label: 'Recursos', path: '/recursos', visible: true },
     { id: 'blog', label: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', label: 'Pr‚àö¬∞cticas', path: '/practicas', visible: true },
+    { id: 'practicas', label: 'Pr√°cticas', path: '/practicas', visible: true },
     { id: 'patio', label: 'Patio de Juegos', path: '/playground', visible: true },
   ],
   brandTextColor: '#0f172a',
@@ -321,12 +321,12 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
   specialties: [
     {
       id: 'administracion',
-      name: 'Administraci‚àö‚â•n Menci‚àö‚â•n Recursos Humanos',
-      shortName: 'Administraci‚àö‚â•n RRHH',
+      name: 'Administraci√≥n Menci√≥n Recursos Humanos',
+      shortName: 'Administraci√≥n RRHH',
       description:
-        'Formamos profesionales capaces de gestionar el capital m‚àö¬∞s valioso de cualquier organizaci‚àö‚â•n: las personas.',
+        'Formamos profesionales capaces de gestionar el capital m√°s valioso de cualquier organizaci√≥n: las personas.',
       history:
-        'La especialidad de Administraci‚àö‚â•n naci‚àö‚â• en el a‚àö¬±o 2010 como respuesta a la creciente demanda de gestores administrativos en la regi‚àö‚â•n. Desde entonces, ha evolucionado integrando tecnolog‚àö‚â†as digitales y enfoques modernos de bienestar laboral.',
+        'La especialidad de Administraci√≥n naci√≥ en el a√±o 2010 como respuesta a la creciente demanda de gestores administrativos en la regi√≥n. Desde entonces, ha evolucionado integrando tecnolog√≠as digitales y enfoques modernos de bienestar laboral.',
       color: 'bg-red-800',
       icon: 'Users',
       virtualRoomUrl: 'https://picsum.photos/seed/office/800/600',
@@ -337,42 +337,42 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
       academicAccessDescription:
         'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
       tips: [
-        'Mant‚àö¬©n siempre tu CV actualizado.',
-        'La empat‚àö‚â†a es la base de una buena gesti‚àö‚â•n de personas.',
+        'Mant√©n siempre tu CV actualizado.',
+        'La empat√≠a es la base de una buena gesti√≥n de personas.',
         'Domina Excel, es tu mejor herramienta.',
-        'Aprende sobre legislaci‚àö‚â•n laboral vigente.',
+        'Aprende sobre legislaci√≥n laboral vigente.',
       ],
       subjects: [
         {
-          name: 'Gesti‚àö‚â•n de Personal',
+          name: 'Gesti√≥n de Personal',
           resources: [
-            { title: 'PPT: Introducci‚àö‚â•n a RRHH', type: 'ppt', url: '#' },
-            { title: 'Video: El proceso de Selecci‚àö‚â•n', type: 'video', url: '#' },
+            { title: 'PPT: Introducci√≥n a RRHH', type: 'ppt', url: '#' },
+            { title: 'Video: El proceso de Selecci√≥n', type: 'video', url: '#' },
             { title: 'Juego: Simulador de Entrevistas', type: 'game', url: '#' },
           ],
           activities: [
             {
               title: 'Quiz de Contratos',
-              description: 'Eval‚àö‚à´a tus conocimientos sobre tipos de contratos en Chile.',
+              description: 'Eval√∫a tus conocimientos sobre tipos de contratos en Chile.',
               type: 'quiz',
             },
             {
               title: 'Taller de Clima Laboral',
-              description: 'Dise‚àö¬±a una encuesta de clima para una empresa ficticia.',
+              description: 'Dise√±a una encuesta de clima para una empresa ficticia.',
               type: 'task',
             },
           ],
         },
         {
-          name: 'Legislaci‚àö‚â•n Laboral',
+          name: 'Legislaci√≥n Laboral',
           resources: [
-            { title: 'PPT: C‚àö‚â•digo del Trabajo', type: 'ppt', url: '#' },
-            { title: 'Gu‚àö‚â†a: Derechos del Trabajador', type: 'document', url: '#' },
+            { title: 'PPT: C√≥digo del Trabajo', type: 'ppt', url: '#' },
+            { title: 'Gu√≠a: Derechos del Trabajador', type: 'document', url: '#' },
           ],
           activities: [
             {
-              title: 'C‚àö¬∞lculo de Finiquitos',
-              description: 'Ejercicio pr‚àö¬∞ctico de c‚àö¬∞lculo de indemnizaciones.',
+              title: 'C√°lculo de Finiquitos',
+              description: 'Ejercicio pr√°ctico de c√°lculo de indemnizaciones.',
               type: 'task',
             },
           ],
@@ -381,11 +381,11 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
     {
       id: 'agricola',
-      name: 'T‚àö¬©cnico Agr‚àö‚â†cola Menci‚àö‚â•n Pecuaria',
-      shortName: 'Agr‚àö‚â†cola Pecuaria',
-      description: 'Conexi‚àö‚â•n directa con la tierra y la producci‚àö‚â•n animal sustentable.',
+      name: 'T√©cnico Agr√≠cola Menci√≥n Pecuaria',
+      shortName: 'Agr√≠cola Pecuaria',
+      description: 'Conexi√≥n directa con la tierra y la producci√≥n animal sustentable.',
       history:
-        'Nuestra especialidad m‚àö¬∞s antigua, arraigada en la tradici‚àö‚â•n agr‚àö‚â†cola de la zona. Se fund‚àö‚â• con el colegio, enfoc‚àö¬∞ndose inicialmente en cultivos y expandi‚àö¬©ndose luego a la menci‚àö‚â•n pecuaria con tecnolog‚àö‚â†a de punta.',
+        'Nuestra especialidad m√°s antigua, arraigada en la tradici√≥n agr√≠cola de la zona. Se fund√≥ con el colegio, enfoc√°ndose inicialmente en cultivos y expandi√©ndose luego a la menci√≥n pecuaria con tecnolog√≠a de punta.',
       color: 'bg-emerald-900',
       icon: 'Beef',
       virtualRoomUrl: 'https://picsum.photos/seed/farm/800/600',
@@ -396,26 +396,26 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
       academicAccessDescription:
         'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
       tips: [
-        'La observaci‚àö‚â•n diaria de los animales previene enfermedades.',
+        'La observaci√≥n diaria de los animales previene enfermedades.',
         'El bienestar animal mejora la productividad.',
-        'Mant‚àö¬©n registros precisos de alimentaci‚àö‚â•n.',
+        'Mant√©n registros precisos de alimentaci√≥n.',
         'La higiene en los corrales es fundamental.',
       ],
       subjects: [
         {
           name: 'Manejo de Ganado',
           resources: [
-            { title: 'PPT: Nutrici‚àö‚â•n Bovina', type: 'ppt', url: '#' },
-            { title: 'Video: T‚àö¬©cnicas de Orde‚àö¬±o', type: 'video', url: '#' },
+            { title: 'PPT: Nutrici√≥n Bovina', type: 'ppt', url: '#' },
+            { title: 'Video: T√©cnicas de Orde√±o', type: 'video', url: '#' },
           ],
           activities: [
             {
-              title: 'Plan de Vacunaci‚àö‚â•n',
-              description: 'Crea un calendario sanitario para un reba‚àö¬±o.',
+              title: 'Plan de Vacunaci√≥n',
+              description: 'Crea un calendario sanitario para un reba√±o.',
               type: 'task',
             },
             {
-              title: 'Identificaci‚àö‚â•n de Razas',
+              title: 'Identificaci√≥n de Razas',
               description: 'Juego interactivo para reconocer razas ovinas y bovinas.',
               type: 'interactive',
             },
@@ -425,11 +425,11 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
     {
       id: 'parvularia',
-      name: 'T‚àö¬©cnico en Educaci‚àö‚â•n Parvularia',
+      name: 'T√©cnico en Educaci√≥n Parvularia',
       shortName: 'Ed. Parvularia',
-      description: 'Dedicaci‚àö‚â•n y pedagog‚àö‚â†a para los primeros pasos de las futuras generaciones.',
+      description: 'Dedicaci√≥n y pedagog√≠a para los primeros pasos de las futuras generaciones.',
       history:
-        'Creada para profesionalizar el cuidado y educaci‚àö‚â•n inicial. Se destaca por su laboratorio de simulaci‚àö‚â•n que recrea un ambiente real de jard‚àö‚â†n infantil.',
+        'Creada para profesionalizar el cuidado y educaci√≥n inicial. Se destaca por su laboratorio de simulaci√≥n que recrea un ambiente real de jard√≠n infantil.',
       color: 'bg-yellow-500',
       icon: 'Baby',
       virtualRoomUrl: 'https://picsum.photos/seed/kindergarten/800/600',
@@ -441,26 +441,26 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
         'Si buscas materiales, enlaces, actividades o recursos de aprendizaje, entra directamente al espacio acad√©mico de esta especialidad.',
       tips: [
         'El juego es la principal herramienta de aprendizaje.',
-        'Fomenta la autonom‚àö‚â†a desde los primeros a‚àö¬±os.',
+        'Fomenta la autonom√≠a desde los primeros a√±os.',
         'La paciencia y el amor son tus mejores aliados.',
         'Crea ambientes seguros y estimulantes.',
       ],
       subjects: [
         {
-          name: 'Material Did‚àö¬∞ctico',
+          name: 'Material Did√°ctico',
           resources: [
-            { title: 'PPT: Teor‚àö‚â†as del Aprendizaje', type: 'ppt', url: '#' },
-            { title: 'Gu‚àö‚â†a: Creaci‚àö‚â•n de T‚àö‚â†teres', type: 'document', url: '#' },
+            { title: 'PPT: Teor√≠as del Aprendizaje', type: 'ppt', url: '#' },
+            { title: 'Gu√≠a: Creaci√≥n de T√≠teres', type: 'document', url: '#' },
           ],
           activities: [
             {
-              title: 'Dise‚àö¬±o de Rinc‚àö‚â•n de Juegos',
-              description: 'Prop‚àö‚â•n un espacio educativo tem‚àö¬∞tico.',
+              title: 'Dise√±o de Rinc√≥n de Juegos',
+              description: 'Prop√≥n un espacio educativo tem√°tico.',
               type: 'task',
             },
             {
               title: 'Cuentacuentos Online',
-              description: 'Graba y sube tu narraci‚àö‚â•n de un cuento infantil.',
+              description: 'Graba y sube tu narraci√≥n de un cuento infantil.',
               type: 'task',
             },
           ],
@@ -469,6 +469,69 @@ const defaultSpecialtiesContent: SpecialtiesContent = {
     },
   ],
 };
+
+
+function repairText(value: string): string {
+  const replacements: Array<[string, string]> = [
+    ['\u201a\u00c4\u00f6\u221a\u00d1\u221a\u222b', '‚Äú'],
+    ['\u201a\u00c4\u00f6\u221a\u00d1\u221a\u03c0', '‚Äù'],
+    ['\u201a\u00e0\u00f6\u221a\u00d6', '√Å'],
+    ['\u201a\u00e0\u00f6\u221a\u00df', '√ç'],
+    ['\u201a\u00e0\u00f6\u00ac\u221e', '√°'],
+    ['\u201a\u00e0\u00f6\u00ac\u00a9', '√©'],
+    ['\u201a\u00e0\u00f6\u201a\u00e2\u2020', '√≠'],
+    ['\u201a\u00e0\u00f6\u201a\u00e2\u2022', '√≥'],
+    ['\u201a\u00e0\u00f6\u201a\u00e0\u00b4', '√∫'],
+    ['\u201a\u00e0\u00f6\u00ac\u00b1', '√±'],
+    ['\u221a\u00b0', '√°'],
+    ['\u221a\u00a9', '√©'],
+    ['\u221a\u2260', '√≠'],
+    ['\u221a\u2265', '√≥'],
+    ['\u221a\u222b', '√∫'],
+    ['\u221a\u00b1', '√±'],
+    ['\u221a\u00e7', '√ç'],
+    ['\u00ac\u221e', '¬∞'],
+    ['\u00ac\u00b0', '¬°'],
+    ['\u00ac\u00bf', '¬ø'],
+    ['\u00c3\u00a1', '√°'],
+    ['\u00c3\u00a9', '√©'],
+    ['\u00c3\u00ad', '√≠'],
+    ['\u00c3\u00b3', '√≥'],
+    ['\u00c3\u00ba', '√∫'],
+    ['\u00c3\u00b1', '√±'],
+    ['\u00c3\u0081', '√Å'],
+    ['\u00c3\u0089', '√â'],
+    ['\u00c3\u008d', '√ç'],
+    ['\u00c3\u0093', '√ì'],
+    ['\u00c3\u009a', '√ö'],
+    ['\u00c3\u0091', '√ë'],
+    ['\u00e2\u0080\u0099', "'"],
+    ['\u00e2\u0080\u009c', '‚Äú'],
+    ['\u00e2\u0080\u009d', '‚Äù'],
+    ['\u00e2\u0080\u0093', '‚Äì'],
+    ['\u00e2\u0080\u0094', '‚Äî'],
+  ];
+
+  return replacements.reduce((text, [bad, good]) => text.split(bad).join(good), value);
+}
+
+function repairDeep<T>(value: T): T {
+  if (typeof value === 'string') {
+    return repairText(value) as T;
+  }
+
+  if (Array.isArray(value)) {
+    return value.map((item) => repairDeep(item)) as T;
+  }
+
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>).map(([key, val]) => [key, repairDeep(val)])
+    ) as T;
+  }
+
+  return value;
+}
 
 const sectionTitleClass = 'text-lg font-semibold text-slate-900';
 const cardClass = 'rounded-2xl border border-slate-200 bg-white p-6 shadow-sm';
@@ -682,7 +745,7 @@ const adminSections: Array<{
   {
     key: 'central',
     title: 'Panel central',
-    description: 'Edita logo, nombre del sitio, men‚àö‚à´, footer, redes y datos generales.',
+    description: 'Edita logo, nombre del sitio, men√∫, footer, redes y datos generales.',
     icon: Settings,
   },
   {
@@ -711,14 +774,14 @@ const adminSections: Array<{
   },
   {
     key: 'internships',
-    title: 'Pr‚àö¬∞cticas',
-    description: 'Gestiona informaci‚àö‚â•n de pr‚àö¬∞cticas, empresas y oportunidades.',
+    title: 'Pr√°cticas',
+    description: 'Gestiona informaci√≥n de pr√°cticas, empresas y oportunidades.',
     icon: Briefcase,
   },
   {
     key: 'playground',
     title: 'Patio de Juegos',
-    description: 'Prepara actividades interactivas y contenido din‚àö¬∞mico.',
+    description: 'Prepara actividades interactivas y contenido din√°mico.',
     icon: Gamepad2,
   },
 ];
@@ -749,9 +812,9 @@ function SectionPlaceholder({
         </div>
 
         <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
-          <p className="text-lg font-semibold text-slate-800">Esta secci‚àö‚â•n quedar‚àö¬∞ lista en el siguiente paso.</p>
+          <p className="text-lg font-semibold text-slate-800">Esta secci√≥n quedar√° lista en el siguiente paso.</p>
           <p className="mt-2 text-sm text-slate-600">
-            La estructura del panel ya est‚àö¬∞ preparada para que despu‚àö¬©s conectemos este m‚àö‚â•dulo a Supabase.
+            La estructura del panel ya est√° preparada para que despu√©s conectemos este m√≥dulo a Supabase.
           </p>
         </div>
       </section>
@@ -868,12 +931,12 @@ export default function Admin() {
       if (error) throw error;
 
       if (!data) {
-        setForm(defaultHomeContent);
+        setForm(repairDeep(defaultHomeContent));
         setHomeLoaded(true);
         return;
       }
 
-      setForm(mergeHomeContent(data.content as Partial<HomeContent>));
+      setForm(repairDeep(mergeHomeContent(data.content as Partial<HomeContent>)));
       setHomeLoaded(true);
     } catch (error: any) {
       console.error('Error cargando Home:', error);
@@ -897,16 +960,16 @@ export default function Admin() {
       if (error) throw error;
 
       if (!data) {
-        setSiteSettings(defaultSiteSettings);
+        setSiteSettings(repairDeep(defaultSiteSettings));
         setCentralLoaded(true);
         return;
       }
 
-      setSiteSettings(mergeSiteSettings(data.content as Partial<SiteSettings>));
+      setSiteSettings(repairDeep(mergeSiteSettings(data.content as Partial<SiteSettings>)));
       setCentralLoaded(true);
     } catch (error: any) {
       console.error('Error cargando site_settings:', error);
-      setErrorMsg(error?.message || 'No se pudo cargar la configuraci‚àö‚â•n general.');
+      setErrorMsg(error?.message || 'No se pudo cargar la configuraci√≥n general.');
     } finally {
       setLoading(false);
     }
@@ -926,12 +989,12 @@ export default function Admin() {
       if (error) throw error;
 
       if (!data) {
-        setSpecialtiesContent(defaultSpecialtiesContent);
+        setSpecialtiesContent(repairDeep(defaultSpecialtiesContent));
         setSpecialtiesLoaded(true);
         return;
       }
 
-      setSpecialtiesContent(mergeSpecialtiesContent(data.content as Partial<SpecialtiesContent>));
+      setSpecialtiesContent(repairDeep(mergeSpecialtiesContent(data.content as Partial<SpecialtiesContent>)));
       setSpecialtiesLoaded(true);
     } catch (error: any) {
       console.error('Error cargando specialties:', error);
@@ -956,7 +1019,7 @@ export default function Admin() {
         return;
       }
 
-      setResources(mergeResourcesContent(data.content as { resources?: Partial<ResourceItem>[] }));
+      setResources(repairDeep(mergeResourcesContent(data.content as { resources?: Partial<ResourceItem>[] })));
       setResourcesLoaded(true);
     } catch (error: any) {
       console.error('Error cargando resources:', error);
@@ -975,7 +1038,7 @@ export default function Admin() {
         const { error } = await supabase.from('pages').upsert(
           {
             slug: 'home',
-            content: form,
+            content: repairDeep(form),
           },
           { onConflict: 'slug' }
         );
@@ -988,20 +1051,20 @@ export default function Admin() {
         const { error } = await supabase.from('pages').upsert(
           {
             slug: 'site_settings',
-            content: payload,
+            content: repairDeep(payload),
           },
           { onConflict: 'slug' }
         );
         if (error) throw error;
 
-        setSiteSettings(mergeSiteSettings(payload));
+        setSiteSettings(repairDeep(mergeSiteSettings(payload)));
       }
 
       if (currentSection === 'specialties') {
         const { error } = await supabase.from('pages').upsert(
           {
             slug: 'specialties',
-            content: specialtiesContent,
+            content: repairDeep(specialtiesContent),
           },
           { onConflict: 'slug' }
         );
@@ -1010,19 +1073,19 @@ export default function Admin() {
 
       if (currentSection === 'resources') {
         const payload = {
-          resources: resources.sort((a, b) => a.order - b.order),
+          resources: [...resources].sort((a, b) => a.order - b.order),
         };
 
         const { error } = await supabase.from('pages').upsert(
           {
             slug: 'resources',
-            content: payload,
+            content: repairDeep(payload),
           },
           { onConflict: 'slug' }
         );
         if (error) throw error;
 
-        setResources(mergeResourcesContent(payload));
+        setResources(repairDeep(mergeResourcesContent(payload)));
       }
 
       setSaveState('saved');
@@ -1319,13 +1382,13 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 Bienvenido a tu panel de administrador
               </h1>
               <p className="mt-3 max-w-2xl text-sm text-slate-600">
-                Desde aqu‚àö‚â† puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
+                Desde aqu√≠ puedes gestionar el contenido principal de educatp.cl de forma simple, ordenada y segura.
               </p>
             </div>
 
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi‚àö‚â•n
+              Cerrar sesi√≥n
             </button>
           </div>
         </section>
@@ -1336,7 +1399,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <LayoutDashboard className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">P‚àö¬∞ginas y subp‚àö¬∞ginas</h2>
+              <h2 className="text-xl font-semibold text-slate-900">P√°ginas y subp√°ginas</h2>
               <p className="text-sm text-slate-500">
                 Selecciona el sector que deseas editar dentro del sitio educatp.cl.
               </p>
@@ -1405,7 +1468,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Panel central</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aqu‚àö‚â† puedes editar la estructura superior e inferior del sitio, la visibilidad del men‚àö‚à´ y la informaci‚àö‚â•n
+              Aqu√≠ puedes editar la estructura superior e inferior del sitio, la visibilidad del men√∫ y la informaci√≥n
               institucional global.
             </p>
           </div>
@@ -1413,7 +1476,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi‚àö‚â•n
+              Cerrar sesi√≥n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -1436,7 +1499,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Encabezado del sitio</h2>
-              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuraci‚àö‚â•n base.</p>
+              <p className="text-sm text-slate-500">Logo, nombre del establecimiento y configuraci√≥n base.</p>
             </div>
           </div>
 
@@ -1451,12 +1514,12 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div>
-              <label className={labelClass}>Subt‚àö‚â†tulo del establecimiento</label>
+              <label className={labelClass}>Subt√≠tulo del establecimiento</label>
               <input
                 className={inputClass}
                 value={siteSettings.schoolSubtitle}
                 onChange={(e) => updateSiteField('schoolSubtitle', e.target.value)}
-                placeholder="Liceo Carlos Ib‚àö¬∞‚àö¬±ez del Campo"
+                placeholder="Liceo Carlos Ib√°√±ez del Campo"
               />
             </div>
 
@@ -1489,7 +1552,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <div>
               <h2 className={sectionTitleClass}>Colores globales del sitio</h2>
               <p className="text-sm text-slate-500">
-                Desde aqu‚àö‚â† controlas la identidad visual general del proyecto.
+                Desde aqu√≠ controlas la identidad visual general del proyecto.
               </p>
             </div>
           </div>
@@ -1497,7 +1560,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
           <div className="grid gap-4 md:grid-cols-2">
             <TitleColorField
               label="Color principal"
-              textValue="Botones principales / men‚àö‚à´ activo"
+              textValue="Botones principales / men√∫ activo"
               colorValue={siteSettings.theme.primaryColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('primaryColor', value)}
@@ -1521,7 +1584,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             />
             <TitleColorField
               label="Color acento"
-              textValue="Elementos de ‚àö¬©nfasis"
+              textValue="Elementos de √©nfasis"
               colorValue={siteSettings.theme.accentColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('accentColor', value)}
@@ -1553,7 +1616,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             />
             <TitleColorField
               label="Fondo footer"
-              textValue="Pie de p‚àö¬∞gina"
+              textValue="Pie de p√°gina"
               colorValue={siteSettings.theme.footerBackgroundColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('footerBackgroundColor', value)}
@@ -1561,7 +1624,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             />
             <TitleColorField
               label="Texto footer"
-              textValue="Contenido pie de p‚àö¬∞gina"
+              textValue="Contenido pie de p√°gina"
               colorValue={siteSettings.theme.footerTextColor}
               onTextChange={() => {}}
               onColorChange={(value) => updateThemeField('footerTextColor', value)}
@@ -1576,9 +1639,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <Settings className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Subp‚àö¬∞ginas y men‚àö‚à´ principal</h2>
+              <h2 className={sectionTitleClass}>Subp√°ginas y men√∫ principal</h2>
               <p className="text-sm text-slate-500">
-                Puedes agregar, ocultar o mostrar p‚àö¬∞ginas sin borrarlas definitivamente.
+                Puedes agregar, ocultar o mostrar p√°ginas sin borrarlas definitivamente.
               </p>
             </div>
           </div>
@@ -1630,7 +1693,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
             <button type="button" className={mutedButtonClass} onClick={addMenuItem}>
               <Plus className="h-4 w-4" />
-              Agregar subp‚àö¬∞gina al men‚àö‚à´
+              Agregar subp√°gina al men√∫
             </button>
           </div>
         </section>
@@ -1641,14 +1704,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <Palette className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Pie de p‚àö¬∞gina</h2>
+              <h2 className={sectionTitleClass}>Pie de p√°gina</h2>
               <p className="text-sm text-slate-500">Controla la parte inferior del sitio y su contenido general.</p>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className={labelClass}>T‚àö‚â†tulo del footer</label>
+              <label className={labelClass}>T√≠tulo del footer</label>
               <input
                 className={inputClass}
                 value={siteSettings.footerTitle}
@@ -1666,7 +1729,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div className="md:col-span-2">
-              <label className={labelClass}>Descripci‚àö‚â•n del footer</label>
+              <label className={labelClass}>Descripci√≥n del footer</label>
               <textarea
                 className={`${inputClass} min-h-[110px]`}
                 value={siteSettings.footerDescription}
@@ -1675,7 +1738,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div className="md:col-span-2">
-              <label className={labelClass}>Cr‚àö¬©ditos / reconocimiento</label>
+              <label className={labelClass}>Cr√©ditos / reconocimiento</label>
               <input
                 className={inputClass}
                 value={siteSettings.creditsText}
@@ -1693,13 +1756,13 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Datos de contacto</h2>
-              <p className="text-sm text-slate-500">Direcci‚àö‚â•n, correo y tel‚àö¬©fono visibles en el sitio.</p>
+              <p className="text-sm text-slate-500">Direcci√≥n, correo y tel√©fono visibles en el sitio.</p>
             </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="md:col-span-2">
-              <label className={labelClass}>Direcci‚àö‚â•n</label>
+              <label className={labelClass}>Direcci√≥n</label>
               <input
                 className={inputClass}
                 value={siteSettings.address}
@@ -1717,7 +1780,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
 
             <div>
-              <label className={labelClass}>Tel‚àö¬©fono</label>
+              <label className={labelClass}>Tel√©fono</label>
               <input
                 className={inputClass}
                 value={siteSettings.phone}
@@ -1734,7 +1797,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
             <div>
               <h2 className={sectionTitleClass}>Redes sociales</h2>
-              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales seg‚àö‚à´n te convenga.</p>
+              <p className="text-sm text-slate-500">Agrega, quita u oculta enlaces sociales seg√∫n te convenga.</p>
             </div>
           </div>
 
@@ -1792,9 +1855,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         </section>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Vista r‚àö¬∞pida del JSON general</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON general</h2>
           <p className="mb-4 text-sm text-slate-500">
-            Este bloque te muestra exactamente lo que se guardar‚àö¬∞ como configuraci‚àö‚â•n global del sitio.
+            Este bloque te muestra exactamente lo que se guardar√° como configuraci√≥n global del sitio.
           </p>
 
           <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -1835,14 +1898,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de contenido Home</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Desde aqu‚àö‚â† puedes editar el contenido principal de la portada del sitio.
+              Desde aqu√≠ puedes editar el contenido principal de la portada del sitio.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi‚àö‚â•n
+              Cerrar sesi√≥n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -1865,8 +1928,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <Home className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Secci‚àö‚â•n Hero</h2>
-                <p className="text-sm text-slate-500">T‚àö‚â†tulo principal, textos, botones e imagen.</p>
+                <h2 className={sectionTitleClass}>Secci√≥n Hero</h2>
+                <p className="text-sm text-slate-500">T√≠tulo principal, textos, botones e imagen.</p>
               </div>
             </div>
 
@@ -1895,16 +1958,16 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     <Palette className="h-5 w-5 text-slate-700" />
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-slate-900">T‚àö‚â†tulo principal con colores editables</h3>
+                    <h3 className="text-base font-semibold text-slate-900">T√≠tulo principal con colores editables</h3>
                     <p className="text-sm text-slate-500">
-                      Aqu‚àö‚â† puedes cambiar cada palabra y su color sin tocar el c‚àö‚â•digo.
+                      Aqu√≠ puedes cambiar cada palabra y su color sin tocar el c√≥digo.
                     </p>
                   </div>
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
                   <TitleColorField
-                    label="Palabra 1 / l‚àö‚â†nea inicial"
+                    label="Palabra 1 / l√≠nea inicial"
                     textValue={form.heroTitleLine1}
                     colorValue={form.heroTitleLine1Color}
                     onTextChange={(value) => updateField('heroTitleLine1', value)}
@@ -1938,11 +2001,11 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
                 <div className="mt-5 rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-5 py-6">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
-                    Vista previa del t‚àö‚â†tulo completo
+                    Vista previa del t√≠tulo completo
                   </p>
                   <h3 className="text-2xl font-black leading-tight tracking-tight md:text-4xl">
                     <span style={{ color: form.heroTitleLine1Color || '#0f172a' }}>
-                      {form.heroTitleLine1 || 'T‚àö‚â†tulo'}
+                      {form.heroTitleLine1 || 'T√≠tulo'}
                     </span>{' '}
                     <span style={{ color: form.heroTitleGreenColor || '#064e3b' }}>
                       {form.heroTitleGreen || 'Palabra'}
@@ -1951,14 +2014,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                       {form.heroTitleYellow || 'Editable'}
                     </span>{' '}
                     <span style={{ color: form.heroTitleRedColor || '#991b1b' }}>
-                      {form.heroTitleRed || 'Aqu‚àö‚â†'}
+                      {form.heroTitleRed || 'Aqu√≠'}
                     </span>
                   </h3>
                 </div>
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Descripci‚àö‚â•n</label>
+                <label className={labelClass}>Descripci√≥n</label>
                 <textarea
                   className={`${inputClass} min-h-[110px]`}
                   value={form.heroDescription}
@@ -1977,7 +2040,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Texto bot‚àö‚â•n principal</label>
+                <label className={labelClass}>Texto bot√≥n principal</label>
                 <input
                   className={inputClass}
                   value={form.heroPrimaryButtonText}
@@ -1986,7 +2049,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Link bot‚àö‚â•n principal</label>
+                <label className={labelClass}>Link bot√≥n principal</label>
                 <input
                   className={inputClass}
                   value={form.heroPrimaryButtonLink}
@@ -1995,7 +2058,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Texto bot‚àö‚â•n secundario</label>
+                <label className={labelClass}>Texto bot√≥n secundario</label>
                 <input
                   className={inputClass}
                   value={form.heroSecondaryButtonText}
@@ -2004,7 +2067,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Link bot‚àö‚â•n secundario</label>
+                <label className={labelClass}>Link bot√≥n secundario</label>
                 <input
                   className={inputClass}
                   value={form.heroSecondaryButtonLink}
@@ -2013,7 +2076,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>T‚àö‚â†tulo destacado lateral</label>
+                <label className={labelClass}>T√≠tulo destacado lateral</label>
                 <input
                   className={inputClass}
                   value={form.heroFeatureTitle}
@@ -2022,7 +2085,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Subt‚àö‚â†tulo destacado lateral</label>
+                <label className={labelClass}>Subt√≠tulo destacado lateral</label>
                 <input
                   className={inputClass}
                   value={form.heroFeatureSubtitle}
@@ -2038,8 +2101,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <BarChart3 className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Estad‚àö‚â†sticas</h2>
-                <p className="text-sm text-slate-500">Bloques tipo n‚àö‚à´mero + etiqueta.</p>
+                <h2 className={sectionTitleClass}>Estad√≠sticas</h2>
+                <p className="text-sm text-slate-500">Bloques tipo n√∫mero + etiqueta.</p>
               </div>
             </div>
 
@@ -2078,7 +2141,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
               <button type="button" className={mutedButtonClass} onClick={addStat}>
                 <Plus className="h-4 w-4" />
-                Agregar estad‚àö‚â†stica
+                Agregar estad√≠stica
               </button>
             </div>
           </section>
@@ -2089,7 +2152,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <GraduationCap className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Secci‚àö‚â•n especialidades</h2>
+                <h2 className={sectionTitleClass}>Secci√≥n especialidades</h2>
                 <p className="text-sm text-slate-500">Encabezado y tarjetas de especialidades.</p>
               </div>
             </div>
@@ -2105,7 +2168,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>T‚àö‚â†tulo</label>
+                <label className={labelClass}>T√≠tulo</label>
                 <input
                   className={inputClass}
                   value={form.specialtiesTitle}
@@ -2114,7 +2177,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Subt‚àö‚â†tulo</label>
+                <label className={labelClass}>Subt√≠tulo</label>
                 <textarea
                   className={`${inputClass} min-h-[100px]`}
                   value={form.specialtiesSubtitle}
@@ -2136,7 +2199,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div>
-                      <label className={labelClass}>T‚àö‚â†tulo</label>
+                      <label className={labelClass}>T√≠tulo</label>
                       <input
                         className={inputClass}
                         value={item.title}
@@ -2145,7 +2208,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     </div>
 
                     <div>
-                      <label className={labelClass}>‚àö√ßcono</label>
+                      <label className={labelClass}>√çcono</label>
                       <input
                         className={inputClass}
                         value={item.icon}
@@ -2175,7 +2238,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                     </div>
 
                     <div className="md:col-span-2">
-                      <label className={labelClass}>Descripci‚àö‚â•n</label>
+                      <label className={labelClass}>Descripci√≥n</label>
                       <textarea
                         className={`${inputClass} min-h-[100px]`}
                         value={item.description}
@@ -2195,7 +2258,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
                     <div className="md:col-span-2">
                       <p className="rounded-xl border border-dashed border-slate-300 bg-white px-4 py-3 text-xs text-slate-500">
-                        La imagen de fondo se usar‚àö¬∞ en la tarjeta de especialidad.
+                        La imagen de fondo se usar√° en la tarjeta de especialidad.
                       </p>
                     </div>
                   </div>
@@ -2215,8 +2278,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <Megaphone className="h-5 w-5 text-slate-700" />
               </div>
               <div>
-                <h2 className={sectionTitleClass}>Llamado a la acci‚àö‚â•n final</h2>
-                <p className="text-sm text-slate-500">Bloque de cierre o invitaci‚àö‚â•n principal.</p>
+                <h2 className={sectionTitleClass}>Llamado a la acci√≥n final</h2>
+                <p className="text-sm text-slate-500">Bloque de cierre o invitaci√≥n principal.</p>
               </div>
             </div>
 
@@ -2231,7 +2294,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>T‚àö‚â†tulo</label>
+                <label className={labelClass}>T√≠tulo</label>
                 <input
                   className={inputClass}
                   value={form.ctaTitle}
@@ -2240,7 +2303,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div className="md:col-span-2">
-                <label className={labelClass}>Descripci‚àö‚â•n</label>
+                <label className={labelClass}>Descripci√≥n</label>
                 <textarea
                   className={`${inputClass} min-h-[110px]`}
                   value={form.ctaDescription}
@@ -2249,7 +2312,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Texto bot‚àö‚â•n</label>
+                <label className={labelClass}>Texto bot√≥n</label>
                 <input
                   className={inputClass}
                   value={form.ctaButtonText}
@@ -2258,7 +2321,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               </div>
 
               <div>
-                <label className={labelClass}>Link bot‚àö‚â•n</label>
+                <label className={labelClass}>Link bot√≥n</label>
                 <input
                   className={inputClass}
                   value={form.ctaButtonLink}
@@ -2269,9 +2332,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
           </section>
 
           <section className={cardClass}>
-            <h2 className={`${sectionTitleClass} mb-4`}>Vista r‚àö¬∞pida del JSON</h2>
+            <h2 className={`${sectionTitleClass} mb-4`}>Vista r√°pida del JSON</h2>
             <p className="mb-4 text-sm text-slate-500">
-              Esto te sirve para revisar exactamente lo que se est‚àö¬∞ guardando en Supabase.
+              Esto te sirve para revisar exactamente lo que se est√° guardando en Supabase.
             </p>
 
             <pre className="overflow-auto rounded-2xl bg-slate-950 p-4 text-xs text-slate-100">
@@ -2679,14 +2742,14 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             <p className="mb-2 text-sm font-medium uppercase tracking-wide text-slate-500">Panel CMS</p>
             <h1 className="text-3xl font-bold tracking-tight text-slate-900">Editor de Recursos</h1>
             <p className="mt-2 text-sm text-slate-600">
-              Aqu‚àö‚â† podr‚àö¬∞s crear recursos educativos livianos mediante enlaces externos, sin sobrecargar el sistema.
+              Aqu√≠ podr√°s crear recursos educativos livianos mediante enlaces externos, sin sobrecargar el sistema.
             </p>
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <button onClick={handleLogout} className={mutedButtonClass} type="button">
               <LogOut className="h-4 w-4" />
-              Cerrar sesi‚àö‚â•n
+              Cerrar sesi√≥n
             </button>
 
             <button onClick={handleSave} className={primaryButtonClass} type="button">
@@ -2729,16 +2792,16 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
               <GraduationCap className="h-5 w-5 text-slate-700" />
             </div>
             <div>
-              <h2 className={sectionTitleClass}>Recursos organizados por estructura acad‚àö¬©mica</h2>
+              <h2 className={sectionTitleClass}>Recursos organizados por estructura acad√©mica</h2>
               <p className="text-sm text-slate-500">
-                Vista jer‚àö¬∞rquica por especialidad, nivel, asignatura y recurso.
+                Vista jer√°rquica por especialidad, nivel, asignatura y recurso.
               </p>
             </div>
           </div>
 
           {resources.length === 0 ? (
             <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
-              A‚àö‚à´n no has agregado recursos. Cuando presiones ‚Äö√Ñ√∫Guardar cambios‚Äö√Ñ√π, quedar‚àö¬∞n persistentes en Supabase.
+              A√∫n no has agregado recursos. Cuando presiones ‚ÄúGuardar cambios‚Äù, quedar√°n persistentes en Supabase.
             </div>
           ) : (
             <div className="space-y-6">
@@ -2785,7 +2848,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                                           </div>
 
                                           <p className="text-sm text-slate-600">
-                                            {resource.description || 'Sin descripci‚àö‚â•n.'}
+                                            {resource.description || 'Sin descripci√≥n.'}
                                           </p>
 
                                           <div className="flex flex-wrap gap-2 text-xs text-slate-500">
@@ -2855,9 +2918,9 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         </section>
 
         <section className={cardClass}>
-          <h2 className={`${sectionTitleClass} mb-4`}>Recomendaci‚àö‚â•n t‚àö¬©cnica</h2>
+          <h2 className={`${sectionTitleClass} mb-4`}>Recomendaci√≥n t√©cnica</h2>
           <div className="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-600">
-            Para mantener el sitio r‚àö¬∞pido y estable, sube preferentemente recursos mediante enlaces p‚àö‚à´blicos externos
+            Para mantener el sitio r√°pido y estable, sube preferentemente recursos mediante enlaces p√∫blicos externos
             en vez de almacenar archivos pesados directamente dentro del proyecto.
           </div>
         </section>
@@ -2886,7 +2949,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         return (
           <SectionPlaceholder
             title="Blog TP"
-            description="Aqu‚àö‚â† luego conectaremos el editor del blog y noticias."
+            description="Aqu√≠ luego conectaremos el editor del blog y noticias."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2894,8 +2957,8 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
       case 'internships':
         return (
           <SectionPlaceholder
-            title="Pr‚àö¬∞cticas"
-            description="Aqu‚àö‚â† luego conectaremos el editor de pr‚àö¬∞cticas."
+            title="Pr√°cticas"
+            description="Aqu√≠ luego conectaremos el editor de pr√°cticas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2904,7 +2967,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
         return (
           <SectionPlaceholder
             title="Patio de Juegos"
-            description="Aqu‚àö‚â† luego conectaremos el editor de juegos y actividades interactivas."
+            description="Aqu√≠ luego conectaremos el editor de juegos y actividades interactivas."
             onBack={() => setCurrentSection('dashboard')}
           />
         );
@@ -2916,3 +2979,4 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
   return <div className="min-h-screen bg-slate-100 p-4 md:p-6">{renderContent()}</div>;
 }
+
