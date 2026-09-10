@@ -1,3 +1,4 @@
+import { repairText } from '../lib/text';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -23,29 +24,9 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Baby,
 };
 
-const textFixes: Array<[string, string]> = [
-  ['‚àö¬∞', '√°'],
-  ['‚àö¬©', '√©'],
-  ['‚àö‚â†', '√≠'],
-  ['‚àö‚â•', '√≥'],
-  ['‚àö‚à´', '√∫'],
-  ['‚àö¬±', '√±'],
-  ['‚àö√Ö', '√Å'],
-  ['‚àö√¢', '√â'],
-  ['‚àö√ß', '√ç'],
-  ['‚àö√¨', '√ì'],
-  ['‚àö√∂', '√ö'],
-  ['‚àö√´', '√ë'],
-  ['¬¨‚àû', '¬∞'],
-];
-
-function fixText(value: string) {
-  return textFixes.reduce((text, [wrong, correct]) => text.split(wrong).join(correct), value);
-}
-
 function cleanText(value?: string, fallback = '') {
   const raw = value && value.trim() ? value : fallback;
-  return fixText(raw || '');
+  return repairText(raw || '');
 }
 
 function extractIframeSrc(value?: string) {

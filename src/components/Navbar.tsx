@@ -1,3 +1,4 @@
+import { repairText } from '../lib/text';
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
@@ -63,29 +64,6 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   '/playground': Gamepad2,
   '/juegos': Gamepad2,
 };
-
-function repairText(value: string): string {
-  return value
-    .replace(/‚àö¬∞/g, 'á')
-    .replace(/‚àö¬©/g, 'é')
-    .replace(/‚àö‚â†/g, 'í')
-    .replace(/‚àö‚â•/g, 'ó')
-    .replace(/‚àö‚à´/g, 'ú')
-    .replace(/‚àö¬±/g, 'ñ')
-    .replace(/√°/g, 'á')
-    .replace(/√©/g, 'é')
-    .replace(/√≠/g, 'í')
-    .replace(/√≥/g, 'ó')
-    .replace(/√∫/g, 'ú')
-    .replace(/√±/g, 'ñ')
-    .replace(/¬∞/g, '°')
-    .replace(/Ã¡/g, 'á')
-    .replace(/Ã©/g, 'é')
-    .replace(/Ã­/g, 'í')
-    .replace(/Ã³/g, 'ó')
-    .replace(/Ãº/g, 'ú')
-    .replace(/Ã±/g, 'ñ');
-}
 
 function normalizeMenuPath(item: MenuItem): string {
   const rawName = item.name || item.label || '';
