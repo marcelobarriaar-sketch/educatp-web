@@ -1,3 +1,4 @@
+import { canonicalSpecialtyId } from '../lib/navigation';
 import { repairText } from '../lib/text';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -109,7 +110,7 @@ export default function SpecialtyDetail() {
     };
   }, []);
 
-  const specialty = useMemo(() => specialties.find((item) => item.id === id), [specialties, id]);
+  const specialty = useMemo(() => specialties.find((item) => item.id === id || item.id === canonicalSpecialtyId(id || '')), [specialties, id]);
 
   if (loading) {
     return (
@@ -149,7 +150,7 @@ export default function SpecialtyDetail() {
 
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <div className={cn('text-white py-16 md:py-24', specialty.color)}>
+      <div className={cn('text-white py-12 md:py-20', specialty.icon === 'Beef' ? 'bg-amber-800' : specialty.icon === 'Baby' ? 'bg-rose-800' : 'bg-emerald-900')}>
         <div className="max-w-7xl mx-auto px-4">
           <Link
             to="/especialidades"
