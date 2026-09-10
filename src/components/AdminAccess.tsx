@@ -60,9 +60,10 @@ export default function AdminAccess() {
         type="button"
         onClick={handleOpen}
         aria-label="Abrir acceso administrador"
-        className="fixed right-4 top-1/2 z-50 flex -translate-y-1/2 items-center justify-center rounded-full border border-slate-200 bg-white p-4 text-slate-700 shadow-xl transition hover:scale-105 hover:bg-slate-50 md:right-6"
+        className="mx-auto my-4 flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-600 transition hover:bg-slate-100"
       >
-        <Settings className="h-6 w-6" />
+        <Settings className="h-4 w-4" />
+        Acceso administrador
       </button>
 
       {open && (

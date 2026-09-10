@@ -156,34 +156,4 @@ export const INTERNSHIP_OFFERS = [
   }
 ];
  
-export const PLAYGROUND_GAMES = [
-  {
-    id: 1,
-    title: 'Trivia de Especialidades',
-    category: 'General',
-    description: '¿Cuánto sabes sobre las 3 especialidades de nuestro colegio?',
-    icon: 'Brain'
-  },
-  {
-    id: 2,
-    title: 'Simulador de Contratos',
-    category: 'Administración',
-    description: 'Completa los datos de un contrato de trabajo sin errores.',
-    icon: 'FileText'
-  },
-  {
-    id: 3,
-    title: 'Identificador de Semillas',
-    category: 'Agrícola',
-    description: 'Reconoce las semillas antes de que se acabe el tiempo.',
-    icon: 'Sprout'
-  },
-  {
-    id: 4,
-    title: 'Cuentacuentos Interactivo',
-    category: 'Parvularia',
-    description: 'Elige el final correcto para cada historia infantil.',
-    icon: 'BookOpen'
-  }
-];
-
+export { games as PLAYGROUND_GAMES } from './games';

@@ -1,3 +1,5 @@
+import { defaultNavItems, normalizeNavigation } from '../lib/navigation';
+import { fallbackContent as homeV2Defaults } from '../data/home';
 import { repairText } from '../lib/text';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
@@ -71,6 +73,7 @@ type SpecialtyCard = {
 };
 
 type HomeContent = {
+  hub?: { title?: string; description?: string; primaryText?: string; primaryLink?: string; secondaryText?: string; secondaryLink?: string };
   heroBadge: string;
   heroTitleLine1: string;
   heroTitleLine1Color: string;
@@ -208,6 +211,7 @@ type AdminSection =
 const STORAGE_KEY = 'educatp_admin_auth';
 
 const defaultHomeContent: HomeContent = {
+  hub: homeV2Defaults.hub,
   heroBadge: 'Liceo Técnico Profesional',
   heroTitleLine1: 'Formando talentos para el futuro',
   heroTitleLine1Color: '#0f172a',
@@ -275,14 +279,7 @@ const defaultSiteSettings: SiteSettings = {
   logoUrl: '',
   logoAlt: 'Logo del establecimiento',
   schoolSubtitle: 'Liceo Carlos Ibáñez del Campo',
-  menuItems: [
-    { id: 'inicio', name: 'Inicio', path: '/', visible: true },
-    { id: 'especialidades', name: 'Especialidades', path: '/especialidades', visible: true },
-    { id: 'recursos', name: 'Recursos', path: '/recursos', visible: true },
-    { id: 'blog', name: 'Blog TP', path: '/blog', visible: true },
-    { id: 'practicas', name: 'Prácticas', path: '/practicas', visible: true },
-    { id: 'patio', name: 'Patio de Juegos', path: '/playground', visible: true },
-  ],
+  menuItems: defaultNavItems.map((item) => ({ id: item.id!, name: item.name!, path: item.path, visible: true })),
   footerTitle: 'Educa TP',
   footerDescription: 'Formación técnico profesional conectada con el territorio, la innovación y el futuro.',
   address: 'Fresia, Región de Los Lagos, Chile',
@@ -505,6 +502,7 @@ function mergeHomeContent(content: Partial<HomeContent> | null | undefined): Hom
   return {
     ...defaultHomeContent,
     ...(content || {}),
+    hub: { ...homeV2Defaults.hub, ...content?.hub },
     stats: Array.isArray(content?.stats) ? content.stats : defaultHomeContent.stats,
     specialties: Array.isArray(content?.specialties) ? content.specialties : defaultHomeContent.specialties,
   };
@@ -538,7 +536,7 @@ function mergeSiteSettings(content: Partial<SiteSettings> | null | undefined): S
     ...(content?.theme || {}),
   };
 
-  const menuItems = normalizeMenuItems(content);
+  const menuItems = normalizeNavigation(normalizeMenuItems(content)).map((item, index) => ({ id: item.id || `menu-${index}`, name: item.name || '', path: item.path, visible: item.visible !== false }));
 
   return {
     ...defaultSiteSettings,
@@ -1880,6 +1878,16 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
 
         <div className="grid gap-6">
           <section className={cardClass}>
+          <h2 className={sectionTitleClass}>Portada estudiantil EducaTP 2.0</h2>
+          <p className="mt-2 mb-5 text-sm text-slate-600">Configura el mensaje principal del nuevo hub. Los campos anteriores se conservan más abajo.</p>
+          <div className="grid gap-4 md:grid-cols-2">
+            {([['title', 'Título principal'], ['description', 'Bajada'], ['primaryText', 'Texto del botón principal'], ['primaryLink', 'Enlace principal'], ['secondaryText', 'Texto del botón secundario'], ['secondaryLink', 'Enlace secundario']] as const).map(([key, label]) => (
+              <label key={key} className={labelClass}>{label}<input className={inputClass} value={form.hub?.[key] ?? homeV2Defaults.hub?.[key] ?? ''} onChange={event => updateField('hub', { ...homeV2Defaults.hub, ...form.hub, [key]: event.target.value })} /></label>
+            ))}
+          </div>
+        </section>
+
+        <section className={cardClass}>
             <div className="mb-6 flex items-center gap-3">
               <div className="rounded-xl bg-slate-100 p-2">
                 <Home className="h-5 w-5 text-slate-700" />
@@ -2762,7 +2770,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
             </div>
           ) : (
             <div className="space-y-6">
-              {Object.entries(groupedResources).map(([specialtyId, specialtyGroup]) => (
+              {Object.entries<typeof groupedResources[string]>(groupedResources).map(([specialtyId, specialtyGroup]) => (
                 <div key={specialtyId} className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
                   <div className="mb-4">
                     <h3 className="text-xl font-bold text-slate-900">{specialtyGroup.specialtyName}</h3>
@@ -2770,7 +2778,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                   </div>
 
                   <div className="space-y-5">
-                    {Object.entries(specialtyGroup.levels).map(([levelId, levelGroup]) => (
+                    {Object.entries<typeof specialtyGroup.levels[string]>(specialtyGroup.levels).map(([levelId, levelGroup]) => (
                       <div key={levelId} className="rounded-2xl border border-slate-200 bg-white p-4">
                         <div className="mb-4">
                           <h4 className="text-lg font-semibold text-slate-900">{levelGroup.levelName}</h4>
@@ -2778,7 +2786,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                         </div>
 
                         <div className="space-y-4">
-                          {Object.entries(levelGroup.subjects).map(([subjectId, subjectGroup]) => (
+                          {Object.entries<typeof levelGroup.subjects[string]>(levelGroup.subjects).map(([subjectId, subjectGroup]) => (
                             <div key={subjectId} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                               <div className="mb-3">
                                 <h5 className="text-base font-semibold text-slate-900">{subjectGroup.subjectName}</h5>

@@ -1,3 +1,4 @@
+import { games, type SpecialtyId, type LevelId, type GameType, type PlaygroundGame } from '../data/games';
 import React, { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import {
@@ -18,28 +19,6 @@ import {
   Users,
   Wand2,
 } from 'lucide-react';
-
-type SpecialtyId = 'all' | 'administracion' | 'agricola' | 'parvularia';
-type LevelId = 'all' | '3medio' | '4medio' | 'general';
-type GameType = 'trivia' | 'memorice' | 'ruleta' | 'escape' | 'desafio' | 'externo';
-
-type PlaygroundGame = {
-  id: string;
-  title: string;
-  description: string;
-  specialtyId: SpecialtyId;
-  specialtyName: string;
-  levelId: LevelId;
-  levelName: string;
-  subject: string;
-  type: GameType;
-  typeName: string;
-  url: string;
-  estimatedTime: string;
-  difficulty: 'Inicial' | 'Intermedio' | 'Desafío';
-  featured?: boolean;
-  available: boolean;
-};
 
 const specialties = [
   {
@@ -80,114 +59,6 @@ const gameTypeIcon: Record<GameType, React.ComponentType<{ className?: string }>
   externo: ExternalLink,
 };
 
-const games: PlaygroundGame[] = [
-  {
-    id: 'trivia-tp-general',
-    title: 'Trivia TP: ¿Cuánto sabes de la educación técnico profesional?',
-    description:
-      'Juego de preguntas rápidas para activar conocimientos sobre especialidades, mundo laboral y formación TP.',
-    specialtyId: 'all',
-    specialtyName: 'Todas las especialidades',
-    levelId: 'general',
-    levelName: 'General',
-    subject: 'Formación Técnico Profesional',
-    type: 'trivia',
-    typeName: 'Trivia',
-    url: '#',
-    estimatedTime: '10 min',
-    difficulty: 'Inicial',
-    featured: true,
-    available: false,
-  },
-  {
-    id: 'memorice-conceptos-administracion',
-    title: 'Memorice de conceptos administrativos',
-    description:
-      'Actividad para relacionar conceptos clave como organización, gestión, archivo, atención al cliente y procesos administrativos.',
-    specialtyId: 'administracion',
-    specialtyName: 'Administración',
-    levelId: '3medio',
-    levelName: '3° Medio TP',
-    subject: 'Procesos Administrativos',
-    type: 'memorice',
-    typeName: 'Memorice',
-    url: '#',
-    estimatedTime: '15 min',
-    difficulty: 'Inicial',
-    featured: true,
-    available: false,
-  },
-  {
-    id: 'ruleta-legislacion-laboral',
-    title: 'Ruleta de Legislación Laboral',
-    description:
-      'Desafío de preguntas al azar sobre contrato de trabajo, jornada laboral, remuneraciones, derechos y deberes laborales.',
-    specialtyId: 'administracion',
-    specialtyName: 'Administración',
-    levelId: '4medio',
-    levelName: '4° Medio TP',
-    subject: 'Legislación Laboral',
-    type: 'ruleta',
-    typeName: 'Ruleta',
-    url: '#',
-    estimatedTime: '20 min',
-    difficulty: 'Intermedio',
-    available: false,
-  },
-  {
-    id: 'escape-oficina',
-    title: 'Escape Room: La oficina en crisis',
-    description:
-      'Los estudiantes deberán resolver problemas de comunicación, organización documental y atención a clientes para superar el desafío.',
-    specialtyId: 'administracion',
-    specialtyName: 'Administración',
-    levelId: '3medio',
-    levelName: '3° Medio TP',
-    subject: 'Organización de Oficinas',
-    type: 'escape',
-    typeName: 'Escape Room',
-    url: '#',
-    estimatedTime: '35 min',
-    difficulty: 'Desafío',
-    available: false,
-  },
-  {
-    id: 'desafio-cuidado-animal',
-    title: 'Desafío pecuario: decisiones en terreno',
-    description:
-      'Juego de casos donde se deben tomar decisiones relacionadas con bienestar animal, alimentación, higiene y manejo productivo.',
-    specialtyId: 'agricola',
-    specialtyName: 'Técnico Agrícola',
-    levelId: '3medio',
-    levelName: '3° Medio TP',
-    subject: 'Manejo Pecuario',
-    type: 'desafio',
-    typeName: 'Desafío',
-    url: '#',
-    estimatedTime: '25 min',
-    difficulty: 'Intermedio',
-    featured: true,
-    available: false,
-  },
-  {
-    id: 'trivia-parvularia',
-    title: 'Trivia de Educación Parvularia',
-    description:
-      'Preguntas breves sobre juego, cuidado, seguridad, desarrollo infantil y rol de la técnico en educación parvularia.',
-    specialtyId: 'parvularia',
-    specialtyName: 'Educación Parvularia',
-    levelId: '4medio',
-    levelName: '4° Medio TP',
-    subject: 'Desarrollo y Bienestar Infantil',
-    type: 'trivia',
-    typeName: 'Trivia',
-    url: '#',
-    estimatedTime: '15 min',
-    difficulty: 'Inicial',
-    available: false,
-  },
-];
-
 function getDifficultyClass(difficulty: PlaygroundGame['difficulty']) {
   if (difficulty === 'Inicial') return 'bg-emerald-50 text-emerald-700 ring-emerald-200';
   if (difficulty === 'Intermedio') return 'bg-yellow-50 text-yellow-700 ring-yellow-200';
@@ -195,9 +66,9 @@ function getDifficultyClass(difficulty: PlaygroundGame['difficulty']) {
 }
 
 function getSpecialtyClass(specialtyId: SpecialtyId) {
-  if (specialtyId === 'administracion') return 'from-red-800 to-red-950';
-  if (specialtyId === 'agricola') return 'from-emerald-800 to-emerald-950';
-  if (specialtyId === 'parvularia') return 'from-yellow-500 to-orange-600';
+  if (specialtyId === 'administracion') return 'from-emerald-700 to-emerald-900';
+  if (specialtyId === 'agricola') return 'from-amber-600 to-amber-800';
+  if (specialtyId === 'parvularia') return 'from-rose-600 to-rose-800';
   return 'from-slate-800 to-slate-950';
 }
 
@@ -226,7 +97,7 @@ export default function Playground() {
   const featuredGames = games.filter((game) => game.featured);
 
   return (
-    <main className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50">
       <section className="relative overflow-hidden bg-slate-950 px-4 py-20 text-white">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute left-10 top-10 h-48 w-48 rounded-full bg-emerald-500 blur-3xl" />
@@ -243,7 +114,7 @@ export default function Playground() {
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2 text-sm font-semibold uppercase tracking-wide text-white/90">
               <Gamepad2 className="h-4 w-4" />
-              Patio de Juegos
+              Patio TP
             </div>
 
             <h1 className="text-4xl font-black tracking-tight md:text-6xl">
@@ -312,7 +183,7 @@ export default function Playground() {
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-black text-slate-900">{game.title}</h3>
+                  <h3 className="text-lg font-black text-slate-900">{game.title}</h3>{!game.available && <p className="mt-2 text-sm font-semibold text-slate-500">Próximamente</p>}
                   <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">{game.description}</p>
 
                   <div className="mt-5 flex flex-wrap gap-2 text-xs font-semibold">
@@ -348,7 +219,7 @@ export default function Playground() {
               <input
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
-                placeholder="Buscar juego, asignatura o tema..."
+                aria-label="Buscar juego, asignatura o tema" placeholder="Buscar juego, asignatura o tema..."
                 className="w-full rounded-2xl border border-slate-200 bg-slate-50 py-3 pl-11 pr-4 text-sm outline-none transition focus:border-slate-400 focus:bg-white focus:ring-4 focus:ring-slate-100"
               />
             </div>
@@ -363,7 +234,7 @@ export default function Playground() {
                 <button
                   key={specialty.id}
                   type="button"
-                  onClick={() => setSelectedSpecialty(specialty.id)}
+                  aria-pressed={active} onClick={() => setSelectedSpecialty(specialty.id)}
                   className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-bold transition ${
                     active
                       ? 'bg-emerald-700 text-white shadow-md shadow-emerald-900/20'
@@ -385,7 +256,7 @@ export default function Playground() {
                 <button
                   key={level.id}
                   type="button"
-                  onClick={() => setSelectedLevel(level.id)}
+                  aria-pressed={active} onClick={() => setSelectedLevel(level.id)}
                   className={`rounded-2xl px-4 py-2 text-sm font-bold transition ${
                     active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
@@ -483,7 +354,7 @@ export default function Playground() {
                             disabled
                             className="inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-2xl bg-slate-100 px-4 py-3 text-sm font-black text-slate-500"
                           >
-                            Próximamente editable desde el panel
+                            Próximamente
                           </button>
                         )}
                       </div>
@@ -495,6 +366,6 @@ export default function Playground() {
           )}
         </div>
       </section>
-    </main>
+    </div>
   );
 }

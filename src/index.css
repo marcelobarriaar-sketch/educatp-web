@@ -50,3 +50,24 @@
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
+
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+  body { margin: 0; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
+  :focus-visible { outline: 3px solid #6366f1; outline-offset: 4px; }
+  img { max-width: 100%; }
+}
+@layer components {
+  .hub-container { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
+  .hub-section { @apply py-8 sm:py-12; }
+  .hub-eyebrow { @apply mb-3 text-xs font-bold uppercase tracking-[.15em] text-emerald-800; }
+  .hub-heading { @apply text-2xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-3xl lg:text-4xl; }
+  .hub-button { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-colors; }
+  .hub-text-link { @apply inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-offset-4 hover:underline; }
+}
+.student-hub { overflow-wrap: break-word; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

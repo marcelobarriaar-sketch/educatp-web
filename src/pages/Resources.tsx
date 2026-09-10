@@ -52,14 +52,14 @@ function getSpecialtyLogo(spec: any) {
 export default function Resources() {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <section className="bg-black text-white py-20">
+      <section className="bg-slate-950 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-6xl font-bold mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
           >
-            Recursos por Especialidad
+            Aprende a tu ritmo
           </motion.h1>
 
           <motion.p
@@ -92,7 +92,7 @@ export default function Resources() {
               >
                 <Link
                   to={`/recursos/${spec.id}`}
-                  className="group block bg-white rounded-[2.5rem] p-8 border border-slate-200 shadow-xl hover:shadow-2xl hover:shadow-black/10 transition-all h-full"
+                  className="group block bg-white rounded-[2.5rem] p-6 lg:p-8 border border-slate-200 shadow-xl hover:shadow-2xl hover:shadow-black/10 transition-all h-full"
                 >
                   <div className="flex flex-col h-full">
                     <div className="w-28 h-28 mx-auto rounded-3xl flex items-center justify-center mb-8 bg-white border border-slate-200 shadow-lg overflow-hidden transition-all group-hover:scale-110 group-hover:-rotate-2">
@@ -161,7 +161,7 @@ export default function Resources() {
                     </div>
 
                     <div className="mt-auto text-center">
-                      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all bg-slate-100 text-slate-600 group-hover:bg-black group-hover:text-white">
+                      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all bg-slate-100 text-slate-600 group-hover:bg-slate-950 group-hover:text-white">
                         Ver recursos
                         <ArrowRight className="w-4 h-4" />
                       </div>

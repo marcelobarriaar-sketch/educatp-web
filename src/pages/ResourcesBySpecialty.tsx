@@ -1,3 +1,4 @@
+import { canonicalSpecialtyId } from '../lib/navigation';
 import { useEffect, useMemo, useState, type ComponentType } from 'react';
 import { motion } from 'motion/react';
 import { Link, useParams } from 'react-router-dom';
@@ -500,7 +501,7 @@ function getBaseSubjectsBySpecialty(specialty?: SpecialtyForSubjectLookup) {
 export default function ResourcesBySpecialty() {
   const { id } = useParams();
 
-  const specialty = SPECIALTIES.find((spec) => spec.id === id);
+  const specialty = SPECIALTIES.find((spec) => spec.id === canonicalSpecialtyId(id || ''));
 
   const [resources, setResources] = useState<ResourceItem[]>([]);
   const [loadingResources, setLoadingResources] = useState(true);

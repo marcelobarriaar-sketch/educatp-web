@@ -11,7 +11,8 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
+import { loadPageContent } from '../lib/pages';
+import { normalizeNavigation, canonicalSpecialtyLink } from '../lib/navigation';
 
 type MenuItem = {
   id: string;
@@ -118,25 +119,7 @@ const defaultSettings: SiteSettings = {
 };
 
 function normalizeMenuItems(content?: Partial<SiteSettings> | null): MenuItem[] {
-  if (Array.isArray(content?.menuItems) && content.menuItems.length > 0) {
-    return content.menuItems.map((item, index) => ({
-      id: item.id || `menu-${index}`,
-      name: item.name || '',
-      path: item.path || '/',
-      visible: item.visible !== false,
-    }));
-  }
-
-  if (Array.isArray(content?.navItems) && content.navItems.length > 0) {
-    return content.navItems.map((item, index) => ({
-      id: item.id || `menu-${index}`,
-      name: item.label || '',
-      path: item.path || '/',
-      visible: item.visible !== false,
-    }));
-  }
-
-  return defaultSettings.menuItems || [];
+  return normalizeNavigation(content?.menuItems, content?.navItems).map((item, index) => ({ id: item.id || `menu-${index}`, name: item.name || '', path: item.path, visible: item.visible !== false }));
 }
 
 function mergeSettings(content?: Partial<SiteSettings> | null): SiteSettings {
@@ -188,29 +171,16 @@ function getSocialIcon(label: string, id: string) {
 }
 
 export default function Footer() {
-  const [settings, setSettings] = React.useState<SiteSettings>(defaultSettings);
+  const [settings, setSettings] = React.useState<SiteSettings>(() => mergeSettings(null));
 
   React.useEffect(() => {
     const loadSettings = async () => {
       try {
-        const { data, error } = await supabase
-          .from('pages')
-          .select('content')
-          .eq('slug', 'site_settings')
-          .single();
-
-        if (error) {
-          console.error('Error cargando footer:', error);
-          setSettings(defaultSettings);
-          return;
-        }
-
-        if (data?.content) {
-          setSettings(mergeSettings(data.content as Partial<SiteSettings>));
-        }
+        const content = await loadPageContent<Partial<SiteSettings>>('site_settings');
+        setSettings(mergeSettings(content));
       } catch (err) {
         console.error('Error inesperado cargando footer:', err);
-        setSettings(defaultSettings);
+        setSettings(mergeSettings(null));
       }
     };
 
@@ -257,7 +227,7 @@ export default function Footer() {
       className="pt-20 pb-10"
       style={{ backgroundColor: footerBg, color: footerText }}
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="hub-container">
         <div className="grid grid-cols-1 gap-12 mb-16 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3 group">
@@ -284,7 +254,7 @@ export default function Footer() {
               </span>
             </Link>
 
-            <p className="text-sm leading-relaxed">{footerDescription}</p>
+            <p className="text-sm leading-relaxed break-words">{footerDescription}</p>
 
             <div className="flex gap-4 flex-wrap">
               {visibleSocials.map((social) => {
@@ -323,7 +293,7 @@ export default function Footer() {
               {visibleMenuItems.map((item) => (
                 <li key={item.id}>
                   <Link
-                    to={item.path}
+                    to={canonicalSpecialtyLink(item.path)}
                     className="transition-opacity hover:opacity-80"
                     style={{ color: footerText }}
                   >
@@ -354,7 +324,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/especialidades/agropecuaria"
+                  to="/especialidades/agricola"
                   className="transition-opacity hover:opacity-80"
                   style={{ color: footerText }}
                 >
@@ -363,7 +333,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  to="/especialidades/atencion-de-parvulos"
+                  to="/especialidades/parvularia"
                   className="transition-opacity hover:opacity-80"
                   style={{ color: footerText }}
                 >
@@ -382,17 +352,17 @@ export default function Footer() {
             </h4>
 
             <ul className="space-y-4 text-sm">
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 min-w-0 break-all">
                 <Mail className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
                 <span>{email}</span>
               </li>
 
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 min-w-0 break-all">
                 <Phone className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
                 <span>{phone}</span>
               </li>
 
-              <li className="flex items-center gap-3">
+              <li className="flex items-center gap-3 min-w-0 break-all">
                 <MapPin className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
                 <span>{address}</span>
               </li>
