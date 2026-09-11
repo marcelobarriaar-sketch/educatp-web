@@ -8,6 +8,12 @@
   --color-brand-green: #084b08;
   --color-brand-yellow: #d4b900;
   --color-brand-red: #a20e15;
+  --color-brand-deep: #082f16;
+  --color-brand-red-dark: #800c12;
+  --color-brand-yellow-light: #f4dc53;
+  --color-brand-cream: #fff9df;
+  --color-brand-mist: #edf5e9;
+  --color-brand-blush: #fff0ed;
   
   --color-brand-primary: var(--color-brand-green);
   --color-brand-secondary: var(--color-brand-yellow);
@@ -55,13 +61,13 @@
   html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
   body { margin: 0; }
   button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
-  :focus-visible { outline: 3px solid #6366f1; outline-offset: 4px; }
+  :focus-visible { outline: 3px solid #a20e15; outline-offset: 4px; }
   img { max-width: 100%; }
 }
 @layer components {
   .hub-container { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
   .hub-section { @apply py-8 sm:py-12; }
-  .hub-eyebrow { @apply mb-3 text-xs font-bold uppercase tracking-[.15em] text-emerald-800; }
+  .hub-eyebrow { @apply mb-3 text-xs font-bold uppercase tracking-[.15em] text-brand-green; }
   .hub-heading { @apply text-2xl font-extrabold leading-tight tracking-tight text-slate-950 sm:text-3xl lg:text-4xl; }
   .hub-button { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-bold transition-colors; }
   .hub-text-link { @apply inline-flex min-h-11 items-center gap-2 text-sm font-bold underline-offset-4 hover:underline; }
@@ -78,3 +84,10 @@
 .tp-green { background-color: #e8f2e6; color: var(--color-brand-green); }
 .tp-yellow { background-color: var(--color-brand-yellow); color: #322c00; }
 .tp-red { background-color: #fbe9e9; color: var(--color-brand-red); }
+
+/* Brand surfaces keep readable dark ink on pale/yellow backgrounds. */
+.tp-tricolor::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: linear-gradient(to right, #084b08 0 33.333%, #d4b900 33.333% 66.666%, #a20e15 66.666%); }
+.tp-action-card { color: #0f172a; border-top-width: 4px; }
+.tp-action-card.tp-green { background-color: #f4f8f1; border-top-color: var(--color-brand-green); }
+.tp-action-card.tp-yellow { background-color: #fffbed; border-top-color: var(--color-brand-yellow); }
+.tp-action-card.tp-red { background-color: #fff5f3; border-top-color: var(--color-brand-red); }

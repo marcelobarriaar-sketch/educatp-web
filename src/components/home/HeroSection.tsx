@@ -9,15 +9,15 @@ export default function HeroSection({ content }: { content: HomeContent }) {
   const title = repairText(hub.title || fallbackContent.hub!.title!);
   const defaultTitle = title === fallbackContent.hub!.title;
   return (
-    <section className="relative overflow-hidden bg-slate-950 text-white">
+    <section className="relative overflow-hidden bg-brand-deep text-white tp-tricolor">
       <div className="hub-container grid items-center gap-8 py-9 sm:py-14 lg:grid-cols-[1.08fr_1fr] lg:gap-14 lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <p className="mb-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.18em] text-emerald-300">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-300" />
+          <p className="mb-5 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[.18em] text-brand-yellow-light">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-yellow" />
             {repairText(
               content.heroBadge || "Tu comunidad técnico profesional",
             )}
@@ -27,7 +27,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
               <>
                 Tu futuro se
                 <br className="hidden sm:block" /> aprende{" "}
-                <span className="text-emerald-300">haciendo.</span>
+                <span className="text-brand-yellow-light">haciendo.</span>
               </>
             ) : (
               title
@@ -38,14 +38,14 @@ export default function HeroSection({ content }: { content: HomeContent }) {
           </p>
           <div className="mt-7 flex flex-col gap-3 min-[390px]:flex-row sm:mt-8">
             <Link
-              className="hub-button bg-emerald-300 text-slate-950 hover:bg-emerald-200"
+              className="hub-button bg-brand-yellow text-slate-950 hover:bg-brand-yellow-light"
               to={hub.primaryLink || "/especialidades"}
             >
               {repairText(hub.primaryText || "Explorar mi especialidad")}
               <ArrowUpRight size={18} />
             </Link>
             <Link
-              className="hub-button border border-white/25 bg-white/5 text-white hover:bg-white/10"
+              className="hub-button border border-white/25 bg-brand-red text-white hover:bg-brand-red-dark"
               to={hub.secondaryLink || "/playground"}
             >
               <Gamepad2 size={18} />
@@ -79,7 +79,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
               className="h-[340px] w-full object-cover lg:h-[425px]"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 to-transparent px-7 pb-7 pt-20">
-              <p className="text-xs font-bold uppercase tracking-widest text-emerald-300">
+              <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-light">
                 De la sala al mundo real
               </p>
               <p className="mt-2 max-w-xs text-xl font-bold leading-snug">
@@ -92,7 +92,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
               <ArrowUpRight size={22} />
             </span>
           </div>
-          <div className="relative mx-5 -mt-3 flex items-center justify-between rounded-xl bg-emerald-300 px-5 py-4 text-slate-950">
+          <div className="relative mx-5 -mt-3 flex items-center justify-between rounded-xl bg-brand-yellow px-5 py-4 text-slate-950">
             <span className="text-sm font-extrabold">
               Tu talento tiene un lugar aquí.
             </span>

@@ -74,7 +74,7 @@ export default function QuickActions() {
           <Link
             key={path}
             to={path}
-            className="group rounded-2xl border border-slate-200 bg-white p-4 transition duration-200 hover:-translate-y-1 hover:border-slate-400 hover:shadow-md"
+            className={`group tp-action-card rounded-2xl border border-slate-200 bg-white p-4 transition duration-200 hover:-translate-y-1 hover:shadow-md ${color}`}
           >
             <div className="mb-4 flex justify-between">
               <span

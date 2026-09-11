@@ -17,9 +17,9 @@ export default function Blog() {
   );
   return (
     <div className="pb-16">
-      <section className="bg-slate-950 py-12 text-white sm:py-20">
+      <section className="bg-brand-deep py-12 text-white sm:py-20">
         <div className="hub-container">
-          <p className="hub-eyebrow !text-emerald-300">
+          <p className="hub-eyebrow !text-brand-yellow-light">
             Tu comunidad, en movimiento
           </p>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
@@ -53,7 +53,7 @@ export default function Blog() {
                   type="button"
                   aria-pressed={category === item}
                   onClick={() => setCategory(item)}
-                  className={`min-h-11 rounded-xl px-4 py-2 text-sm font-semibold ${category === item ? "bg-slate-900 text-white" : "bg-white text-slate-600 border border-slate-200"}`}
+                  className={`min-h-11 rounded-xl px-4 py-2 text-sm font-semibold ${category === item ? "bg-brand-green text-white" : "bg-white text-slate-600 border border-slate-200"}`}
                 >
                   {item}
                 </button>

@@ -25,9 +25,9 @@ export default function StoriesPreview() {
         {stories.map(({ title, icon: Icon }) => (
           <article
             key={title}
-            className="rounded-xl border border-dashed border-slate-300 p-5"
+            className="rounded-xl border border-dashed border-brand-red/25 bg-brand-blush p-5"
           >
-            <Icon size={22} className="mb-4 text-slate-500" />
+            <Icon size={22} className="mb-4 text-brand-red" />
             <h3 className="text-sm font-bold">{title}</h3>
             <p className="mt-2 text-xs text-slate-500">Historia por publicar</p>
           </article>

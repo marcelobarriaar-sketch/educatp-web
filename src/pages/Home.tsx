@@ -41,7 +41,7 @@ export default function Home() {
       <NewsPreview />
       <FuturePreview />
       <section className="hub-container hub-section">
-        <div className="border-y border-slate-200 py-8">
+        <div className="rounded-3xl border border-brand-green/15 bg-brand-mist p-6 sm:p-8">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-xl">
               <p className="hub-eyebrow">
@@ -64,7 +64,7 @@ export default function Home() {
             <div className="flex flex-wrap gap-8">
               {content.stats?.map((stat, index) => (
                 <div key={index}>
-                  <p className="text-2xl font-extrabold text-slate-900">
+                  <p className="text-2xl font-extrabold text-brand-green">
                     {repairText(stat.value)}
                   </p>
                   <p className="mt-1 max-w-32 text-xs text-slate-500">

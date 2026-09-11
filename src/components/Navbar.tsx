@@ -116,7 +116,7 @@ export default function Navbar() {
               key={item.id}
               to={item.path}
               aria-current={isActive(item.path) ? "page" : undefined}
-              className={`rounded-lg px-3 py-2.5 text-[13px] font-semibold transition-colors ${isActive(item.path) ? "bg-slate-900 text-white" : "hover:bg-slate-100 hover:text-slate-950"}`}
+              className={`rounded-lg px-3 py-2.5 text-[13px] font-semibold transition-colors ${isActive(item.path) ? "bg-brand-green text-white" : "hover:bg-slate-100 hover:text-slate-950"}`}
             >
               {item.name}
             </Link>
@@ -154,7 +154,7 @@ export default function Navbar() {
                   to={item.path}
                   onClick={() => setOpen(false)}
                   aria-current={isActive(item.path) ? "page" : undefined}
-                  className={`my-1 flex items-center gap-3 rounded-xl px-4 py-3 text-base font-semibold ${isActive(item.path) ? "bg-emerald-50 text-emerald-800" : "hover:bg-slate-50"}`}
+                  className={`my-1 flex items-center gap-3 rounded-xl px-4 py-3 text-base font-semibold ${isActive(item.path) ? "bg-brand-mist text-brand-green" : "hover:bg-slate-50"}`}
                 >
                   <span className={`tp-icon ${["tp-green", "tp-yellow", "tp-red"][items.indexOf(item) % 3]} rounded-lg p-2`}><Icon size={19} /></span>
                   {item.name}

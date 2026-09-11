@@ -11,10 +11,10 @@ export default function FuturePreview() {
   const icons = [GraduationCap, Briefcase, Rocket, Wallet];
   return (
     <section className="hub-container hub-section">
-      <div className="rounded-[1.75rem] border border-indigo-100 bg-indigo-50 p-6 sm:p-10 lg:p-12">
+      <div className="rounded-[1.75rem] border border-brand-yellow/30 bg-brand-cream p-6 sm:p-10 lg:p-12">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
-            <p className="hub-eyebrow !text-indigo-800">
+            <p className="hub-eyebrow !text-brand-red">
               Mi futuro / Tu próximo capítulo
             </p>
             <h2 className="hub-heading">¿Y después de cuarto medio?</h2>
@@ -23,7 +23,7 @@ export default function FuturePreview() {
             </p>
             <Link
               to="/mi-futuro"
-              className="hub-text-link mt-6 text-indigo-900"
+              className="hub-text-link mt-6 text-brand-red"
             >
               Explorar mis caminos
               <ArrowUpRight size={18} />
@@ -36,7 +36,7 @@ export default function FuturePreview() {
                 <Link
                   key={path.id}
                   to={`/mi-futuro#${path.id}`}
-                  className="rounded-xl border border-indigo-100 bg-white/80 p-4 transition hover:bg-white hover:shadow-sm"
+                  className="rounded-xl border border-brand-yellow/30 bg-white/80 p-4 transition hover:bg-white hover:shadow-sm"
                 >
                   <Icon size={22} className={`mb-4 box-content rounded-lg p-2 ${["tp-green", "tp-green", "tp-red", "tp-yellow"][index]}`} />
                   <h3 className="text-sm font-bold">{path.title}</h3>

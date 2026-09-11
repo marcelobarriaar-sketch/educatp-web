@@ -16,7 +16,7 @@ export default function SectionHeading({
     <div className="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
       <div className="max-w-2xl">
         <p
-          className={`mb-3 text-xs font-bold uppercase tracking-[.17em] ${light ? "text-emerald-300" : "text-emerald-800"}`}
+          className={`mb-3 text-xs font-bold uppercase tracking-[.17em] ${light ? "text-brand-yellow-light" : "text-brand-green"}`}
         >
           {eyebrow}
         </p>

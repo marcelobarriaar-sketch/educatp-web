@@ -12,7 +12,7 @@ import SectionHeading from "./SectionHeading";
 export default function PlaygroundPreview() {
   return (
     <section className="hub-container hub-section">
-      <div className="relative overflow-hidden rounded-[1.75rem] bg-slate-950 px-6 py-9 text-white sm:p-10 lg:p-12">
+      <div className="relative overflow-hidden rounded-[1.75rem] bg-brand-deep px-6 py-9 text-white sm:p-10 lg:p-12">
         <SectionHeading
           light
           eyebrow="Patio TP / Aprende en modo desafío"
@@ -20,7 +20,7 @@ export default function PlaygroundPreview() {
           description="Pon a prueba lo que sabes. Equivócate, vuelve a intentar y descubre otra forma de aprender."
           action={
             <Gamepad2
-              className="hidden h-16 w-16 text-emerald-300 lg:block"
+              className="hidden h-16 w-16 text-brand-yellow-light lg:block"
               strokeWidth={1}
             />
           }
@@ -36,7 +36,7 @@ export default function PlaygroundPreview() {
                   className="flex flex-col rounded-2xl border border-white/15 bg-white/[.04] p-5"
                 >
                   <div className="mb-5 flex items-center justify-between gap-2">
-                    <Icon size={27} className="text-emerald-300" />
+                    <Icon size={27} className="text-brand-yellow-light" />
                     <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide">
                       {game.available ? "Disponible" : "Próximamente"}
                     </span>
@@ -62,7 +62,7 @@ export default function PlaygroundPreview() {
                       href={game.url}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-4 text-sm font-bold text-emerald-300"
+                      className="mt-4 text-sm font-bold text-brand-yellow-light"
                     >
                       Abrir juego ↗
                     </a>
@@ -73,7 +73,7 @@ export default function PlaygroundPreview() {
         </div>
         <Link
           to="/playground"
-          className="hub-button mt-7 bg-emerald-300 text-slate-950 hover:bg-emerald-200"
+          className="hub-button mt-7 bg-brand-yellow text-slate-950 hover:bg-brand-yellow-light"
         >
           Entrar al Patio TP
           <ArrowUpRight size={18} />
