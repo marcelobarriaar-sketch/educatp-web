@@ -27,7 +27,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
               <>
                 Tu futuro se
                 <br className="hidden sm:block" /> aprende{" "}
-                <span className="text-brand-yellow-light">haciendo.</span>
+                <span className="text-emerald-300">haciendo.</span>
               </>
             ) : (
               title
@@ -92,7 +92,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
               <ArrowUpRight size={22} />
             </span>
           </div>
-          <div className="relative mx-5 -mt-3 flex items-center justify-between rounded-xl bg-brand-yellow px-5 py-4 text-slate-950">
+          <div className="relative mx-5 -mt-3 flex items-center justify-between rounded-xl bg-brand-green px-5 py-4 text-white">
             <span className="text-sm font-extrabold">
               Tu talento tiene un lugar aquí.
             </span>
