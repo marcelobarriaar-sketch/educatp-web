@@ -8,22 +8,22 @@ import { repairText } from "../../lib/text";
 const identities = {
   Users: {
     icon: Users,
-    tone: "bg-emerald-100 text-emerald-900",
-    bar: "bg-emerald-600",
+    tone: "tp-green",
+    bar: "bg-brand-green",
     image: "/images/home/administracion.JPG",
     alt: "Estudiantes en el aula de Administración",
   },
   Beef: {
     icon: Sprout,
-    tone: "bg-amber-100 text-amber-900",
-    bar: "bg-amber-500",
+    tone: "tp-yellow",
+    bar: "bg-brand-yellow",
     image: "/images/home/IMG_4078.JPG",
     alt: "Actividad práctica de manejo pecuario",
   },
   Baby: {
     icon: Baby,
-    tone: "bg-rose-100 text-rose-900",
-    bar: "bg-rose-500",
+    tone: "tp-red",
+    bar: "bg-brand-red",
     image: "/images/home/PARVULOS%204.jpeg",
     alt: "Actividad educativa con materiales didácticos de Párvulos",
   },

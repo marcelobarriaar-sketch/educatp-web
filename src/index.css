@@ -5,9 +5,9 @@
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
-  --color-brand-green: #064e3b;
-  --color-brand-yellow: #eab308;
-  --color-brand-red: #991b1b;
+  --color-brand-green: #084b08;
+  --color-brand-yellow: #d4b900;
+  --color-brand-red: #a20e15;
   
   --color-brand-primary: var(--color-brand-green);
   --color-brand-secondary: var(--color-brand-yellow);
@@ -71,3 +71,10 @@
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+/* Palette drawn from the supplied EducaTP artwork. Yellow uses dark ink for contrast. */
+.tp-logo { position: relative; display: inline-block; flex-shrink: 0; width: 48px; height: 64px; overflow: hidden; border-radius: 10px; background: white; }
+.tp-logo img { position: absolute; width: 112px; height: 112px; max-width: none; left: -27px; top: -24px; }
+.tp-green { background-color: #e8f2e6; color: var(--color-brand-green); }
+.tp-yellow { background-color: var(--color-brand-yellow); color: #322c00; }
+.tp-red { background-color: #fbe9e9; color: var(--color-brand-red); }
