@@ -10,10 +10,10 @@ import {
 import { futurePaths } from "../data/future";
 const icons = [GraduationCap, Briefcase, Rocket, Wallet];
 const tones = [
-  "bg-emerald-100 text-emerald-900",
-  "bg-sky-100 text-sky-900",
-  "bg-rose-100 text-rose-900",
-  "bg-amber-100 text-amber-900",
+  "tp-green",
+  "tp-green",
+  "tp-red",
+  "tp-yellow",
 ];
 export default function Future() {
   return (

@@ -1,3 +1,4 @@
+import BrandLogo from "./BrandLogo";
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -96,17 +97,7 @@ export default function Navbar() {
           aria-label={`${name}, inicio`}
           className="flex min-w-0 shrink-0 items-center gap-2.5 max-w-[65%] xl:max-w-[235px]"
         >
-          {settings.logoUrl ? (
-            <img
-              src={settings.logoUrl}
-              alt={repairText(settings.logoAlt || "Logo EducaTP")}
-              className="h-11 w-11 shrink-0 object-contain"
-            />
-          ) : (
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-emerald-700 text-white">
-              <GraduationCap size={23} />
-            </span>
-          )}
+          <BrandLogo />
           <span className="min-w-0">
             <span className="block text-xl font-extrabold tracking-tight break-words">
               {name}
@@ -165,7 +156,7 @@ export default function Navbar() {
                   aria-current={isActive(item.path) ? "page" : undefined}
                   className={`my-1 flex items-center gap-3 rounded-xl px-4 py-3 text-base font-semibold ${isActive(item.path) ? "bg-emerald-50 text-emerald-800" : "hover:bg-slate-50"}`}
                 >
-                  <Icon size={19} />
+                  <span className={`tp-icon ${["tp-green", "tp-yellow", "tp-red"][items.indexOf(item) % 3]} rounded-lg p-2`}><Icon size={19} /></span>
                   {item.name}
                 </Link>
               );

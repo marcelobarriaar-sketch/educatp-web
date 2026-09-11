@@ -1,6 +1,6 @@
+import BrandLogo from "./BrandLogo";
 import React from 'react';
 import {
-  GraduationCap,
   Mail,
   Phone,
   MapPin,
@@ -231,20 +231,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 mb-16 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3 group">
-              {settings.logoUrl ? (
-                <img
-                  src={settings.logoUrl}
-                  alt={settings.logoAlt || footerTitle}
-                  className="w-12 h-12 object-contain"
-                />
-              ) : (
-                <div
-                  className="p-2 rounded-lg"
-                  style={{ backgroundColor: primaryColor }}
-                >
-                  <GraduationCap className="w-6 h-6 text-white" />
-                </div>
-              )}
+              <BrandLogo />
 
               <span
                 className="text-2xl font-bold"

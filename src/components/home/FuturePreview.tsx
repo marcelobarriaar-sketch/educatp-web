@@ -38,7 +38,7 @@ export default function FuturePreview() {
                   to={`/mi-futuro#${path.id}`}
                   className="rounded-xl border border-indigo-100 bg-white/80 p-4 transition hover:bg-white hover:shadow-sm"
                 >
-                  <Icon size={22} className="mb-4 text-indigo-800" />
+                  <Icon size={22} className={`mb-4 box-content rounded-lg p-2 ${["tp-green", "tp-green", "tp-red", "tp-yellow"][index]}`} />
                   <h3 className="text-sm font-bold">{path.title}</h3>
                 </Link>
               );
