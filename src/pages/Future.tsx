@@ -18,9 +18,9 @@ const tones = [
 export default function Future() {
   return (
     <div className="pb-16">
-      <section className="bg-slate-950 py-12 text-white sm:py-20">
+      <section className="bg-brand-deep py-12 text-white sm:py-20">
         <div className="hub-container">
-          <p className="hub-eyebrow !text-emerald-300">Mi Futuro</p>
+          <p className="hub-eyebrow !text-brand-yellow-light">Mi Futuro</p>
           <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
             ¿Y después de cuarto medio?
           </h1>
@@ -72,7 +72,7 @@ export default function Future() {
                     key={step}
                     className="flex items-start gap-3 text-sm leading-relaxed text-slate-700"
                   >
-                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-700" />
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-green" />
                     {step}
                   </li>
                 ))}
@@ -99,8 +99,8 @@ export default function Future() {
         })}
       </div>
       <section className="hub-container">
-        <div className="rounded-2xl bg-indigo-50 p-8 sm:p-12">
-          <Compass className="mb-5 text-indigo-800" size={32} />
+        <div className="rounded-2xl bg-brand-cream p-8 sm:p-12">
+          <Compass className="mb-5 text-brand-red" size={32} />
           <h2 className="text-2xl font-extrabold tracking-tight">
             ¿Todavía no sabes qué camino elegir?
           </h2>
@@ -109,7 +109,7 @@ export default function Future() {
             hacer, qué te gustaría aprender y con quién puedes conversar sobre
             tus opciones.
           </p>
-          <p className="mt-5 inline-block rounded-full border border-indigo-200 px-4 py-2 text-xs font-bold text-indigo-900">
+          <p className="mt-5 inline-block rounded-full border border-brand-yellow/50 px-4 py-2 text-xs font-bold text-brand-red">
             Próximamente: orientador vocacional interactivo
           </p>
         </div>

@@ -5,9 +5,9 @@ export default function Internships() {
   const available = INTERNSHIP_OFFERS.filter((offer) => isOfferOpen(offer));
   return (
     <div className="pb-16">
-      <section className="bg-slate-950 py-12 text-white sm:py-20">
+      <section className="bg-brand-deep py-12 text-white sm:py-20">
         <div className="hub-container">
-          <p className="hub-eyebrow !text-emerald-300">
+          <p className="hub-eyebrow !text-brand-yellow-light">
             Mundo Laboral / Zona de Prácticas
           </p>
           <h1 className="max-w-3xl text-4xl font-extrabold tracking-tight sm:text-5xl">
@@ -41,7 +41,7 @@ export default function Internships() {
                 className="scroll-mt-28 rounded-2xl border border-slate-200 bg-white p-6"
               >
                 <div className="mb-3 flex flex-wrap items-center gap-3">
-                  <span className="text-xs font-bold text-emerald-800">
+                  <span className="text-xs font-bold text-brand-green">
                     {offer.specialty}
                   </span>
                   <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
@@ -69,8 +69,8 @@ export default function Internships() {
           </div>
         </section>
         <aside className="space-y-6">
-          <section className="rounded-2xl bg-slate-900 p-6 text-white">
-            <Briefcase className="mb-5 text-emerald-300" size={28} />
+          <section className="rounded-2xl bg-brand-deep p-6 text-white">
+            <Briefcase className="mb-5 text-brand-yellow-light" size={28} />
             <h2 className="text-xl font-bold">Antes de comenzar</h2>
             <p className="mt-4 text-sm leading-7 text-slate-300">
               Coordina tu proceso con el equipo TP. Confirma los documentos,
@@ -83,7 +83,7 @@ export default function Internships() {
             </p>
             <a
               href="mailto:practicas@educatp.cl"
-              className="hub-button mt-6 bg-emerald-300 text-slate-950"
+              className="hub-button mt-6 bg-brand-yellow text-slate-950"
             >
               Contactar coordinación
             </a>

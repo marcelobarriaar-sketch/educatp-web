@@ -52,7 +52,7 @@ function getSpecialtyLogo(spec: any) {
 export default function Resources() {
   return (
     <div className="min-h-screen bg-slate-50 pb-20">
-      <section className="bg-slate-950 text-white py-20">
+      <section className="bg-brand-deep text-white py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +103,7 @@ export default function Resources() {
                           className="w-full h-full object-cover scale-110"
                         />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-slate-900 text-white font-black text-3xl">
+                        <div className="w-full h-full flex items-center justify-center bg-brand-green text-white font-black text-3xl">
                           TP
                         </div>
                       )}
@@ -161,7 +161,7 @@ export default function Resources() {
                     </div>
 
                     <div className="mt-auto text-center">
-                      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all bg-slate-100 text-slate-600 group-hover:bg-slate-950 group-hover:text-white">
+                      <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold transition-all bg-slate-100 text-slate-600 group-hover:bg-brand-deep group-hover:text-white">
                         Ver recursos
                         <ArrowRight className="w-4 h-4" />
                       </div>

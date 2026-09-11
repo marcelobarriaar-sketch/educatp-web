@@ -20,7 +20,7 @@ export default function InternshipsPreview() {
             profesional con más confianza.
           </p>
           <Link
-            className="hub-button mt-6 bg-slate-900 text-white hover:bg-slate-700"
+            className="hub-button mt-6 bg-brand-green text-white hover:bg-brand-deep"
             to="/practicas"
           >
             Entrar a Zona de Prácticas
@@ -36,7 +36,7 @@ export default function InternshipsPreview() {
                   to={`/practicas#oferta-${offer.id}`}
                   className="block rounded-xl border border-slate-200 bg-white p-5"
                 >
-                  <p className="text-xs text-emerald-800">{offer.specialty}</p>
+                  <p className="text-xs text-brand-green">{offer.specialty}</p>
                   <h3 className="mt-1 font-bold">{offer.position}</h3>
                   <p className="mt-2 text-sm text-slate-600">{offer.company}</p>
                   <p className="mt-2 flex items-center gap-2 text-xs text-slate-500">
@@ -48,7 +48,7 @@ export default function InternshipsPreview() {
             </div>
           ) : (
             <div className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-6">
-              <span className="rounded-xl bg-sky-100 p-3 text-sky-800">
+              <span className="rounded-xl bg-brand-mist p-3 text-brand-green">
                 <Briefcase size={24} />
               </span>
               <div>
@@ -63,7 +63,7 @@ export default function InternshipsPreview() {
           )}
           <div className="mt-5 grid grid-cols-2 gap-3">
             {practiceTools.map((tool) => (
-              <div key={tool} className="rounded-xl bg-slate-100 p-4">
+              <div key={tool} className="rounded-xl border border-brand-yellow/30 bg-brand-cream p-4">
                 <Check size={16} className="mb-3 text-slate-500" />
                 <h3 className="text-xs font-bold leading-relaxed">{tool}</h3>
                 <p className="mt-1 text-[11px] text-slate-500">Próximamente</p>

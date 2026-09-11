@@ -109,11 +109,11 @@ const defaultSettings: SiteSettings = {
     accentColor: '#991b1b',
     dangerColor: '#dc2626',
     headerBackgroundColor: '#ffffff',
-    footerBackgroundColor: '#0f172a',
+    footerBackgroundColor: '#082f16',
     footerTextColor: '#cbd5e1',
     brandTextColor: '#ffffff',
   },
-  footerBackgroundColor: '#0f172a',
+  footerBackgroundColor: '#082f16',
   footerTextColor: '#cbd5e1',
   brandTextColor: '#ffffff',
 };
@@ -206,7 +206,7 @@ export default function Footer() {
   const footerBg =
     theme.footerBackgroundColor?.trim() ||
     settings.footerBackgroundColor?.trim() ||
-    '#0f172a';
+    '#082f16';
 
   const footerText =
     theme.footerTextColor?.trim() ||
@@ -340,17 +340,17 @@ export default function Footer() {
 
             <ul className="space-y-4 text-sm">
               <li className="flex items-center gap-3 min-w-0 break-all">
-                <Mail className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
+                <Mail className="w-4 h-4 shrink-0" style={{ color: footerText }} />
                 <span>{email}</span>
               </li>
 
               <li className="flex items-center gap-3 min-w-0 break-all">
-                <Phone className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
+                <Phone className="w-4 h-4 shrink-0" style={{ color: footerText }} />
                 <span>{phone}</span>
               </li>
 
               <li className="flex items-center gap-3 min-w-0 break-all">
-                <MapPin className="w-4 h-4 shrink-0" style={{ color: primaryColor }} />
+                <MapPin className="w-4 h-4 shrink-0" style={{ color: footerText }} />
                 <span>{address}</span>
               </li>
             </ul>

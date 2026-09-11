@@ -98,7 +98,7 @@ export default function Playground() {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <section className="relative overflow-hidden bg-slate-950 px-4 py-20 text-white">
+      <section className="relative overflow-hidden bg-brand-deep px-4 py-20 text-white">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute left-10 top-10 h-48 w-48 rounded-full bg-emerald-500 blur-3xl" />
           <div className="absolute bottom-10 right-10 h-56 w-56 rounded-full bg-yellow-500 blur-3xl" />
@@ -129,7 +129,7 @@ export default function Playground() {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#juegos"
-                className="inline-flex items-center gap-2 rounded-2xl bg-emerald-700 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-950/30 transition hover:bg-emerald-800"
+                className="inline-flex items-center gap-2 rounded-2xl bg-brand-green px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-950/30 transition hover:bg-brand-deep"
               >
                 Explorar juegos
                 <Sparkles className="h-4 w-4" />
@@ -237,7 +237,7 @@ export default function Playground() {
                   aria-pressed={active} onClick={() => setSelectedSpecialty(specialty.id)}
                   className={`inline-flex items-center gap-2 rounded-2xl px-4 py-2 text-sm font-bold transition ${
                     active
-                      ? 'bg-emerald-700 text-white shadow-md shadow-emerald-900/20'
+                      ? 'bg-brand-green text-white shadow-md shadow-emerald-900/20'
                       : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
@@ -258,7 +258,7 @@ export default function Playground() {
                   type="button"
                   aria-pressed={active} onClick={() => setSelectedLevel(level.id)}
                   className={`rounded-2xl px-4 py-2 text-sm font-bold transition ${
-                    active ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                    active ? 'bg-brand-green text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                   }`}
                 >
                   {level.name}
@@ -343,7 +343,7 @@ export default function Playground() {
                             href={game.url}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-emerald-700 px-4 py-3 text-sm font-black text-white transition hover:bg-emerald-800"
+                            className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-brand-green px-4 py-3 text-sm font-black text-white transition hover:bg-brand-deep"
                           >
                             Abrir juego
                             <ExternalLink className="h-4 w-4" />
