@@ -41,7 +41,7 @@ export default function Home() {
       <NewsPreview />
       <FuturePreview />
       <section className="hub-container hub-section">
-        <div className="rounded-3xl border border-brand-green/15 bg-brand-mist p-6 sm:p-8">
+        <div className="rounded-3xl border border-brand-green/15 bg-white p-6 sm:p-8">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div className="max-w-xl">
               <p className="hub-eyebrow">

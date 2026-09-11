@@ -109,11 +109,11 @@ const defaultSettings: SiteSettings = {
     accentColor: '#991b1b',
     dangerColor: '#dc2626',
     headerBackgroundColor: '#ffffff',
-    footerBackgroundColor: '#082f16',
+    footerBackgroundColor: '#0f172a',
     footerTextColor: '#cbd5e1',
     brandTextColor: '#ffffff',
   },
-  footerBackgroundColor: '#082f16',
+  footerBackgroundColor: '#0f172a',
   footerTextColor: '#cbd5e1',
   brandTextColor: '#ffffff',
 };
@@ -206,7 +206,7 @@ export default function Footer() {
   const footerBg =
     theme.footerBackgroundColor?.trim() ||
     settings.footerBackgroundColor?.trim() ||
-    '#082f16';
+    '#0f172a';
 
   const footerText =
     theme.footerTextColor?.trim() ||
