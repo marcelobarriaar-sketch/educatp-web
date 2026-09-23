@@ -16,7 +16,18 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
   try {
     const response=await fetch('https://github.com/login/oauth/access_token',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json'},body:JSON.stringify({client_id:client,client_secret:secret,code:query.get('code'),code_verifier:cookies.cms_verifier,redirect_uri:`${origin}/api/cms/callback`}),signal:AbortSignal.timeout(10000)});
     const data=await response.json();
-    if(!response.ok || !data.access_token) return fail(401,'GitHub no pudo autorizar el acceso. Inténtalo nuevamente.');
+    if(!response.ok || !data.access_token) {
+      const reasons: Record<string,string> = {
+        incorrect_client_credentials: 'GitHub rechazó las credenciales del editor. Revisa CMS_GITHUB_CLIENT_ID y CMS_GITHUB_CLIENT_SECRET en Vercel para la rama de prueba.',
+        redirect_uri_mismatch: 'La dirección de retorno del editor no coincide con la registrada en GitHub. Revisa CMS_ORIGIN y la URL de callback.',
+        bad_verification_code: 'El código de autorización venció o fue rechazado. Cierra esta ventana y vuelve a iniciar sesión desde el editor.',
+        unverified_user_email: 'Primero verifica tu correo principal en GitHub y luego vuelve a iniciar sesión.',
+      };
+      // Never log the response body, tokens, codes, cookies, or credentials.
+      const reason=typeof data.error==='string' && Object.prototype.hasOwnProperty.call(reasons,data.error) ? data.error : 'unknown_token_error';
+      console.error('[cms/oauth] token_exchange_failed', {reason, status:response.status});
+      return fail(401,`${reasons[reason] || 'GitHub rechazó la autorización. El administrador puede revisar el registro del editor.'} (${reason})`);
+    }
     // Verify repository write access before passing the user token to Decap.
     const repo=await fetch('https://api.github.com/repos/marcelobarriaar-sketch/educatp-web',{headers:{Authorization:`Bearer ${data.access_token}`,Accept:'application/vnd.github+json'},signal:AbortSignal.timeout(10000)});
     const permissions=await repo.json();
