@@ -43,12 +43,13 @@ const icons = {
   "/blog": Newspaper,
   "/mi-futuro": Rocket,
 };
-export default function Navbar() {
+export default function Navbar({ staticOnly = false }: { staticOnly?: boolean }) {
   const [settings, setSettings] = useState<SiteSettings>({});
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
   const location = useLocation();
   useEffect(() => {
+    if (staticOnly) return;
     let active = true;
     loadPageContent<SiteSettings>("site_settings")
       .then((data) => {
@@ -58,7 +59,7 @@ export default function Navbar() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [staticOnly]);
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);

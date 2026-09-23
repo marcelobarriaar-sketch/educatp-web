@@ -170,10 +170,11 @@ function getSocialIcon(label: string, id: string) {
   return ExternalLink;
 }
 
-export default function Footer() {
+export default function Footer({ staticOnly = false }: { staticOnly?: boolean }) {
   const [settings, setSettings] = React.useState<SiteSettings>(() => mergeSettings(null));
 
   React.useEffect(() => {
+    if (staticOnly) return;
     const loadSettings = async () => {
       try {
         const content = await loadPageContent<Partial<SiteSettings>>('site_settings');
@@ -185,7 +186,7 @@ export default function Footer() {
     };
 
     loadSettings();
-  }, []);
+  }, [staticOnly]);
 
   const theme = settings.theme || {};
 

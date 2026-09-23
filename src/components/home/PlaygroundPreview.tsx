@@ -1,3 +1,5 @@
+import homeCopy from "../../../content/home.json";
+const copy = homeCopy.playground;
 import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
@@ -15,9 +17,9 @@ export default function PlaygroundPreview() {
       <div className="relative overflow-hidden rounded-[1.75rem] bg-brand-deep px-6 py-9 text-white sm:p-10 lg:p-12">
         <SectionHeading
           light
-          eyebrow="Patio TP / Aprende en modo desafío"
-          title="Aprender también puede ser un desafío."
-          description="Pon a prueba lo que sabes. Equivócate, vuelve a intentar y descubre otra forma de aprender."
+          eyebrow={copy.eyebrow}
+          title={copy.title}
+          description={copy.description}
           action={
             <Gamepad2
               className="hidden h-16 w-16 text-brand-yellow-light lg:block"
@@ -72,11 +74,9 @@ export default function PlaygroundPreview() {
             })}
         </div>
         <Link
-          to="/playground"
+          to={copy.buttonLink}
           className="hub-button mt-7 bg-brand-yellow text-slate-950 hover:bg-brand-yellow-light"
-        >
-          Entrar al Patio TP
-          <ArrowUpRight size={18} />
+        >{copy.buttonText}<ArrowUpRight size={18} />
         </Link>
       </div>
     </section>

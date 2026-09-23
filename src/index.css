@@ -91,3 +91,7 @@
 .tp-action-card.tp-green { background-color: #f4f8f1; border-top-color: var(--color-brand-green); }
 .tp-action-card.tp-yellow { background-color: #fffbed; border-top-color: var(--color-brand-yellow); }
 .tp-action-card.tp-red { background-color: #fff5f3; border-top-color: var(--color-brand-red); }
+
+.home-edited { font-family: var(--home-font); }
+.home-edited :is(h1,h2,h3,h4) { font-family: var(--home-heading-font); }
+.home-edited .tp-tricolor::after { background: linear-gradient(to right, var(--color-brand-green) 0 33.333%, var(--color-brand-yellow) 33.333% 66.666%, var(--color-brand-red) 66.666%); }

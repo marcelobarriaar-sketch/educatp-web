@@ -24,7 +24,7 @@ import {
 
 import { SPECIALTIES } from '../data/content';
 import { cn } from '../lib/utils';
-import { supabase } from '../lib/supabase';
+import { getSupabase } from '../lib/supabase';
 
 type IconComponent = ComponentType<{ className?: string }>;
 
@@ -520,7 +520,7 @@ export default function ResourcesBySpecialty() {
         setLoadingResources(true);
         setErrorMessage('');
 
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from('pages')
           .select('content')
           .eq('slug', 'resources')

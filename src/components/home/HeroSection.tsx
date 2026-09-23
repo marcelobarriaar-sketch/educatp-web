@@ -1,3 +1,4 @@
+import copy from "../../../content/home.json";
 import { motion } from "motion/react";
 import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, Gamepad2 } from "lucide-react";
@@ -9,7 +10,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
   const title = repairText(hub.title || fallbackContent.hub!.title!);
   const defaultTitle = title === fallbackContent.hub!.title;
   return (
-    <section className="relative overflow-hidden bg-brand-deep text-white tp-tricolor">
+    <section className="relative overflow-hidden bg-brand-deep text-white tp-tricolor" style={{ backgroundColor: copy.appearance.heroBackground }}>
       <div className="hub-container grid items-center gap-8 py-9 sm:py-14 lg:grid-cols-[1.08fr_1fr] lg:gap-14 lg:py-16">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
@@ -22,12 +23,12 @@ export default function HeroSection({ content }: { content: HomeContent }) {
               content.heroBadge || "Tu comunidad técnico profesional",
             )}
           </p>
-          <h1 className="max-w-[650px] text-[clamp(2.55rem,5.4vw,4.75rem)] font-extrabold leading-[1.06] tracking-[-.055em]">
+          <h1 style={{ color: copy.appearance.heroTitleColor, fontSize: `clamp(2.55rem, ${5.4 * copy.appearance.titleScale}vw, ${4.75 * copy.appearance.titleScale}rem)` }} className="max-w-[650px] text-[clamp(2.55rem,5.4vw,4.75rem)] font-extrabold leading-[1.06] tracking-[-.055em]">
             {defaultTitle ? (
               <>
                 Tu futuro se
                 <br className="hidden sm:block" /> aprende{" "}
-                <span className="text-emerald-300">haciendo.</span>
+                <span style={{ color: copy.appearance.heroHighlightColor }}>haciendo.</span>
               </>
             ) : (
               title
@@ -56,7 +57,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
             className="mt-7 flex flex-wrap gap-x-4 gap-y-2 text-[11px] font-semibold text-slate-400 sm:mt-9"
             aria-label="Lo que puedes hacer en EducaTP"
           >
-            {["Aprende", "Practica", "Juega", "Emprende", "Trabaja"].map(
+            {copy.heroTags.map(
               (item) => (
                 <li key={item} className="flex items-center gap-2">
                   <span className="h-1 w-1 rounded-full bg-emerald-400" />
@@ -80,12 +81,10 @@ export default function HeroSection({ content }: { content: HomeContent }) {
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/95 to-transparent px-7 pb-7 pt-20">
               <p className="text-xs font-bold uppercase tracking-widest text-brand-yellow-light">
-                De la sala al mundo real
+                {copy.heroFeatureTitle}
               </p>
-              <p className="mt-2 max-w-xs text-xl font-bold leading-snug">
-                Lo que aprendes hoy,
-                <br />
-                lo que puedes hacer mañana.
+              <p className="mt-2 whitespace-pre-line max-w-xs text-xl font-bold leading-snug">
+                {copy.heroFeatureSubtitle}
               </p>
             </div>
             <span className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-white/40 bg-slate-900/60">
@@ -94,7 +93,7 @@ export default function HeroSection({ content }: { content: HomeContent }) {
           </div>
           <div className="relative mx-5 -mt-3 flex items-center justify-between rounded-xl bg-brand-green px-5 py-4 text-white">
             <span className="text-sm font-extrabold">
-              Tu talento tiene un lugar aquí.
+              {copy.heroBottomText}
             </span>
             <ArrowRight size={20} />
           </div>

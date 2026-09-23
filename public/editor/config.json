@@ -1,0 +1,603 @@
+{
+  "backend": {
+    "name": "github",
+    "repo": "marcelobarriaar-sketch/educatp-web",
+    "branch": "codex/decap-home-pilot",
+    "auth_endpoint": "api/cms/auth"
+  },
+  "locale": "es",
+  "media_folder": "public/images/uploads",
+  "public_folder": "/images/uploads",
+  "publish_mode": "editorial_workflow",
+  "logo_url": "/images/brand/logo-tp.png",
+  "collections": [
+    {
+      "name": "pages",
+      "label": "Páginas · Prueba de Inicio",
+      "files": [
+        {
+          "name": "home",
+          "label": "Inicio",
+          "file": "content/home.json",
+          "format": "json",
+          "description": "Edita la portada en la rama de prueba. Las fichas de juegos, noticias y ofertas se migrarán con sus páginas en las siguientes etapas.",
+          "fields": [
+            {
+              "label": "Colores y tipografía de Inicio",
+              "name": "appearance",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Fuente de los textos",
+                  "name": "bodyFont",
+                  "widget": "select",
+                  "options": [
+                    {
+                      "label": "Actual (Plus Jakarta Sans)",
+                      "value": "jakarta"
+                    },
+                    {
+                      "label": "Sistema",
+                      "value": "system"
+                    },
+                    {
+                      "label": "Arial",
+                      "value": "arial"
+                    },
+                    {
+                      "label": "Georgia",
+                      "value": "georgia"
+                    }
+                  ]
+                },
+                {
+                  "label": "Fuente de los títulos",
+                  "name": "headingFont",
+                  "widget": "select",
+                  "options": [
+                    {
+                      "label": "Actual (Plus Jakarta Sans)",
+                      "value": "jakarta"
+                    },
+                    {
+                      "label": "Sistema",
+                      "value": "system"
+                    },
+                    {
+                      "label": "Arial",
+                      "value": "arial"
+                    },
+                    {
+                      "label": "Georgia",
+                      "value": "georgia"
+                    }
+                  ]
+                },
+                {
+                  "label": "Tamaño del título principal",
+                  "name": "titleScale",
+                  "widget": "number",
+                  "value_type": "float",
+                  "min": 0.7,
+                  "max": 1.4,
+                  "step": 0.05
+                },
+                {
+                  "label": "Color principal",
+                  "name": "primaryColor",
+                  "widget": "color",
+                  "allowInput": true
+                },
+                {
+                  "label": "Color secundario",
+                  "name": "secondaryColor",
+                  "widget": "color",
+                  "allowInput": true
+                },
+                {
+                  "label": "Color de acento",
+                  "name": "accentColor",
+                  "widget": "color",
+                  "allowInput": true
+                },
+                {
+                  "label": "Fondo de la portada",
+                  "name": "heroBackground",
+                  "widget": "color",
+                  "allowInput": true
+                },
+                {
+                  "label": "Color del título",
+                  "name": "heroTitleColor",
+                  "widget": "color",
+                  "allowInput": true
+                },
+                {
+                  "label": "Color de la palabra destacada",
+                  "name": "heroHighlightColor",
+                  "widget": "color",
+                  "allowInput": true
+                }
+              ]
+            },
+            {
+              "label": "Frase superior de la portada",
+              "name": "heroBadge",
+              "widget": "string"
+            },
+            {
+              "label": "Título, descripción y botones principales",
+              "name": "hub",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Texto del primer botón",
+                  "name": "primaryText",
+                  "widget": "string"
+                },
+                {
+                  "label": "Destino del primer botón",
+                  "name": "primaryLink",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                },
+                {
+                  "label": "Texto del segundo botón",
+                  "name": "secondaryText",
+                  "widget": "string"
+                },
+                {
+                  "label": "Destino del segundo botón",
+                  "name": "secondaryLink",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Fotografía principal",
+              "name": "heroImageUrl",
+              "widget": "image",
+              "required": false,
+              "media_library": {
+                "config": {
+                  "max_file_size": 5000000
+                }
+              }
+            },
+            {
+              "label": "Descripción accesible de la fotografía",
+              "name": "heroImageAlt",
+              "widget": "string"
+            },
+            {
+              "label": "Título sobre la fotografía",
+              "name": "heroFeatureTitle",
+              "widget": "string"
+            },
+            {
+              "label": "Texto sobre la fotografía",
+              "name": "heroFeatureSubtitle",
+              "widget": "text",
+              "required": false
+            },
+            {
+              "label": "Frase debajo de la fotografía",
+              "name": "heroBottomText",
+              "widget": "string"
+            },
+            {
+              "label": "Palabras de la portada",
+              "name": "heroTags",
+              "widget": "list",
+              "allow_add": true,
+              "collapsed": true,
+              "field": {
+                "label": "Texto",
+                "name": "text",
+                "widget": "string"
+              }
+            },
+            {
+              "label": "Accesos rápidos",
+              "name": "quick",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Subtítulo",
+                  "name": "subtitle",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Elementos",
+                  "name": "items",
+                  "widget": "list",
+                  "allow_add": true,
+                  "collapsed": true,
+                  "fields": [
+                    {
+                      "label": "Título",
+                      "name": "title",
+                      "widget": "string"
+                    },
+                    {
+                      "label": "Subtítulo",
+                      "name": "subtitle",
+                      "widget": "text",
+                      "required": false
+                    },
+                    {
+                      "label": "Destino",
+                      "name": "path",
+                      "widget": "string",
+                      "pattern": [
+                        "^(https?://|/|#).*$",
+                        "Usa una ruta /pagina, #seccion o un enlace https://"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Frase superior de especialidades",
+              "name": "specialtiesBadge",
+              "widget": "string"
+            },
+            {
+              "label": "Título de especialidades",
+              "name": "specialtiesTitle",
+              "widget": "string"
+            },
+            {
+              "label": "Descripción de especialidades",
+              "name": "specialtiesSubtitle",
+              "widget": "text",
+              "required": false
+            },
+            {
+              "label": "Tarjetas de especialidades",
+              "name": "specialties",
+              "widget": "list",
+              "allow_add": true,
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Icono",
+                  "name": "icon",
+                  "widget": "select",
+                  "options": [
+                    "Users",
+                    "Beef",
+                    "Baby"
+                  ]
+                },
+                {
+                  "label": "Imagen del icono",
+                  "name": "iconUrl",
+                  "widget": "image",
+                  "required": false,
+                  "media_library": {
+                    "config": {
+                      "max_file_size": 5000000
+                    }
+                  }
+                },
+                {
+                  "label": "Fotografía",
+                  "name": "imageUrl",
+                  "widget": "image",
+                  "required": false,
+                  "media_library": {
+                    "config": {
+                      "max_file_size": 5000000
+                    }
+                  }
+                },
+                {
+                  "label": "Enlace",
+                  "name": "link",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Presentación de Patio TP",
+              "name": "playground",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Frase superior",
+                  "name": "eyebrow",
+                  "widget": "string"
+                },
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Texto del botón",
+                  "name": "buttonText",
+                  "widget": "string"
+                },
+                {
+                  "label": "Destino del botón",
+                  "name": "buttonLink",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Presentación de prácticas",
+              "name": "internships",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Frase superior",
+                  "name": "eyebrow",
+                  "widget": "string"
+                },
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Texto del botón",
+                  "name": "buttonText",
+                  "widget": "string"
+                },
+                {
+                  "label": "Destino del botón",
+                  "name": "buttonLink",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                },
+                {
+                  "label": "Título cuando no hay ofertas",
+                  "name": "emptyTitle",
+                  "widget": "string"
+                },
+                {
+                  "label": "Mensaje cuando no hay ofertas",
+                  "name": "emptyText",
+                  "widget": "text",
+                  "required": false
+                }
+              ]
+            },
+            {
+              "label": "Presentación de actualidad",
+              "name": "news",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Frase superior",
+                  "name": "eyebrow",
+                  "widget": "string"
+                },
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Texto del botón",
+                  "name": "buttonText",
+                  "widget": "string"
+                },
+                {
+                  "label": "Destino del botón",
+                  "name": "buttonLink",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Presentación de Mi Futuro",
+              "name": "future",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Frase superior",
+                  "name": "eyebrow",
+                  "widget": "string"
+                },
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Texto del botón",
+                  "name": "buttonText",
+                  "widget": "string"
+                },
+                {
+                  "label": "Destino del botón",
+                  "name": "buttonLink",
+                  "widget": "string",
+                  "pattern": [
+                    "^(https?://|/|#).*$",
+                    "Usa una ruta /pagina, #seccion o un enlace https://"
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "Frase superior de comunidad",
+              "name": "ctaBadge",
+              "widget": "string"
+            },
+            {
+              "label": "Título de comunidad",
+              "name": "ctaTitle",
+              "widget": "string"
+            },
+            {
+              "label": "Descripción de comunidad",
+              "name": "ctaDescription",
+              "widget": "text",
+              "required": false
+            },
+            {
+              "label": "Texto del botón de comunidad",
+              "name": "ctaButtonText",
+              "widget": "string"
+            },
+            {
+              "label": "Destino del botón de comunidad",
+              "name": "ctaButtonLink",
+              "widget": "string",
+              "pattern": [
+                "^(https?://|/|#).*$",
+                "Usa una ruta /pagina, #seccion o un enlace https://"
+              ]
+            },
+            {
+              "label": "Cifras destacadas",
+              "name": "stats",
+              "widget": "list",
+              "allow_add": true,
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Valor",
+                  "name": "value",
+                  "widget": "string"
+                },
+                {
+                  "label": "Etiqueta",
+                  "name": "label",
+                  "widget": "string"
+                }
+              ]
+            },
+            {
+              "label": "Historias TP",
+              "name": "stories",
+              "widget": "object",
+              "collapsed": true,
+              "fields": [
+                {
+                  "label": "Frase superior",
+                  "name": "eyebrow",
+                  "widget": "string"
+                },
+                {
+                  "label": "Título",
+                  "name": "title",
+                  "widget": "string"
+                },
+                {
+                  "label": "Descripción",
+                  "name": "description",
+                  "widget": "text",
+                  "required": false
+                },
+                {
+                  "label": "Texto provisional",
+                  "name": "placeholder",
+                  "widget": "string"
+                },
+                {
+                  "label": "Elementos",
+                  "name": "items",
+                  "widget": "list",
+                  "allow_add": true,
+                  "collapsed": true,
+                  "field": {
+                    "label": "Texto",
+                    "name": "text",
+                    "widget": "string"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

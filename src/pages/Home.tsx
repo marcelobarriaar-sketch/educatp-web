@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
+import content from "../../content/home.json";
+import { homeAppearance } from "../lib/home-appearance";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import {
-  fallbackContent,
-  mergeHomeContent,
-  type HomeContent,
-} from "../data/home";
-import { loadPageContent } from "../lib/pages";
+
 import { repairText } from "../lib/text";
 import HeroSection from "../components/home/HeroSection";
 import QuickActions from "../components/home/QuickActions";
@@ -17,22 +14,8 @@ import NewsPreview from "../components/home/NewsPreview";
 import FuturePreview from "../components/home/FuturePreview";
 import StoriesPreview from "../components/home/StoriesPreview";
 export default function Home() {
-  const [content, setContent] = useState<HomeContent>(fallbackContent);
-  useEffect(() => {
-    let active = true;
-    loadPageContent<Partial<HomeContent>>("home")
-      .then((data) => {
-        if (active) setContent(mergeHomeContent(data));
-      })
-      .catch(() => {
-        /* The complete fallback stays usable offline. */
-      });
-    return () => {
-      active = false;
-    };
-  }, []);
   return (
-    <div className="student-hub">
+    <div className="student-hub home-edited" style={homeAppearance(content.appearance) as CSSProperties}>
       <HeroSection content={content} />
       <QuickActions />
       <SpecialtiesSection content={content} />

@@ -1,3 +1,4 @@
+import copy from "../../../content/home.json";
 import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
@@ -63,14 +64,16 @@ export default function QuickActions() {
           id="quick-title"
           className="text-xl font-extrabold tracking-tight sm:text-2xl"
         >
-          ¿Qué quieres hacer hoy?
+          {copy.quick.title}
         </h2>
         <span className="hidden text-xs text-slate-500 sm:block">
-          Tu punto de partida
+          {copy.quick.subtitle}
         </span>
       </div>
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-        {actions.map(({ title, subtitle, path, icon: Icon, color }) => (
+        {copy.quick.items.map(({ title, subtitle, path }, index) => {
+          const { icon: Icon, color } = actions[index % actions.length];
+          return (
           <Link
             key={path}
             to={path}
@@ -92,7 +95,7 @@ export default function QuickActions() {
               {subtitle}
             </p>
           </Link>
-        ))}
+        ); })}
       </div>
     </section>
   );

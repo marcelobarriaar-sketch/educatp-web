@@ -32,7 +32,7 @@ import {
   FileText,
   Video,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { getSupabase } from '../lib/supabase';
 import ResourceForm from '../components/admin/ResourceForm';
 
 type ResourceStatus = 'active' | 'draft' | 'archived';
@@ -882,7 +882,7 @@ export default function Admin() {
       setLoading(true);
       setErrorMsg('');
 
-      const { data, error } = await supabase.from('pages').select('slug, content').eq('slug', 'home').maybeSingle();
+      const { data, error } = await getSupabase().from('pages').select('slug, content').eq('slug', 'home').maybeSingle();
       if (error) throw error;
 
       if (!data) {
@@ -906,7 +906,7 @@ export default function Admin() {
       setLoading(true);
       setErrorMsg('');
 
-      const { data, error } = await supabase
+      const { data, error } = await getSupabase()
         .from('pages')
         .select('slug, content')
         .eq('slug', 'site_settings')
@@ -935,7 +935,7 @@ export default function Admin() {
       setLoading(true);
       setErrorMsg('');
 
-      const { data, error } = await supabase
+      const { data, error } = await getSupabase()
         .from('pages')
         .select('slug, content')
         .eq('slug', 'specialties')
@@ -964,7 +964,7 @@ export default function Admin() {
       setLoading(true);
       setErrorMsg('');
 
-      const { data, error } = await supabase.from('pages').select('slug, content').eq('slug', 'resources').maybeSingle();
+      const { data, error } = await getSupabase().from('pages').select('slug, content').eq('slug', 'resources').maybeSingle();
 
       if (error) throw error;
 
@@ -990,7 +990,7 @@ export default function Admin() {
       setErrorMsg('');
 
       if (currentSection === 'home') {
-        const { error } = await supabase.from('pages').upsert(
+        const { error } = await getSupabase().from('pages').upsert(
           {
             slug: 'home',
             content: repairDeep(form),
@@ -1003,7 +1003,7 @@ export default function Admin() {
       if (currentSection === 'central') {
         const payload = serializeSiteSettings(siteSettings);
 
-        const { error } = await supabase.from('pages').upsert(
+        const { error } = await getSupabase().from('pages').upsert(
           {
             slug: 'site_settings',
             content: repairDeep(payload),
@@ -1016,7 +1016,7 @@ export default function Admin() {
       }
 
       if (currentSection === 'specialties') {
-        const { error } = await supabase.from('pages').upsert(
+        const { error } = await getSupabase().from('pages').upsert(
           {
             slug: 'specialties',
             content: repairDeep(specialtiesContent),
@@ -1031,7 +1031,7 @@ export default function Admin() {
           resources: [...resources].sort((a, b) => a.order - b.order),
         };
 
-        const { error } = await supabase.from('pages').upsert(
+        const { error } = await getSupabase().from('pages').upsert(
           {
             slug: 'resources',
             content: repairDeep(payload),
@@ -1369,7 +1369,7 @@ function removeSubject(specialtyIndex: number, subjectIndex: number) {
                 <button
                   key={section.key}
                   type="button"
-                  onClick={() => setCurrentSection(section.key)}
+                  onClick={() => section.key === 'home' ? window.location.assign('/editor/') : setCurrentSection(section.key)}
                   className="group flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-left transition hover:border-slate-300 hover:bg-white"
                 >
                   <div className="flex items-center gap-4">
