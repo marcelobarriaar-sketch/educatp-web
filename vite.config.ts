@@ -6,7 +6,15 @@ import {defineConfig, loadEnv} from 'vite';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), {
+      name: 'editor-entry',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          if (req.url === '/editor/' || req.url === '/editor') req.url = '/editor/index.html';
+          next();
+        });
+      },
+    }],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },

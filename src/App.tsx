@@ -44,7 +44,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-900">
-      {!isAdminRoute && <Navbar />}
+      {!isAdminRoute && <Navbar staticOnly={location.pathname === "/"} />}
 
       <a
         href="#contenido-principal"
@@ -107,7 +107,7 @@ function AppContent() {
 
       {!isAdminRoute && (
         <>
-          <Footer />
+          <Footer staticOnly={location.pathname === "/"} />
           <AdminAccess />
         </>
       )}

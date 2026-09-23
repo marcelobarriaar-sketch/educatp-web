@@ -1,0 +1,174 @@
+{
+  "heroDescription": "Impulsamos una educación técnico profesional conectada con el territorio, la innovación y el desarrollo de competencias para la vida y el trabajo.",
+  "future": {
+    "eyebrow": "Mi futuro / Tu próximo capítulo",
+    "title": "¿Y después de cuarto medio?",
+    "description": "Tu especialidad es el comienzo, no el final.",
+    "buttonText": "Explorar mis caminos",
+    "buttonLink": "/mi-futuro"
+  },
+  "appearance": {
+    "primaryColor": "#084b08",
+    "heroTitleColor": "#ffffff",
+    "heroBackground": "#020617",
+    "heroHighlightColor": "#6ee7b7",
+    "secondaryColor": "#d4b900",
+    "bodyFont": "jakarta",
+    "headingFont": "jakarta",
+    "titleScale": 1,
+    "accentColor": "#a20e15"
+  },
+  "heroTitleLine1Color": "#ffffff",
+  "internships": {
+    "eyebrow": "Zona de prácticas / Del aula al trabajo",
+    "title": "Tu primera experiencia laboral comienza aquí",
+    "description": "Orientación, oportunidades y herramientas para enfrentar tu práctica profesional con más confianza.",
+    "buttonText": "Entrar a Zona de Prácticas",
+    "buttonLink": "/practicas",
+    "emptyTitle": "Prepara tu próximo paso",
+    "emptyText": "Por ahora no hay ofertas con plazo vigente. Revisa la orientación y el archivo de oportunidades en Zona de Prácticas."
+  },
+  "heroTitleGreen": "Administración",
+  "heroSecondaryButtonLink": "/practicas",
+  "heroPrimaryButtonText": "Conoce nuestras especialidades",
+  "specialtiesBadge": "Tres especialidades. Muchas posibilidades.",
+  "heroImageAlt": "Estudiantes trabajando con computadores en el aula de Administración",
+  "ctaTitle": "Construyamos futuro juntos",
+  "heroBadge": "Tu comunidad técnico profesional",
+  "ctaDescription": "Descubre nuestro proyecto educativo, las oportunidades formativas y la vida escolar de nuestra comunidad.",
+  "quick": {
+    "title": "¿Qué quieres hacer hoy?",
+    "subtitle": "Tu punto de partida",
+    "items": [
+      {
+        "title": "Explorar mi especialidad",
+        "subtitle": "Encuentra tu mundo TP",
+        "path": "/especialidades"
+      },
+      {
+        "title": "Estudiar",
+        "subtitle": "Materiales a tu ritmo",
+        "path": "/recursos"
+      },
+      {
+        "title": "Jugar y aprender",
+        "subtitle": "Acepta el desafío",
+        "path": "/playground"
+      },
+      {
+        "title": "Buscar práctica",
+        "subtitle": "Da tu primer paso",
+        "path": "/practicas"
+      },
+      {
+        "title": "Ver novedades TP",
+        "subtitle": "Conecta con tu comunidad",
+        "path": "/blog"
+      },
+      {
+        "title": "Pensar mi futuro",
+        "subtitle": "Hay más de un camino",
+        "path": "/mi-futuro"
+      }
+    ]
+  },
+  "heroImageUrl": "/images/home/administracion.JPG",
+  "ctaButtonText": "Explorar recursos",
+  "heroTitleRedColor": "#ef4444",
+  "heroTitleYellowColor": "#eab308",
+  "heroTitleYellow": "Agropecuaria",
+  "heroBottomText": "Tu talento tiene un lugar aquí.",
+  "stories": {
+    "eyebrow": "Historias TP",
+    "title": "Personas reales, caminos reales.",
+    "description": "Un espacio para conocer experiencias de nuestra comunidad. Las primeras historias se publicarán aquí.",
+    "placeholder": "Historia por publicar",
+    "items": [
+      "Estudiantes",
+      "Titulados",
+      "Docentes",
+      "Empresas",
+      "Centros de práctica"
+    ]
+  },
+  "heroTitleRed": "Párvulos",
+  "news": {
+    "eyebrow": "Actualidad TP",
+    "title": "Lo último en el mundo TP",
+    "description": "Actividades y novedades de nuestra comunidad.",
+    "buttonText": "Ver toda la actualidad",
+    "buttonLink": "/blog"
+  },
+  "heroTags": [
+    "Aprende",
+    "Practica",
+    "Juega",
+    "Emprende",
+    "Trabaja"
+  ],
+  "ctaBadge": "Comunidad educativa",
+  "heroPrimaryButtonLink": "/especialidades",
+  "heroFeatureSubtitle": "Lo que aprendes hoy,\nlo que puedes hacer mañana.",
+  "specialtiesSubtitle": "Conoce nuestras especialidades y las oportunidades que ofrecen para el desarrollo académico y laboral.",
+  "hub": {
+    "title": "Tu futuro se aprende haciendo.",
+    "description": "Aprende, practica, juega, emprende y prepárate para el mundo que viene.",
+    "primaryText": "Explorar mi especialidad",
+    "primaryLink": "/especialidades",
+    "secondaryText": "Jugar ahora",
+    "secondaryLink": "/playground"
+  },
+  "heroSecondaryButtonText": "Ver prácticas",
+  "playground": {
+    "eyebrow": "Patio TP / Aprende en modo desafío",
+    "title": "Aprender también puede ser un desafío.",
+    "description": "Pon a prueba lo que sabes. Equivócate, vuelve a intentar y descubre otra forma de aprender.",
+    "buttonText": "Entrar al Patio TP",
+    "buttonLink": "/playground"
+  },
+  "ctaButtonLink": "/recursos",
+  "specialtiesTitle": "Encuentra tu mundo TP",
+  "specialties": [
+    {
+      "title": "Administración",
+      "description": "Formación en gestión, organización, procesos administrativos y herramientas digitales.",
+      "icon": "Users",
+      "iconUrl": "",
+      "imageUrl": "",
+      "link": "/especialidades/administracion"
+    },
+    {
+      "title": "Agropecuaria",
+      "description": "Desarrollo de competencias vinculadas al trabajo agrícola, producción y sostenibilidad.",
+      "icon": "Beef",
+      "iconUrl": "",
+      "imageUrl": "",
+      "link": "/especialidades/agricola"
+    },
+    {
+      "title": "Atención de Párvulos",
+      "description": "Preparación para apoyar procesos educativos y de cuidado en primera infancia.",
+      "icon": "Baby",
+      "iconUrl": "",
+      "imageUrl": "",
+      "link": "/especialidades/parvularia"
+    }
+  ],
+  "heroFeatureTitle": "De la sala al mundo real",
+  "heroTitleGreenColor": "#10b981",
+  "stats": [
+    {
+      "value": "3",
+      "label": "Especialidades"
+    },
+    {
+      "value": "100%",
+      "label": "Compromiso"
+    },
+    {
+      "value": "TP",
+      "label": "Formación técnico profesional"
+    }
+  ],
+  "heroTitleLine1": "Formando talentos para el futuro"
+}

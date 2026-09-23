@@ -1,3 +1,5 @@
+import homeCopy from "../../../content/home.json";
+const copy = homeCopy.future;
 import { Link } from "react-router-dom";
 import {
   ArrowUpRight,
@@ -14,19 +16,13 @@ export default function FuturePreview() {
       <div className="rounded-[1.75rem] border border-brand-yellow/30 bg-brand-cream p-6 sm:p-10 lg:p-12">
         <div className="grid gap-8 lg:grid-cols-2">
           <div>
-            <p className="hub-eyebrow !text-brand-red">
-              Mi futuro / Tu próximo capítulo
-            </p>
-            <h2 className="hub-heading">¿Y después de cuarto medio?</h2>
-            <p className="mt-4 text-slate-600">
-              Tu especialidad es el comienzo, no el final.
-            </p>
+            <p className="hub-eyebrow !text-brand-red">{copy.eyebrow}</p>
+            <h2 className="hub-heading">{copy.title}</h2>
+            <p className="mt-4 text-slate-600">{copy.description}</p>
             <Link
-              to="/mi-futuro"
+              to={copy.buttonLink}
               className="hub-text-link mt-6 text-brand-red"
-            >
-              Explorar mis caminos
-              <ArrowUpRight size={18} />
+            >{copy.buttonText}<ArrowUpRight size={18} />
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-3">

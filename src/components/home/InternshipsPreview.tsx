@@ -1,3 +1,5 @@
+import homeCopy from "../../../content/home.json";
+const copy = homeCopy.internships;
 import { Link } from "react-router-dom";
 import { ArrowUpRight, Briefcase, Check, MapPin } from "lucide-react";
 import { INTERNSHIP_OFFERS } from "../../data/content";
@@ -11,20 +13,13 @@ export default function InternshipsPreview() {
     <section className="hub-container hub-section">
       <div className="grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
         <div>
-          <p className="hub-eyebrow">Zona de prácticas / Del aula al trabajo</p>
-          <h2 className="hub-heading">
-            Tu primera experiencia laboral comienza aquí
-          </h2>
-          <p className="mt-5 leading-relaxed text-slate-600">
-            Orientación, oportunidades y herramientas para enfrentar tu práctica
-            profesional con más confianza.
-          </p>
+          <p className="hub-eyebrow">{copy.eyebrow}</p>
+          <h2 className="hub-heading">{copy.title}</h2>
+          <p className="mt-5 leading-relaxed text-slate-600">{copy.description}</p>
           <Link
             className="hub-button mt-6 bg-brand-green text-white hover:bg-brand-deep"
-            to="/practicas"
-          >
-            Entrar a Zona de Prácticas
-            <ArrowUpRight size={18} />
+            to={copy.buttonLink}
+          >{copy.buttonText}<ArrowUpRight size={18} />
           </Link>
         </div>
         <div>
@@ -52,12 +47,8 @@ export default function InternshipsPreview() {
                 <Briefcase size={24} />
               </span>
               <div>
-                <h3 className="font-bold">Prepara tu próximo paso</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Por ahora no hay ofertas con plazo vigente. Revisa la
-                  orientación y el archivo de oportunidades en Zona de
-                  Prácticas.
-                </p>
+                <h3 className="font-bold">{copy.emptyTitle}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{copy.emptyText}</p>
               </div>
             </div>
           )}

@@ -1,3 +1,5 @@
+import homeCopy from "../../../content/home.json";
+const copy = homeCopy.news;
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { BLOG_POSTS } from "../../data/content";
@@ -7,13 +9,11 @@ export default function NewsPreview() {
   return (
     <section className="hub-container hub-section">
       <SectionHeading
-        eyebrow="Actualidad TP"
-        title="Lo último en el mundo TP"
-        description="Actividades y novedades de nuestra comunidad."
+        eyebrow={copy.eyebrow}
+        title={copy.title}
+        description={copy.description}
         action={
-          <Link to="/blog" className="hub-text-link">
-            Ver toda la actualidad
-            <ArrowRight size={17} />
+          <Link to={copy.buttonLink} className="hub-text-link">{copy.buttonText}<ArrowRight size={17} />
           </Link>
         }
       />

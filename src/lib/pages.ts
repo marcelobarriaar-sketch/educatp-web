@@ -1,4 +1,4 @@
-import { supabase } from "./supabase";
+import { getSupabase } from "./supabase";
 const pending = new Map<string, Promise<unknown>>();
 export async function loadPageContent<T>(slug: string): Promise<T | null> {
   let request = pending.get(slug);
@@ -7,7 +7,7 @@ export async function loadPageContent<T>(slug: string): Promise<T | null> {
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), 8000);
       try {
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("pages")
           .select("content")
           .eq("slug", slug)

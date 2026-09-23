@@ -36,8 +36,8 @@ export default function SpecialtiesSection({
   return (
     <section className="hub-container hub-section">
       <SectionHeading
-        eyebrow="Tres especialidades. Muchas posibilidades."
-        title="Encuentra tu mundo TP"
+        eyebrow={content.specialtiesBadge || ""}
+        title={content.specialtiesTitle || ""}
         description={repairText(
           content.specialtiesSubtitle ||
             "Descubre lo que te mueve y empieza a construir tu camino.",

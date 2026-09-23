@@ -15,7 +15,7 @@ import {
   ExternalLink,
   Loader2,
 } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { getSupabase } from '../lib/supabase';
 import { SPECIALTIES, type Specialty } from '../data/content';
 import { cn } from '../lib/utils';
 
@@ -81,7 +81,7 @@ export default function SpecialtyDetail() {
 
     async function loadSpecialties() {
       try {
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from('pages')
           .select('slug, content')
           .eq('slug', 'specialties')
