@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 
 import { SPECIALTIES } from '../data/content';
+import { getAdministrationSubjects } from '../lib/resourceRepositories';
 
 const specialtyLogoMap: Record<string, string> = {
   administracion: '/images/home/1.png',
@@ -77,7 +78,9 @@ export default function Resources() {
       <section className="max-w-7xl mx-auto px-4 -mt-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {SPECIALTIES.map((spec, index) => {
-            const totalSubjects = Array.isArray(spec.subjects)
+            const totalSubjects = spec.id === 'administracion'
+              ? getAdministrationSubjects().length
+              : Array.isArray(spec.subjects)
               ? spec.subjects.length
               : 0;
 
