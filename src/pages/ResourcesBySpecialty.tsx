@@ -25,6 +25,7 @@ import {
 import { SPECIALTIES } from '../data/content';
 import { cn } from '../lib/utils';
 import { supabase } from '../lib/supabase';
+import { getAdministrationSubjects, groupAdministrationResources } from '../lib/resourceRepositories';
 
 type IconComponent = ComponentType<{ className?: string }>;
 
@@ -592,6 +593,10 @@ export default function ResourcesBySpecialty() {
   }, [filteredResources, selectedLevel]);
 
   const groupedResources = useMemo<ResourceGroup[]>(() => {
+    if (specialty?.id === 'administracion' && selectedLevel) {
+      return groupAdministrationResources(selectedLevel, selectedLevelResources,
+        resource => getSubjectDisplayName(resource, specialty));
+    }
     const groups = new Map<string, ResourceGroup>();
 
     selectedLevelResources.forEach((resource) => {
@@ -610,7 +615,7 @@ export default function ResourcesBySpecialty() {
     });
 
     return Array.from(groups.values());
-  }, [selectedLevelResources, specialty]);
+  }, [selectedLevelResources, specialty, selectedLevel]);
 
   const selectedLevelOption = LEVEL_OPTIONS.find(
     (option) => option.id === selectedLevel
@@ -662,7 +667,9 @@ export default function ResourcesBySpecialty() {
     getStoredSpecialtyLogoUrl(specialty) ||
     getFallbackSpecialtyLogoUrl(specialty);
 
-  const totalBaseSubjects = Array.isArray(specialty.subjects)
+  const totalBaseSubjects = specialty.id === 'administracion'
+    ? getAdministrationSubjects().length
+    : Array.isArray(specialty.subjects)
     ? specialty.subjects.length
     : 0;
 
@@ -852,13 +859,13 @@ export default function ResourcesBySpecialty() {
                   </div>
 
                   <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
-                    Recursos disponibles para {selectedLevelOption?.shortLabel}
+                    Repositorios de {selectedLevelOption?.shortLabel}
                   </h2>
 
                   <p className="text-slate-600 mt-2">
                     Mostrando {selectedLevelResources.length} recurso
                     {selectedLevelResources.length !== 1 ? 's' : ''} agrupado
-                    por asignatura.
+                    por asignatura en {groupedResources.length} repositorios.
                   </p>
                 </div>
 
@@ -899,6 +906,12 @@ export default function ResourcesBySpecialty() {
                   </div>
                 </div>
 
+                {group.resources.length === 0 && (
+                  <p className="text-slate-600 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5">
+                    Este repositorio aún no tiene materiales. Aquí aparecerán las guías,
+                    actividades y enlaces de esta asignatura cuando se publiquen.
+                  </p>
+                )}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
                   {group.resources.map((resource) => {
                     const ResourceIcon = getResourceIcon(resource.type);
