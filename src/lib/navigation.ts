@@ -14,6 +14,7 @@ export const defaultNavItems: MenuItem[] = [
   { id: "practicas", name: "Mundo Laboral", path: "/practicas" },
   { id: "blog", name: "Actualidad TP", path: "/blog" },
   { id: "futuro", name: "Mi Futuro", path: "/mi-futuro" },
+  { id: "biblioteca-publica", name: "Biblioteca Pública", path: "https://www.bpdigital.cl/" },
 ].map((item) => ({ ...item, visible: true }));
 const oldLabels: Record<string, string[]> = {
   "/recursos": ["Recursos"],
@@ -54,6 +55,13 @@ export function normalizeNavigation(
       ...defaultNavItems[6],
       id: "futuro",
       name: "Mi Futuro",
+      visible: true,
+    });
+  if (!normalized.some((item) => item.path === "https://www.bpdigital.cl/"))
+    normalized.push({
+      id: "biblioteca-publica",
+      name: "Biblioteca Pública",
+      path: "https://www.bpdigital.cl/",
       visible: true,
     });
   const rank = (path: string) => {
