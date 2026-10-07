@@ -1,7 +1,7 @@
 import { canonicalSpecialtyId } from '../lib/navigation';
 import { useEffect, useMemo, useState, type ComponentType } from 'react';
 import { motion } from 'motion/react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
 import {
   ArrowLeft,
   ExternalLink,
@@ -507,11 +507,13 @@ export default function ResourcesBySpecialty() {
   const [resources, setResources] = useState<ResourceItem[]>([]);
   const [loadingResources, setLoadingResources] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectedLevel, setSelectedLevel] = useState<LevelKey | null>(null);
-
-  useEffect(() => {
-    setSelectedLevel(null);
-  }, [id]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const levelParam = searchParams.get('nivel');
+  const selectedLevel: LevelKey | null = levelParam === '3' || levelParam === '4' ? levelParam : null;
+  const selectedSubject = searchParams.get('asignatura');
+  const setSelectedLevel = (level: LevelKey | null) => {
+    setSearchParams(level ? { nivel: level } : {});
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -620,6 +622,13 @@ export default function ResourcesBySpecialty() {
   const selectedLevelOption = LEVEL_OPTIONS.find(
     (option) => option.id === selectedLevel
   );
+  const usesSubjectNavigation = specialty?.id === 'administracion';
+  const selectedGroup = usesSubjectNavigation
+    ? groupedResources.find(group => group.id === selectedSubject)
+    : undefined;
+  const visibleGroups = usesSubjectNavigation
+    ? selectedGroup ? [selectedGroup] : []
+    : groupedResources;
 
   const baseSubjects = useMemo(
     () => getBaseSubjectsBySpecialty(specialty),
@@ -859,16 +868,28 @@ export default function ResourcesBySpecialty() {
                   </div>
 
                   <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
-                    Repositorios de {selectedLevelOption?.shortLabel}
+                    {selectedGroup ? selectedGroup.name : `Asignaturas de ${selectedLevelOption?.shortLabel}`}
                   </h2>
 
                   <p className="text-slate-600 mt-2">
-                    Mostrando {selectedLevelResources.length} recurso
-                    {selectedLevelResources.length !== 1 ? 's' : ''} agrupado
-                    por asignatura en {groupedResources.length} repositorios.
+                    {usesSubjectNavigation
+                      ? selectedGroup
+                        ? 'Explora los contenidos y actividades de esta asignatura.'
+                        : 'Elige una asignatura para acceder a sus contenidos y actividades.'
+                      : `Mostrando ${selectedLevelResources.length} recursos agrupados por asignatura.`}
                   </p>
                 </div>
 
+                <div className="flex flex-wrap gap-3">
+                {selectedGroup && (
+                  <Link
+                    to={`?nivel=${selectedLevel}`}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-indigo-50 text-indigo-700 font-bold hover:bg-indigo-100 transition-colors"
+                  >
+                    <ArrowLeft className="w-4 h-4" />
+                    Volver a asignaturas
+                  </Link>
+                )}
                 <button
                   type="button"
                   onClick={() => setSelectedLevel(null)}
@@ -877,10 +898,27 @@ export default function ResourcesBySpecialty() {
                   <ArrowLeft className="w-4 h-4" />
                   Cambiar nivel
                 </button>
+                </div>
               </div>
             </section>
 
-            {groupedResources.map((group, index) => (
+            {usesSubjectNavigation && !selectedGroup && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {groupedResources.map(group => (
+                  <Link
+                    key={group.id}
+                    to={`?nivel=${selectedLevel}&asignatura=${encodeURIComponent(group.id)}`}
+                    className="group flex flex-col items-start gap-4 rounded-3xl border border-slate-200 bg-white p-7 shadow-sm hover:border-indigo-300 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-indigo-600 transition-all"
+                  >
+                    <BookOpen className="w-8 h-8 text-indigo-600" />
+                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-indigo-700">{group.name}</h3>
+                    <span className="text-sm text-slate-500">{group.resources.length} recursos</span>
+                    <span className="font-semibold text-indigo-700">Ver contenidos y actividades →</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+            {visibleGroups.map((group, index) => (
               <motion.section
                 key={group.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -906,6 +944,7 @@ export default function ResourcesBySpecialty() {
                   </div>
                 </div>
 
+                <h3 className="text-xl font-bold text-slate-900 mb-4">Contenidos y actividades</h3>
                 {group.resources.length === 0 && (
                   <p className="text-slate-600 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-5">
                     Este repositorio aún no tiene materiales. Aquí aparecerán las guías,
